@@ -12,3 +12,5 @@ Open Unity
 Open the folder that you cloned
 - There you go you should have everything setup
 - Unity might have to create somethings
+
+
