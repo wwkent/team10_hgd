@@ -30,9 +30,9 @@ public class MovementController : MonoBehaviour {
 			rBody.AddForce (new Vector2 (0f, jumpForce));
 			onGround = false;
 		}
-		if(Input.GetKey("a"))
+		if (Input.GetKey("a"))
 			transform.Translate(-Vector3.right * maxSpeed * Time.deltaTime);
-		if(Input.GetKey("d"))
+		if (Input.GetKey("d"))
 			transform.Translate(-Vector3.left * maxSpeed * Time.deltaTime);
 	}
 
