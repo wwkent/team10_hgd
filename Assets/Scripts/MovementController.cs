@@ -26,19 +26,14 @@ public class MovementController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (onGround && (Input.GetButtonDown("A_1")||Input.GetKeyDown("space"))) {
+		if (onGround && (Input.GetButtonDown("A_1") || Input.GetKeyDown("space"))) {
 			rBody.AddForce (new Vector2 (0f, jumpForce));
 			onGround = false;
 		}
 		if(Input.GetKey("a"))
-		{
 			transform.Translate(-Vector3.right * maxSpeed * Time.deltaTime);
-		}
 		if(Input.GetKey("d"))
-		{
-			
 			transform.Translate(-Vector3.left * maxSpeed * Time.deltaTime);
-		}
 	}
 
 	void FixedUpdate () {
@@ -56,8 +51,7 @@ public class MovementController : MonoBehaviour {
 		else if (inputDirection < 0 && facingRight)
 			Flip ();
 	}
-
-
+		
 	void Flip () {
 		facingRight = !facingRight;
 		Vector3 theScale = transform.localScale;
