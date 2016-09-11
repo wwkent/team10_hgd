@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ArmSpin : MonoBehaviour {
-
+	/*
     RotateTowardsInput rotateScript;
     Vector3 pointOfRotation;
     float armLength;
@@ -31,4 +31,5 @@ public class ArmSpin : MonoBehaviour {
 			vec.x *= -1;
         transform.localPosition = vec * armLength;
     }
+    */
 }
