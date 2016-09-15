@@ -8,6 +8,8 @@ public class RotateTowardsInput : MonoBehaviour {
 	bool isFlipped;
 	float aimPosX, aimPosY;
 
+	bool aimWithJstick = false;
+
 	public float extendDistance;
 
 	// Use this for initialization
@@ -18,9 +20,11 @@ public class RotateTowardsInput : MonoBehaviour {
 		isFlipped = transform.root.localScale.x < 1;
 
 		if (Input.GetAxis ("R_XAxis_1") != 0 || Input.GetAxis ("R_YAxis_1") != 0) {
+			aimWithJstick = true;
 			aimPosX = Input.GetAxis ("R_XAxis_1");
 			aimPosY = Input.GetAxis ("R_YAxis_1");
 		} else {
+			aimWithJstick = false;
 			aimPosX = transform.localScale.x;
 			aimPosY = 0;
 		}
@@ -66,6 +70,6 @@ public class RotateTowardsInput : MonoBehaviour {
 		// Uhhh this is done because of weird math.  Probably need to look into this later
 		// -> for a better implementation of aiming with the joystick
 		vec.y *= -1;
-		transform.localPosition = vec * extendDistance;
+		transform.localPosition = vec * (extendDistance + ((aimWithJstick && transform.name != "eyes") ? Mathf.Abs(aimPosX) : 0));
 	}
 }
