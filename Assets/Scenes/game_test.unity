@@ -667,7 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8277072a22c59b7418e253607185f4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  variance: 0
+  variance: 100
   ammo: 100
   shotObject: {fileID: 114000013439039010, guid: 1b1b37ed8bf068c439143b76730f00da,
     type: 2}
