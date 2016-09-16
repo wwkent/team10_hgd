@@ -13,6 +13,7 @@ public class ShootController : MonoBehaviour {
 	Transform firePoint;
 
 	private float nextFire = 0.0F;
+	private Vector3 shootDir;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +27,11 @@ public class ShootController : MonoBehaviour {
 	public void Fire() {
 		if (ammo > 0) {
 			if (Time.time > nextFire) {
+				// For calculating Variance in shooting to emulate bullet spread
+				// Multiply by 0.01 so that the values can be changed easily
+				shootDir = firePoint.right;
+				shootDir.y += Random.Range (-1 * variance * 0.01F, variance * 0.01F);
+
 				nextFire = Time.time + 1 / fireRate;
 				ammo--;
 				if (!shotObject)
@@ -40,7 +46,7 @@ public class ShootController : MonoBehaviour {
 		// Ray2D rShot = new Ray2D (firePoint.position, firePoint.right * 100);
 		Debug.DrawRay (firePoint.position, firePoint.right * 100, Color.red);
 
-		RaycastHit2D hit = Physics2D.Raycast (firePoint.position, firePoint.right, 100, canBeShot);
+		RaycastHit2D hit = Physics2D.Raycast (firePoint.position, shootDir, 100, canBeShot);
 		if (hit) {
 			print (hit.transform.gameObject.name);
 			if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "Platforms") {
@@ -52,6 +58,6 @@ public class ShootController : MonoBehaviour {
 
 	void shootProjectile () {
 		Projectile clone = (Projectile) Instantiate (shotObject, firePoint.position, firePoint.rotation);
-		clone.GetComponent<Rigidbody2D> ().AddForce (clone.transform.right * projSpeed);
+		clone.GetComponent<Rigidbody2D> ().AddForce (shootDir * projSpeed);
 	}
 }
