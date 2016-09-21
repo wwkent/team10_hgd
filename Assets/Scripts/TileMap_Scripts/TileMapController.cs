@@ -121,7 +121,7 @@ public class TileMapController : MonoBehaviour {
 
 	public void Start()
 	{
-		controller = GameObject.Find ("Controller");
+		controller = GameObject.Find ("TileMapController");
 		_map = new TileSprite[(int) mapSize.x, (int) mapSize.y];
 
 		defaultTiles ();
@@ -130,6 +130,8 @@ public class TileMapController : MonoBehaviour {
 
 	private void Update()
 	{
+		// We probably do not need to keep this in the Update cause
+		//	we only need to load the map once
 		addTilesToWorld ();
 	}
 }
