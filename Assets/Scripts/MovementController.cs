@@ -5,12 +5,13 @@ using System.Collections.Generic;
 public class MovementController : MonoBehaviour {
 
 	// For movement control
-	public float maxSpeed = 10f;
+	public float xAccel = 0.75f;
+	public float maxSpeed = 2f;
 	public float jumpForce = 1000f;
 	bool facingRight = true;
 
 	// References
-	Animator anim; // This is currently not used because I do not have animations yet
+	Animator[] anims; // This is currently not used because I do not have animations yet
 	Rigidbody2D rBody;
 	ShootController shootController;
 
@@ -22,7 +23,7 @@ public class MovementController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		anim = GetComponent<Animator> ();
+		anims = GetComponentsInChildren<Animator> ();
 		rBody = GetComponent<Rigidbody2D> ();
 		shootController = GetComponent<ShootController> ();
 	}
@@ -50,14 +51,45 @@ public class MovementController : MonoBehaviour {
 		// Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
 		float inputDirection = Input.GetAxis ("L_XAxis_1");
+		// Calculate how much the velocity should change based on xAccel
+		float velChange = inputDirection * xAccel;
+		float newXVelocity;
+		if (velChange != 0f) {
+			// Add to the current velocity
+			newXVelocity = rBody.velocity.x + velChange;
+			if (onGround)
+				PlayAnimation ("Walking");
+		} else { 
+			// Stop completely if there's no input
+			newXVelocity = 0f;
+			if (onGround)
+				PlayAnimation ("Idle");
+		}
+		// Limit the max velocity
+		Mathf.Clamp(newXVelocity, -maxSpeed, maxSpeed);
 
-		rBody.velocity = new Vector2 (inputDirection * maxSpeed, rBody.velocity.y);
+		// Apply the new velocity
+		rBody.velocity = new Vector2 (newXVelocity, rBody.velocity.y);
+
+		// Update the speed of the walking animation
+		for (int i=0; i<anims.Length; i++)
+			anims[i].SetFloat ("Speed", 0.25f*Mathf.Abs(newXVelocity)/maxSpeed);
 
 		// Make sure the character is facing the right direction
 		if (inputDirection > 0 && !facingRight)
 			Flip ();
 		else if (inputDirection < 0 && facingRight)
 			Flip ();
+
+		// Should start falling animation?
+		if (!onGround)
+			PlayAnimation ("Falling");
+	}
+
+	void PlayAnimation(string name) {
+		if(!anims[0].GetCurrentAnimatorStateInfo(0).IsName(name))
+			for (int i=0; i<anims.Length; i++)
+				anims[i].Play (name, 0, i*0.5f); //Use i*0.5 to offset the second foot
 	}
 		
 	void Flip () {
