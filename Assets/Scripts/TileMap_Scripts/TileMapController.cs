@@ -85,6 +85,7 @@ public class TileMapController : MonoBehaviour {
 		_tiles.Clear ();
 		// Maybe we could use Lean Pool for this
 		Destroy (_tileContainer);
+		_tileContainer = Instantiate (tileContainerPrefab);
 		float tileSize = 0.64F;
 		float viewOffsetX = viewPortSize.x / 2F;
 		float viewOffsetY = viewPortSize.y / 2F;
@@ -107,7 +108,7 @@ public class TileMapController : MonoBehaviour {
 				
 				// Maybe we could use Lean Pool for this
 				GameObject t = Instantiate (tilePrefab);
-				t.transform.position = new Vector3 (tX, tY, 0);
+				t.transform.position = new Vector3 (tX, tY, -9);
 				t.transform.SetParent (_tileContainer.transform);
 				SpriteRenderer renderer = t.GetComponent<SpriteRenderer> ();
 				renderer.sprite = _map [(int)x + (int)currentPosition.x, (int)y + (int)currentPosition.y].tImage;
