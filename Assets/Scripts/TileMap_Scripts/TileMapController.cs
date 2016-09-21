@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using Lean;
+
+// An implementation of a TileMap provided by:
+// 	https://gamedevacademy.org/how-to-script-a-2d-tile-map-in-unity3d/
 
 public enum Tiles {
 	Unset,
@@ -80,12 +84,11 @@ public class TileMapController : MonoBehaviour {
 	private void addTilesToWorld()
 	{
 		foreach (GameObject o in _tiles) {
-			Destroy (o);
+			LeanPool.Despawn (o);
 		}
 		_tiles.Clear ();
-		// Maybe we could use Lean Pool for this
-		Destroy (_tileContainer);
-		_tileContainer = Instantiate (tileContainerPrefab);
+		LeanPool.Despawn(_tileContainer);
+		_tileContainer = LeanPool.Spawn (tileContainerPrefab);
 		float tileSize = 0.64F;
 		float viewOffsetX = viewPortSize.x / 2F;
 		float viewOffsetY = viewPortSize.y / 2F;
@@ -106,8 +109,7 @@ public class TileMapController : MonoBehaviour {
 				if (iY > mapSize.y - 2)
 					continue;
 				
-				// Maybe we could use Lean Pool for this
-				GameObject t = Instantiate (tilePrefab);
+				GameObject t = LeanPool.Spawn (tilePrefab);
 				t.transform.position = new Vector3 (tX, tY, -9);
 				t.transform.SetParent (_tileContainer.transform);
 				SpriteRenderer renderer = t.GetComponent<SpriteRenderer> ();
