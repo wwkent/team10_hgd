@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000014156402518}
+  m_RootGameObject: {fileID: 1000010086735324}
   m_IsPrefabParent: 1
---- !u!1 &1000014156402518
+--- !u!1 &1000010086735324
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000011270216544}
-  - 114: {fileID: 114000014266014664}
+  - 4: {fileID: 4000011314075878}
+  - 114: {fileID: 114000014015637488}
   m_Layer: 0
   m_Name: TileMapController
   m_TagString: Untagged
@@ -27,12 +27,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000011270216544
+--- !u!4 &4000011314075878
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014156402518}
+  m_GameObject: {fileID: 1000010086735324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,12 +40,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &114000014266014664
+--- !u!114 &114000014015637488
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014156402518}
+  m_GameObject: {fileID: 1000010086735324}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28074db66e12fc24eb837f82369c90d2, type: 3}
@@ -53,21 +53,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileSprites:
   - tName: Unset
-    tImage: {fileID: 21300000, guid: e007c1ce4ed8fda4fb50ea62c8c1554f, type: 3}
+    tImage: {fileID: 0}
     tType: 0
   - tName: Water
-    tImage: {fileID: 21300000, guid: e75150b0b0e93644c89cf540e113beb2, type: 3}
+    tImage: {fileID: 21300002, guid: fba42ec93aa11a648af22a224596489f, type: 3}
     tType: 3
   - tName: Ground
-    tImage: {fileID: 21300000, guid: cf2663390c6152d40a1d51f360f3f1f6, type: 3}
+    tImage: {fileID: 21300008, guid: fba42ec93aa11a648af22a224596489f, type: 3}
     tType: 1
   - tName: Grass
-    tImage: {fileID: 21300000, guid: 604572ff74e5d0840aa4f945fa996993, type: 3}
+    tImage: {fileID: 21300004, guid: fba42ec93aa11a648af22a224596489f, type: 3}
     tType: 2
+  - tName: B1
+    tImage: {fileID: 21300006, guid: fba42ec93aa11a648af22a224596489f, type: 3}
+    tType: 3
+  - tName: Lava
+    tImage: {fileID: 21300010, guid: fba42ec93aa11a648af22a224596489f, type: 3}
+    tType: 4
+  - tName: B3
+    tImage: {fileID: 21300000, guid: fba42ec93aa11a648af22a224596489f, type: 3}
+    tType: 4
   mapSize: {x: 100, y: 100}
   defaultImage: {fileID: 21300000, guid: e007c1ce4ed8fda4fb50ea62c8c1554f, type: 3}
   tileContainerPrefab: {fileID: 1000012637569678, guid: de980c3d789cd5b479e61076810b0b49,
     type: 2}
   tilePrefab: {fileID: 1000010930731418, guid: aa549e1f521ffce40aca6c5777fb10b1, type: 2}
   currentPosition: {x: 50, y: 50}
-  viewPortSize: {x: 11, y: 39}
+  viewPortSize: {x: 80, y: 80}
