@@ -6,8 +6,8 @@ public class MovementController : MonoBehaviour {
 
 	// For movement control
 	public float xAccel = 0.75f;
-	public float maxSpeed = 2f;
-	public float jumpForce = 1000f;
+	public float maxSpeed = 30f;
+	public float jumpForce = 2000f;
 	bool facingRight = true;
 
 	// References
@@ -66,14 +66,14 @@ public class MovementController : MonoBehaviour {
 				PlayAnimation ("Idle");
 		}
 		// Limit the max velocity
-		Mathf.Clamp(newXVelocity, -maxSpeed, maxSpeed);
+		newXVelocity = Mathf.Clamp(newXVelocity, -maxSpeed, maxSpeed);
 
 		// Apply the new velocity
 		rBody.velocity = new Vector2 (newXVelocity, rBody.velocity.y);
 
 		// Update the speed of the walking animation
 		for (int i=0; i<anims.Length; i++)
-			anims[i].SetFloat ("Speed", 0.25f*Mathf.Abs(newXVelocity)/maxSpeed);
+			anims[i].SetFloat ("Speed", Mathf.Abs(newXVelocity)/maxSpeed);
 
 		// Make sure the character is facing the right direction
 		if (inputDirection > 0 && !facingRight)
