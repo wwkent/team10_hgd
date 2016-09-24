@@ -47,8 +47,6 @@ public class MovementController : MonoBehaviour {
 
 	void FixedUpdate () {
 		onGround = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
-		// This might be a better option than the above depending on how the math works
-		// Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
 		float inputDirection = Input.GetAxis ("L_XAxis_1");
 		// Calculate how much the velocity should change based on xAccel
