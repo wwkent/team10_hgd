@@ -13,7 +13,8 @@ public class PlayerController: MonoBehaviour {
 	// References
 	Animator[] anims; // This is currently not used because I do not have animations yet
 	Rigidbody2D rBody;
-	ShootController shootController;
+	public WeaponController currentWeapon;
+	public WeaponController defaultWeapon;
 
 	// For Ground collision
 	bool onGround = false;
@@ -25,7 +26,9 @@ public class PlayerController: MonoBehaviour {
 	void Start () {
 		anims = GetComponentsInChildren<Animator> ();
 		rBody = GetComponent<Rigidbody2D> ();
-		shootController = GetComponent<ShootController> ();
+		if (currentWeapon == null)
+			currentWeapon = Instantiate (defaultWeapon);
+		setWeapon ();
 	}
 	
 	// Update is called once per frame
@@ -35,8 +38,8 @@ public class PlayerController: MonoBehaviour {
 			onGround = false;
 		}
 		// Shooting
-		if (Input.GetAxis ("TriggersR_1") < 0) {
-			shootController.Fire ();
+		if (currentWeapon != null && Input.GetAxis ("TriggersR_1") < 0) {
+			currentWeapon.Fire ();
 		}
 
 		if (Input.GetKey("a"))
@@ -71,7 +74,7 @@ public class PlayerController: MonoBehaviour {
 
 		// Update the speed of the walking animation
 		for (int i=0; i<anims.Length; i++)
-			anims[i].SetFloat ("Speed", Mathf.Abs(newXVelocity)/maxSpeed);
+			anims[i].SetFloat ("Speed", Mathf.Abs(newXVelocity*2)/maxSpeed);
 
 		// Make sure the character is facing the right direction
 		if (inputDirection > 0 && !facingRight)
@@ -103,5 +106,10 @@ public class PlayerController: MonoBehaviour {
 			return 1;
 		else
 			return -1;
+	}
+
+	public void setWeapon () {
+		currentWeapon.transform.position = transform.Find ("hands").transform.position;
+		currentWeapon.transform.parent = transform.Find ("hands").transform;
 	}
 }

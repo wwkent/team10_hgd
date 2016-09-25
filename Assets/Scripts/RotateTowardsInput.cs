@@ -8,8 +8,6 @@ public class RotateTowardsInput : MonoBehaviour {
 	bool isFlipped;
 	float aimPosX, aimPosY;
 
-	bool aimWithJstick = false;
-
 	public float extendDistance;
 
 	// Use this for initialization
@@ -20,11 +18,9 @@ public class RotateTowardsInput : MonoBehaviour {
 		isFlipped = transform.root.localScale.x < 1;
 
 		if (Input.GetAxis ("R_XAxis_1") != 0 || Input.GetAxis ("R_YAxis_1") != 0) {
-			aimWithJstick = true;
 			aimPosX = Input.GetAxis ("R_XAxis_1");
 			aimPosY = Input.GetAxis ("R_YAxis_1");
 		} else {
-			aimWithJstick = false;
 			aimPosX = transform.localScale.x;
 			aimPosY = 0;
 		}
