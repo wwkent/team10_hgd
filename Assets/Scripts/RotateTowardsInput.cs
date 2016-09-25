@@ -64,12 +64,14 @@ public class RotateTowardsInput : MonoBehaviour {
 
 	void repositionArm()
 	{
-		Vector3 vec = inputVector.normalized;
-		if (isFlipped)
-			vec.x *= -1;
-		// Uhhh this is done because of weird math.  Probably need to look into this later
-		// -> for a better implementation of aiming with the joystick
-		vec.y *= -1;
-		transform.localPosition = vec * (extendDistance + ((aimWithJstick && transform.name != "eyes") ? Mathf.Abs(aimPosX) : 0));
+		if (extendDistance != 0) {
+			Vector3 vec = inputVector.normalized;
+			if (isFlipped)
+				vec.x *= -1;
+			// Uhhh this is done because of weird math.  Probably need to look into this later
+			// -> for a better implementation of aiming with the joystick
+			vec.y *= -1;
+			transform.localPosition = vec * extendDistance;
+		}
 	}
 }
