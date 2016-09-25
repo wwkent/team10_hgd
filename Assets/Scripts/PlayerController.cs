@@ -26,6 +26,11 @@ public class PlayerController: MonoBehaviour {
 	void Start () {
 		anims = GetComponentsInChildren<Animator> ();
 		rBody = GetComponent<Rigidbody2D> ();
+
+		if (defaultWeapon == null) {
+			Debug.LogError ("No Default Weapon Set in PlayerController");
+		}
+
 		if (currentWeapon == null)
 			currentWeapon = Instantiate (defaultWeapon);
 		setWeapon ();
@@ -106,6 +111,11 @@ public class PlayerController: MonoBehaviour {
 			return 1;
 		else
 			return -1;
+	}
+
+	public void setCurrentWeapon (WeaponController newWeapon) {
+		currentWeapon = newWeapon;
+		setWeapon ();
 	}
 
 	public void setWeapon () {

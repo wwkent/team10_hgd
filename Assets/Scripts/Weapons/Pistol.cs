@@ -29,18 +29,18 @@ public class Pistol : WeaponController {
 
 		RaycastHit2D hit = Physics2D.Raycast (firePoint.position, shootDir, 100, canBeShot);
 		if (hit) {
-			Effect (hit.distance);
+			generateTrail (hit.distance);
 			print (hit.transform.gameObject.name);
 			if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Platforms") {
 				// Do things to the enemy
 				print ("I hit floor");
 			}
 		} else {
-			Effect ();
+			generateTrail ();
 		}
 	}
 
-	void Effect(float distance = 0.0F)
+	void generateTrail(float distance = -1F)
 	{
 		Vector2 direction = (shootDir - transform.position).normalized;
 		float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg;

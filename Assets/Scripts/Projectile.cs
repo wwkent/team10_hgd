@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Lean;
 
 public class Projectile : MonoBehaviour {
 	public LayerMask canDamage;

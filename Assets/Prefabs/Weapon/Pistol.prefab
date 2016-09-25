@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000014131970532}
   - 212: {fileID: 212000012464244278}
   - 114: {fileID: 114000013048013508}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010334565914}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: firePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,10 +81,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d20c5aac0566f147abe480f20450b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  variance: 20
-  ammo: 69
+  variance: 10
+  ammo: 70
   shotObject: {fileID: 0}
-  fireRate: 10
+  fireRate: 3
   canBeShot:
     serializedVersion: 2
     m_Bits: 768
