@@ -83,6 +83,14 @@ public class TileMapController : MonoBehaviour {
 		}
 	}
 
+	private void generateTiles(int x, int y, int tID)
+	{
+		TileSprite tSprite = new TileSprite (tileSprites[tID].tName, 
+											 tileSprites[tID].tImage, 
+											 tileSprites[tID].tType);
+		_map [x, (int)mapSize.y - y] = tSprite;
+	}
+
 	private void setTiles(JsonData map)
 	{
 		int index = 0;
@@ -90,7 +98,7 @@ public class TileMapController : MonoBehaviour {
 			for (int x = 0; x < mapSize.x; x++) {
 				int tileID = (int) map ["layers"] [0] ["data"] [index];
 				if (tileID != 0)
-					_map [x, (int) mapSize.y - y] = new TileSprite (tileSprites[tileID].tName, tileSprites[tileID].tImage, tileSprites[tileID].tType);
+					generateTiles (x, y, tileID);
 				index++;
 			}
 		}

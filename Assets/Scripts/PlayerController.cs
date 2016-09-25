@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MovementController : MonoBehaviour {
+public class PlayerController: MonoBehaviour {
 
 	// For movement control
 	public float xAccel = 0.75f;
