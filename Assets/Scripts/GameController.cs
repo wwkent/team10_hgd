@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class UserInterface : MonoBehaviour {
+public class GameController : MonoBehaviour {
 
 	public Text scoreText;
 	public Text timerText;
