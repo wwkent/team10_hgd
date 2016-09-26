@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
 	public Text scoreText;
 	public Text timerText;
 	public Text roundText;
+	public Text ammoText;
 	/* 
 	 * This is the rect transform for the green health because that is what
 	 * 	we are modifying
@@ -41,12 +42,14 @@ public class GameController : MonoBehaviour {
 			timer = timer - Time.deltaTime;
 			timerText.text = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 			roundText.text = "Round: " + round;
+			ammoText.text = player.currentWeapon.ammo.ToString();
 		} else {
 			
 			// Removes everything from UI:
 			scoreText.text = "";
 			timerText.text = "";
 			roundText.text = "";
+			ammoText.text = "";
 		}
 	}
 

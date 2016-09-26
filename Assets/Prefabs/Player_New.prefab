@@ -387,8 +387,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d7614d8a623224ca772a2308a591ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xAccel: 2
-  maxSpeed: 25
+  xAccel: 4
+  maxSpeed: 20
   jumpForce: 3500
   currentWeapon: {fileID: 0}
   defaultWeapon: {fileID: 114000013048013508, guid: 1838a38f20b2f074fa1304dd8c7caa41,
