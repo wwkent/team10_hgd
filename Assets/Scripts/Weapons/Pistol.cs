@@ -30,10 +30,11 @@ public class Pistol : WeaponController {
 		RaycastHit2D hit = Physics2D.Raycast (firePoint.position, shootDir, 100, canBeShot);
 		if (hit) {
 			generateTrail (hit.distance);
-			print (hit.transform.gameObject.name);
+			print ("Hit: " + hit.transform.name);
 			if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Platforms") {
 				// Do things to the enemy
-				print ("I hit floor");
+			} else if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Enemies") {
+				
 			}
 		} else {
 			generateTrail ();
@@ -42,7 +43,6 @@ public class Pistol : WeaponController {
 
 	void generateTrail(float distance = -1F)
 	{
-		Vector2 direction = (shootDir - transform.position).normalized;
 		float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg;
 		Quaternion lookRotation = Quaternion.AngleAxis (angle, Vector3.forward);
 		GameObject bulletObj = Instantiate (bulletTrailPrefab, firePoint.position, lookRotation) as GameObject;

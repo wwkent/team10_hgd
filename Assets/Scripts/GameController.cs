@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour {
 			// Displays current statistics for player in UI labels:
 			scoreText.text = score.ToString();
 			timer = timer - Time.deltaTime;
-			timerText.text = ((int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10)).ToString();
+			timerText.text = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 			roundText.text = "Round: " + round;
 		} else {
 			

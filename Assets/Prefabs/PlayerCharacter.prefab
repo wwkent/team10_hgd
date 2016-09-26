@@ -355,8 +355,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 2
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_AngularDrag: 0.01
+  m_GravityScale: 9.8
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -435,9 +435,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d7614d8a623224ca772a2308a591ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xAccel: 0.5
-  maxSpeed: 10
-  jumpForce: 700
+  xAccel: 2
+  maxSpeed: 40
+  jumpForce: 3500
+  currentWeapon: {fileID: 0}
+  defaultWeapon: {fileID: 0}
   groundCheck: {fileID: 4000013037300430}
   whatIsGround:
     serializedVersion: 2
@@ -453,15 +455,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8277072a22c59b7418e253607185f4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  variance: 100
-  ammo: 100
+  variance: 20
+  ammo: 1000
   shotObject: {fileID: 114000013439039010, guid: 1b1b37ed8bf068c439143b76730f00da,
     type: 2}
-  fireRate: 60
+  fireRate: 30
   canBeShot:
     serializedVersion: 2
     m_Bits: 256
   projSpeed: 100
+  firePoint: {fileID: 0}
 --- !u!114 &114000012984123926
 MonoBehaviour:
   m_ObjectHideFlags: 1

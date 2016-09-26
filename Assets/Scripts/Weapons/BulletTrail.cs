@@ -13,7 +13,6 @@ public class BulletTrail : MonoBehaviour {
 		// We need to subtract by 2.7 because the position of the bullet trail is at the center
 		//  So if we just base it off of that then the bullettrail will destroy too late
 		//  Yea this is weird better fix later plz
-		print(distance);
 		if (distance >= 0F && Vector3.Distance (startPos, transform.position) > distance - 2.7)
 			Destroy (gameObject);
 		else

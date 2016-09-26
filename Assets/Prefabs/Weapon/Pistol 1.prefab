@@ -22,7 +22,7 @@ GameObject:
   - 212: {fileID: 212000012464244278}
   - 114: {fileID: 114000013048013508}
   m_Layer: 10
-  m_Name: Pistol
+  m_Name: Pistol 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010030637218}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.41682744, y: 3.4732666, z: -9}
+  m_LocalPosition: {x: 3.6988711, y: 3.1318917, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -82,9 +82,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   variance: 10
-  ammo: 68
+  ammo: 70
   shotObject: {fileID: 0}
-  fireRate: 3
+  fireRate: 30
   canBeShot:
     serializedVersion: 2
     m_Bits: 768

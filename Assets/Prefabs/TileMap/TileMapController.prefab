@@ -56,10 +56,10 @@ MonoBehaviour:
     tImage: {fileID: 0}
     tType: 0
   - tName: Water
-    tImage: {fileID: 21300002, guid: fba42ec93aa11a648af22a224596489f, type: 3}
+    tImage: {fileID: 21300000, guid: fba42ec93aa11a648af22a224596489f, type: 3}
     tType: 3
   - tName: Ground
-    tImage: {fileID: 21300008, guid: fba42ec93aa11a648af22a224596489f, type: 3}
+    tImage: {fileID: 21300002, guid: fba42ec93aa11a648af22a224596489f, type: 3}
     tType: 1
   - tName: Grass
     tImage: {fileID: 21300004, guid: fba42ec93aa11a648af22a224596489f, type: 3}
@@ -68,15 +68,14 @@ MonoBehaviour:
     tImage: {fileID: 21300006, guid: fba42ec93aa11a648af22a224596489f, type: 3}
     tType: 3
   - tName: Lava
-    tImage: {fileID: 21300010, guid: fba42ec93aa11a648af22a224596489f, type: 3}
+    tImage: {fileID: 21300008, guid: fba42ec93aa11a648af22a224596489f, type: 3}
     tType: 4
   - tName: B3
-    tImage: {fileID: 21300000, guid: fba42ec93aa11a648af22a224596489f, type: 3}
+    tImage: {fileID: 21300010, guid: fba42ec93aa11a648af22a224596489f, type: 3}
     tType: 4
   mapSize: {x: 100, y: 100}
-  defaultImage: {fileID: 21300000, guid: e007c1ce4ed8fda4fb50ea62c8c1554f, type: 3}
+  defaultImage: {fileID: 0}
   tileContainerPrefab: {fileID: 1000012637569678, guid: de980c3d789cd5b479e61076810b0b49,
     type: 2}
-  tilePrefab: {fileID: 1000010930731418, guid: aa549e1f521ffce40aca6c5777fb10b1, type: 2}
-  currentPosition: {x: 50, y: 50}
-  viewPortSize: {x: 80, y: 80}
+  tilePrefab: {fileID: 1000014175223250, guid: 29884126293360745b7fc0a2a0f71106, type: 2}
+  toFollow: {fileID: 0}

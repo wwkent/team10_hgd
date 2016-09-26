@@ -17,7 +17,7 @@ public class WeaponController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		firePoint = GameObject.Find ("firePoint").transform;
+		firePoint = transform.Find ("firePoint").transform;
 
 		if (firePoint == null) {
 			Debug.Log ("No firePoint found");

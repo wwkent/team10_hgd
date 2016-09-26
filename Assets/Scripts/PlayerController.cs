@@ -45,6 +45,8 @@ public class PlayerController: MonoBehaviour {
 		// Shooting
 		if (currentWeapon != null && Input.GetAxis ("TriggersR_1") < 0) {
 			currentWeapon.Fire ();
+			if (currentWeapon.ammo == 0)
+				setCurrentWeapon (Instantiate(defaultWeapon));
 		}
 
 		if (Input.GetKey("a"))
@@ -119,7 +121,17 @@ public class PlayerController: MonoBehaviour {
 	}
 
 	public void setWeapon () {
-		currentWeapon.transform.position = transform.Find ("hands").transform.position;
-		currentWeapon.transform.parent = transform.Find ("hands").transform;
+		Transform hands = transform.Find ("hands");
+		for (int i = 0; i < hands.childCount; i++) {
+			Transform weapon = hands.GetChild (i);
+			weapon.parent = null;
+			Destroy (weapon.gameObject);
+		}
+		currentWeapon.transform.position = hands.position;
+		currentWeapon.transform.rotation = hands.rotation;
+		currentWeapon.transform.parent = hands;
+		// Make sure that the localScale after you attach the weapon 1, 1, 1
+		//  Relative to the parent which is the hands
+		currentWeapon.transform.localScale = new Vector3(1,1,1);
 	}
 }
