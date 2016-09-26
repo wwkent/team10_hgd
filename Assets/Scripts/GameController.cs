@@ -18,20 +18,16 @@ public class GameController : MonoBehaviour {
 
 	private int score = 0;
 	private float timer = 120.0F;
-	private int ammo = 1;
 	private int round;
 
 	private float width;
 	private float startMaxXPos;
 
-	private GameObject player;
-	private ShootController shoot;
+	public PlayerController player;
+	private WeaponController shoot;
 
 	void Start () {
 		round = 1;
-		player = GameObject.Find ("PlayerCharacter");
-		shoot = player.GetComponent<ShootController> ();
-		ammo = shoot.ammo;
 
 		currentHealth = startingHealth;
 		width = healthBar.rect.width;
@@ -43,7 +39,7 @@ public class GameController : MonoBehaviour {
 			// Displays current statistics for player in UI labels:
 			scoreText.text = score.ToString();
 			timer = timer - Time.deltaTime;
-			timerText.text = ((int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10)).ToString();
+			timerText.text = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 			roundText.text = "Round: " + round;
 		} else {
 			

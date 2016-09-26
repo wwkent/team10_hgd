@@ -1,30 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShootController : MonoBehaviour {
+public class Pistol : WeaponController {
 
-	public float variance;
-	public int ammo;
-	public Projectile shotObject;
-	public float fireRate = 0.5F;
-	public LayerMask canBeShot;
-	public float projSpeed = 100F;
+	public GameObject bulletTrailPrefab;
 
-	Transform firePoint;
-
-	private float nextFire = 0.0F;
-	private Vector3 shootDir;
-
-	// Use this for initialization
-	void Start () {
-		firePoint = GameObject.Find ("firePoint").transform;
-
-		if (firePoint == null) {
-			Debug.Log ("No firePoint found");
-		}
-	}
-		
-	public void Fire() {
+	public override void Fire() {
 		if (ammo > 0) {
 			if (Time.time > nextFire) {
 				// For calculating Variance in shooting to emulate bullet spread
@@ -44,16 +25,30 @@ public class ShootController : MonoBehaviour {
 
 	void shootRay () {
 		// Ray2D rShot = new Ray2D (firePoint.position, firePoint.right * 100);
-		Debug.DrawRay (firePoint.position, firePoint.right * 100, Color.red);
+		Debug.DrawRay (firePoint.position, shootDir * 100, Color.red);
 
 		RaycastHit2D hit = Physics2D.Raycast (firePoint.position, shootDir, 100, canBeShot);
 		if (hit) {
-			print (hit.transform.gameObject.name);
-			if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "Platforms") {
+			generateTrail (hit.distance);
+			print ("Hit: " + hit.transform.name);
+			if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Platforms") {
 				// Do things to the enemy
-				print("I hit floor");
+			} else if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Enemies") {
+				
 			}
+		} else {
+			generateTrail ();
 		}
+	}
+
+	void generateTrail(float distance = -1F)
+	{
+		float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg;
+		Quaternion lookRotation = Quaternion.AngleAxis (angle, Vector3.forward);
+		GameObject bulletObj = Instantiate (bulletTrailPrefab, firePoint.position, lookRotation) as GameObject;
+		BulletTrail trail = bulletObj.GetComponent<BulletTrail> ();
+		trail.distance = distance;
+		trail.startPos = firePoint.position;
 	}
 
 	void shootProjectile () {

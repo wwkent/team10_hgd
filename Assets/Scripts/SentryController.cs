@@ -15,5 +15,4 @@ public class SentryController : MonoBehaviour {
 		transform.rotation = Quaternion.Slerp(transform.rotation,lookRotation,Time.deltaTime * RotateSpeed);
 	}
 
-
 }
