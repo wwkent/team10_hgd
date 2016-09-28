@@ -10,6 +10,17 @@ public class Projectile : MonoBehaviour {
 	void Start () {
 		Destroy (gameObject, 4);
 	}
+
+	void OnTriggerEnter2D (Collider2D col) 
+	{
+		if (col.gameObject.tag == "Player") {
+			col.gameObject.GetComponent<PlayerController> ().applyDamage (10);
+			Destroy (gameObject);
+		} else if (col.gameObject.tag == "Platforms") {
+			Destroy (gameObject);
+		}
+			
+	}
 	
 	// Update is called once per frame
 	void Update () {
