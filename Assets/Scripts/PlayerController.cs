@@ -15,6 +15,7 @@ public class PlayerController: MonoBehaviour {
 	Rigidbody2D rBody;
 	public WeaponController currentWeapon;
 	public WeaponController defaultWeapon;
+	public GameController ui;
 
 	// For Ground collision
 	bool onGround = false;
@@ -22,10 +23,18 @@ public class PlayerController: MonoBehaviour {
 	float groundRadius = 0.2f;
 	public LayerMask whatIsGround;
 
+	// Player Info
+	public float startingHealth = 100F;
+	public float currentHealth;
+
 	// Use this for initialization
 	void Start () {
 		anims = GetComponentsInChildren<Animator> ();
 		rBody = GetComponent<Rigidbody2D> ();
+		ui = GameObject.Find ("UI").GetComponent<GameController>();
+
+		currentHealth = startingHealth;
+		ui.updateHealth ();
 
 		if (defaultWeapon == null) {
 			Debug.LogError ("No Default Weapon Set in PlayerController");
@@ -133,5 +142,10 @@ public class PlayerController: MonoBehaviour {
 		// Make sure that the localScale after you attach the weapon 1, 1, 1
 		//  Relative to the parent which is the hands
 		currentWeapon.transform.localScale = new Vector3(1,1,1);
+	}
+
+	public void applyDamage(float damage) {
+		currentHealth = Mathf.Clamp(currentHealth - damage, 0, startingHealth);
+		ui.updateHealth ();
 	}
 }

@@ -224,8 +224,6 @@ MonoBehaviour:
   roundText: {fileID: 114000012000903196}
   ammoText: {fileID: 114000012110643698}
   healthBar: {fileID: 224000011453158880}
-  startingHealth: 100
-  currentHealth: 0
   player: {fileID: 0}
 --- !u!114 &114000010740481466
 MonoBehaviour:
