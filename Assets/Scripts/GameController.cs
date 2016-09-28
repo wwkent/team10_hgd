@@ -14,8 +14,7 @@ public class GameController : MonoBehaviour {
 	 * 	we are modifying
 	 */
 	public RectTransform healthBar;
-	public float startingHealth = 100F;
-	public float currentHealth;
+
 
 	private int score = 0;
 	private float timer = 120.0F;
@@ -29,14 +28,12 @@ public class GameController : MonoBehaviour {
 
 	void Start () {
 		round = 1;
-
-		currentHealth = startingHealth;
 		width = healthBar.rect.width;
 		startMaxXPos = healthBar.offsetMax.x;
 	}
 
 	void Update () {
-		if (timer >= 0 && currentHealth > 0) {
+		if (timer >= 0 && player.currentHealth > 0) {
 			// Displays current statistics for player in UI labels:
 			scoreText.text = score.ToString();
 			timer = timer - Time.deltaTime;
@@ -53,10 +50,8 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public void ApplyDamage (float damage) {
-		currentHealth -= damage;
-		float healthBarX = startMaxXPos - width * (1 - (currentHealth / startingHealth));
-		healthBarX = healthBarX / healthBar.rect.width;
-		healthBar.localScale = new Vector2 (Mathf.Clamp(healthBarX, 0F, 1F), healthBar.localScale.y);
+	public void updateHealth () {
+		float playerHealth = player.currentHealth / player.startingHealth;
+		healthBar.localScale = new Vector2 (Mathf.Clamp(playerHealth, 0F, 1F), healthBar.localScale.y);
 	}
 }
