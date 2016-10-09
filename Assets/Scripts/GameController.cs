@@ -15,6 +15,10 @@ public class GameController : MonoBehaviour {
 	 */
 	public RectTransform healthBar;
 
+	// To determine which controller is which player
+	// This is for the purpose of swapping roles
+	// public int whoIsPlayer;
+	// public int whoIsCreator;
 
 	private int score = 0;
 	private float timer = 120.0F;
