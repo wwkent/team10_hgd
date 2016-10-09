@@ -27,6 +27,17 @@ public class PlayerController: MonoBehaviour {
 	public float startingHealth = 100F;
 	public float currentHealth;
 
+	// Power Up
+	public bool hasPowerUp;
+	public float powerUpTimer;
+	public string powerUpName;
+	private int rnd;
+	//public Text powerUpText;
+	private WeaponController prevWeapon;
+	public int speedMultiplier;
+	public int jumpMultiplier;
+	public WeaponController powerUpWeapon;
+
 	// Use this for initialization
 	void Start () {
 		anims = GetComponentsInChildren<Animator> ();
@@ -43,6 +54,11 @@ public class PlayerController: MonoBehaviour {
 		if (currentWeapon == null)
 			currentWeapon = Instantiate (defaultWeapon);
 		setWeapon ();
+
+		hasPowerUp = false;
+		powerUpTimer = 0;
+		powerUpName = "";
+		//rnd = 0;
 	}
 	
 	// Update is called once per frame
@@ -62,6 +78,27 @@ public class PlayerController: MonoBehaviour {
 			transform.Translate(-Vector3.right * maxSpeed * Time.deltaTime);
 		if (Input.GetKey("d"))
 			transform.Translate(-Vector3.left * maxSpeed * Time.deltaTime);
+
+
+
+		/*if (powerUpTimer > 0) {
+			Debug.Log ("Here");
+			powerUpTimer = powerUpTimer - Time.deltaTime;
+			powerUpText.text = powerUpName + " " + (int)((powerUpTimer + 1) / 60) + ":" + (int)(((powerUpTimer + 1) % 60) / 10) + (int)(((powerUpTimer + 1) % 60) % 10); 
+		} else */
+		if (powerUpTimer <= 0 && hasPowerUp == true) {
+			powerUpTimer = 0;
+			if (powerUpName.Equals("Upgraded Weapon")) {
+				setCurrentWeapon (Instantiate (prevWeapon));
+			} else if (powerUpName.Equals("Speed Boost")) {
+				maxSpeed /= speedMultiplier;
+			} else if (powerUpName.Equals("Jump Boost")) {
+				jumpForce /= jumpMultiplier;
+			}
+			hasPowerUp = false;
+			powerUpName = "";
+			//powerUpText.text = "";
+		}
 	}
 
 	void FixedUpdate () {
@@ -147,5 +184,38 @@ public class PlayerController: MonoBehaviour {
 	public void applyDamage(float damage) {
 		currentHealth = Mathf.Clamp(currentHealth - damage, 0, startingHealth);
 		ui.updateHealth ();
+	}
+
+	void OnCollisionEnter2D(Collision2D col) {
+		if (col.gameObject.tag == "PowerUp") {
+			//col.gameObject.GetComponent<PlayerController> ();
+			Destroy (col.gameObject);
+			getPowerUp ();
+			//Destroy (col.gameObject);
+		}
+	}
+
+	void getPowerUp() {
+		if (!hasPowerUp) {
+			rnd = Random.Range (0, 3);
+			if (rnd == 0) {
+				prevWeapon = currentWeapon;
+				setCurrentWeapon (Instantiate (powerUpWeapon));
+				powerUpName = "Upgraded Weapon";
+				Debug.Log ("Weapon");
+			} else if (rnd == 1) {
+				maxSpeed *= speedMultiplier;
+				powerUpName = "Speed Boost";
+				Debug.Log ("Speed");
+			} else if (rnd == 2) {
+				jumpForce *= jumpMultiplier;
+				powerUpName = "Jump Boost";
+				Debug.Log ("Jump");
+			} //else {
+			//Invincibility, Score Multiplier, Flying?
+			//}
+			hasPowerUp = true;
+			powerUpTimer = 15f;
+		}
 	}
 }

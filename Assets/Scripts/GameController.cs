@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 	public Text ammoText;
 	public Text countdownText;
 	private float countdownTimer;
+	public Text powerUpText;
 	/* 
 	 * This is the rect transform for the green health because that is what
 	 * 	we are modifying
@@ -117,10 +118,30 @@ public class GameController : MonoBehaviour {
 
 	private void updateTimer(bool showText) {
 		timer = timer - Time.deltaTime;
-		if (showText)
+		if (showText){
 			timerText.text = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
-		else
+
+			roundText.text = "Round: " + round;
+			ammoText.text = player.currentWeapon.ammo.ToString();
+
+			if (player.powerUpTimer > 0) {
+				player.powerUpTimer = player.powerUpTimer - Time.deltaTime;
+				powerUpText.text = player.powerUpName + " " + (int)((player.powerUpTimer + 1) / 60) + ":" + (int)(((player.powerUpTimer + 1) % 60) / 10) + (int)(((player.powerUpTimer + 1) % 60) % 10); 
+			} else {
+				powerUpText.text = "";
+			}
+
+		} else {
+			
+			// Removes everything from UI:
+			scoreText.text = "";
 			timerText.text = "";
+			roundText.text = "";
+			ammoText.text = "";
+			powerUpText.text = "";
+			timerText.text = "";
+		}
+
 	}
 
 	public void updateHealth () {
