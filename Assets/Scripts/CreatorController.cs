@@ -28,12 +28,20 @@ public class CreatorController : MonoBehaviour {
 			spawnGameObject ();
 
 		if (Input.GetButtonDown ("RB_1")) {
-			currObj++;
+			if (currObj < availableObjs.Length - 1)
+				currObj++;
+			else
+				currObj = 0;
 			setObjRenderer ();
+			print (currObj);
 		}
 		if (Input.GetButtonDown ("LB_1")) {
-			currObj--;
+			if (currObj > 0)
+				currObj--;
+			else
+				currObj = availableObjs.Length - 1;
 			setObjRenderer ();
+			print (currObj);
 		}
 		// Calculate how much the velocity should change based on xAccel
 		Vector3 direction = new Vector3(inputXAmount, -inputYAmount, 0.0f);
