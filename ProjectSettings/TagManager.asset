@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spike
   - LaserBeam
+  - New Tag
   layers:
   - Default
   - TransparentFX
