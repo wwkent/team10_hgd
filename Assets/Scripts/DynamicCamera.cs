@@ -7,10 +7,14 @@ public class DynamicCamera : MonoBehaviour {
 	private Vector3 change;
 
 	void Start () {
-		change = transform.position - player.transform.position;
+		setChange ();
 	}
 
 	void LateUpdate () {
 		transform.position = player.transform.position + change;
+	}
+
+	public void setChange() {
+		change = transform.position - player.transform.position;
 	}
 }
