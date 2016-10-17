@@ -23,76 +23,104 @@ public class GameController : MonoBehaviour {
 	// public int whoIsCreator;
 
 	private int score = 0;
+	//Increase this for a longer Creator phase
 	private float timer = 10.0F;
-	/*
-	 * Tells whether the Player or the Creator has control
-	 * 0 - Creator
-	 * 1 - Between
-	 * 2 - Player
-	 * 3 - End of Round
-	 */
 	private int state;
 	private int round;
 
 	private float width;
 	private float startMaxXPos;
+	private string[] phaseSwitchMessages = { "Time's Up!", "Get Ready...", "3", "2", "1", "Go!" };
+	private float[] phaseSwitchTimes = { 1f, 2f, 0.5f, 0.5f, 0.5f, 0.5f };
+	private int phaseSwitchState = 0;
 
 	public CreatorController creatorPrefab;
 	public PlayerController playerPrefab;
 	private CreatorController creator;
 	private PlayerController player;
 	private WeaponController shoot;
+	private DynamicCamera camera;
 
 	void Start () {
+		scoreText.text = "";
+		ammoText.text = "";
+		healthBar.parent.gameObject.SetActive (false);
 		state = 0;
 		round = 1;
 		width = healthBar.rect.width;
 		startMaxXPos = healthBar.offsetMax.x;
 		//Create the creator
 		creator = Instantiate (creatorPrefab);
+		camera = GameObject.Find("Main Camera").GetComponent<DynamicCamera>();
 	}
 
 	void Update () {
-		//TODO A switch statement might be better here
-		if (state == 0) {
-			updateTimer ();
-			if (timer <= 0) {
-				DestroyObject (creator.gameObject);
-				createPlayer ();
-				timer = 120.0F;
-				state = 1;
+		switch (state) {
+		case 0: //Creator
+			{
+				updateTimer (true);
+				if (timer <= 0) {
+					DestroyObject (creator.gameObject);
+					timer = phaseSwitchTimes[0];
+					countdownText.text = phaseSwitchMessages [0];
+					state = 1;
+				}
+				break;
 			}
-		} else if (state == 1) {
-			
-		} else {
-			if (timer >= 0 && player.currentHealth > 0) {
+		case 1: //Phase Switch
+			{
+				updateTimer (false);
+				if (timer <= 0) {
+					phaseSwitchState++;
+					if (phaseSwitchState >= phaseSwitchMessages.Length) {
+						countdownText.text = "";
+						createPlayer ();
+						timer = 120.0F;
+						state = 2;
+					} else {
+						countdownText.text = phaseSwitchMessages [phaseSwitchState];
+						timer = phaseSwitchTimes [phaseSwitchState];
+					}
+				}
+				break;
+			}
+		case 2: //Player
+			{
+				updateTimer (true);
 				// Displays current statistics for player in UI labels:
 				scoreText.text = score.ToString ();
-				updateTimer ();
-				roundText.text = "Round: " + round;
 				ammoText.text = player.currentWeapon.ammo.ToString ();
-			} else {
+				if (timer <= 0 || player.currentHealth <= 0) {
+					state = 3;
+				}
+				break;
+			}
+		case 3: //TODO: End of Round
+			{
 				// Removes everything from UI:
 				scoreText.text = "";
 				timerText.text = "";
 				roundText.text = "";
 				ammoText.text = "";
+				countdownText.text = "Round over!";
+				break;
 			}
 		}
+		roundText.text = "Round: " + round;
 	}
 
 	private void createPlayer() {
 		player = Instantiate (playerPrefab);
-		//Maybe get a reference to this beforehand?
-		DynamicCamera cam  = GameObject.Find("Main Camera").GetComponent<DynamicCamera>();
-		cam.player = player.gameObject;
-		cam.setChange ();
+		camera.setFollowing (player.gameObject);
+		healthBar.parent.gameObject.SetActive (true);
 	}
 
-	private void updateTimer() {
+	private void updateTimer(bool showText) {
 		timer = timer - Time.deltaTime;
-		timerText.text = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
-
+		if (showText)
+			timerText.text = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
+		else
+			timerText.text = "";
 	}
 
 	public void updateHealth () {
