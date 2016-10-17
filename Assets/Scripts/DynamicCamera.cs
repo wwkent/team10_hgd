@@ -3,14 +3,23 @@ using System.Collections;
 
 public class DynamicCamera : MonoBehaviour {
 
-	public GameObject player;
+	private GameObject following;
 	private Vector3 change;
 
 	void Start () {
-		change = transform.position - player.transform.position;
+		setChange ();
 	}
 
 	void LateUpdate () {
-		transform.position = player.transform.position + change;
+		transform.position = following.transform.position + change;
+	}
+
+	public void setFollowing(GameObject o) {
+		following = o;
+		setChange ();
+	}
+
+	public void setChange() {
+		change = transform.position - following.transform.position;
 	}
 }
