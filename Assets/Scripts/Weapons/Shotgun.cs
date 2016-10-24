@@ -5,10 +5,17 @@ public class Shotgun : WeaponController {
 
 	public GameObject bulletTrailPrefab;
 	public int spread = 7;
+	public AudioClip gunshot;
+	private AudioSource source;
+
+	public void Awake () {
+		source = GetComponent<AudioSource> ();
+	}
 
 	public override void Fire() {
 		if (Time.time > nextFire) {
 			if (ammo > 0) {
+				source.PlayOneShot (gunshot, 1.0f);
 				ammo--;
 				for (int i = 0; i < spread; i++) {
 					// For calculating Variance in shooting to emulate bullet spread
