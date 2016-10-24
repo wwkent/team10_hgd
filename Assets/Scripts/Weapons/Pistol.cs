@@ -4,6 +4,12 @@ using System.Collections;
 public class Pistol : WeaponController {
 
 	public GameObject bulletTrailPrefab;
+	public AudioClip gunshot;
+	private AudioSource source;
+
+	public void Awake () {
+		source = GetComponent<AudioSource> ();
+	}
 
 	public override void Fire() {
 		if (ammo > 0) {
@@ -15,6 +21,7 @@ public class Pistol : WeaponController {
 
 				nextFire = Time.time + 1 / fireRate;
 				ammo--;
+				source.PlayOneShot (gunshot, 1.0f);
 				if (!shotObject)
 					shootRay ();
 				else

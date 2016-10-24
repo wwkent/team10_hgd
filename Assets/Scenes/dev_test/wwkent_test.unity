@@ -538,7 +538,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0582b18374077f4887aca34232d6ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1221997022}
 --- !u!81 &1216099704
 AudioListener:
   m_ObjectHideFlags: 0
@@ -623,6 +622,80 @@ Transform:
   m_PrefabParentObject: {fileID: 4000011660158416, guid: 74f881760f3862647878d2a55546e020,
     type: 2}
   m_PrefabInternal: {fileID: 1443543021}
+--- !u!82 &1221997031
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1221997022}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c398910c6ff6be24eb3ecc9901dbd48f, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1001 &1328435386
 Prefab:
   m_ObjectHideFlags: 0
@@ -774,8 +847,13 @@ Prefab:
         type: 2}
       propertyPath: powerUpWeapon
       value: 
-      objectReference: {fileID: 114000013048013508, guid: fcd081eef6d026d48ae89faa0a1610be,
+      objectReference: {fileID: 114000014172707934, guid: a3e070c3dd42eb44b869625cc52b26a3,
         type: 2}
+    - target: {fileID: 114000013579520362, guid: 74f881760f3862647878d2a55546e020,
+        type: 2}
+      propertyPath: gunshot
+      value: 
+      objectReference: {fileID: 8300000, guid: c398910c6ff6be24eb3ecc9901dbd48f, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74f881760f3862647878d2a55546e020, type: 2}
   m_IsPrefabParent: 0
