@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour {
 
 	private int score = 0;
 	//Increase this for a longer Creator phase
-	private float timer = 10.0F;
+	private float timer = 100.0F;
 	private int state;
 	private int round;
 
