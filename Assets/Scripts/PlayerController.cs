@@ -38,6 +38,10 @@ public class PlayerController: MonoBehaviour {
 	public int jumpMultiplier;
 	public WeaponController powerUpWeapon;
 
+	private bool canTakeDamage = true;
+	public float blink_speed = 0.3f;
+	public float invincible_duration = 3f;
+
 	// Use this for initialization
 	void Start () {
 		anims = GetComponentsInChildren<Animator> ();
@@ -182,8 +186,12 @@ public class PlayerController: MonoBehaviour {
 	}
 
 	public void applyDamage(float damage) {
-		currentHealth = Mathf.Clamp(currentHealth - damage, 0, startingHealth);
-		ui.updateHealth ();
+		if (canTakeDamage) {
+			currentHealth = Mathf.Clamp (currentHealth - damage, 0, startingHealth);
+			StartCoroutine ("takenDamage");
+			if (ui)
+				ui.updateHealth ();
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D col) {
@@ -217,5 +225,36 @@ public class PlayerController: MonoBehaviour {
 			hasPowerUp = true;
 			powerUpTimer = 15f;
 		}
+	}
+
+	// Coroutine for showing damage
+	IEnumerator takenDamage()
+	{
+		SpriteRenderer[] char_sprites = GetComponentsInChildren<SpriteRenderer> ();
+		Color color_with_opacity = new Color (1f, 1f, 1f, 0.7f);
+		Color color_without_opacity = new Color (1f, 1f, 1f, 1f);
+		int number_of_blinks = (int) (invincible_duration / blink_speed);
+		canTakeDamage = false;
+
+		foreach (SpriteRenderer rend in char_sprites) {
+			rend.color = Color.red;
+		}
+		yield return new WaitForSeconds(0.3f);
+		foreach (SpriteRenderer rend in char_sprites) {
+			rend.color = Color.white;
+		}
+		int count = 0;
+		while (count < number_of_blinks) {
+			foreach (SpriteRenderer rend in char_sprites) {
+				rend.color = color_with_opacity;
+			}
+			yield return new WaitForSeconds(blink_speed);
+			foreach (SpriteRenderer rend in char_sprites) {
+				rend.color = color_without_opacity;
+			}
+			yield return new WaitForSeconds(blink_speed);
+			count++;
+		}
+		canTakeDamage = true;
 	}
 }

@@ -69,7 +69,7 @@ public class SentryController : WeaponController {
 		
 	void playerCheck(){
 		RaycastHit2D hit = Physics2D.Raycast(firePoint.position, firePoint.right, 100, canBeShot);
-		if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Character") {
+		if (hit && LayerMask.LayerToName (hit.transform.gameObject.layer) == "Character") {
 			Fire ();
 		}
 	}
