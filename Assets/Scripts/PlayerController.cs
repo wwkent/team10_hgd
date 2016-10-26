@@ -62,9 +62,6 @@ public class PlayerController: MonoBehaviour {
 		hasPowerUp = false;
 		powerUpTimer = 0;
 		powerUpName = "";
-		//rnd = 0;
-
-		source = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -76,7 +73,6 @@ public class PlayerController: MonoBehaviour {
 		// Shooting
 		if (currentWeapon != null && Input.GetAxis ("TriggersR_1") < 0) {
 			currentWeapon.Fire ();
-			source.PlayOneShot (gunshot, 1.0f);
 			if (currentWeapon.ammo == 0)
 				setCurrentWeapon (Instantiate(defaultWeapon));
 		}
