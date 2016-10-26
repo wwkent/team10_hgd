@@ -52,6 +52,7 @@ public class GameController : MonoBehaviour {
 		startMaxXPos = healthBar.offsetMax.x;
 		//Create the creator
 		creator = Instantiate (creatorPrefab);
+		player = playerPrefab;
 		camera = GameObject.Find("Main Camera").GetComponent<DynamicCamera>();
 	}
 
