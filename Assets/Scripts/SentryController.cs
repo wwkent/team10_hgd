@@ -9,6 +9,12 @@ public class SentryController : WeaponController {
 	private Vector3 direction;
 	public GameObject bulletTrailPrefab;
 	int i = 10;
+	public AudioClip sentryShot;
+	private AudioSource source;
+
+	public void Awake () {
+		source = GetComponent<AudioSource> ();
+	}
 
 	public override void Fire() {
 		if (Time.time > nextFire) {
@@ -20,8 +26,9 @@ public class SentryController : WeaponController {
 			nextFire = Time.time + 1 / fireRate;
 			if (!shotObject)
 				shootRay ();
-			else
-				shootProjectile ();{
+			else {
+				shootProjectile ();
+				source.PlayOneShot (sentryShot, 0.5f);
 			}
 		}
 	}

@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012281811420}
   - 114: {fileID: 114000013551405030}
+  - 82: {fileID: 82000013237798858}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -99,6 +100,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000012281811420}
   m_RootOrder: 1
+--- !u!82 &82000013237798858
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010916681830}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 484d200ad8349df45b28121c73fd3cef, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114000013551405030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,6 +189,7 @@ MonoBehaviour:
   laserSight: {fileID: 61000010261775102, guid: bc9b70398543dcf4e9c85a0c40a12aa4,
     type: 2}
   laserBeam: {fileID: 61000014143004250, guid: 86bb05b4f24a19e4fad4df9c2fd7e388, type: 2}
+  laserSound: {fileID: 8300000, guid: 484d200ad8349df45b28121c73fd3cef, type: 3}
 --- !u!212 &212000012685359618
 SpriteRenderer:
   m_ObjectHideFlags: 1
