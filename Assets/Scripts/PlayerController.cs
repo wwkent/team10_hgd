@@ -63,6 +63,8 @@ public class PlayerController: MonoBehaviour {
 		powerUpTimer = 0;
 		powerUpName = "";
 		//rnd = 0;
+
+		source = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -74,6 +76,7 @@ public class PlayerController: MonoBehaviour {
 		// Shooting
 		if (currentWeapon != null && Input.GetAxis ("TriggersR_1") < 0) {
 			currentWeapon.Fire ();
+			source.PlayOneShot (gunshot, 1.0f);
 			if (currentWeapon.ammo == 0)
 				setCurrentWeapon (Instantiate(defaultWeapon));
 		}
@@ -206,6 +209,7 @@ public class PlayerController: MonoBehaviour {
 	void getPowerUp() {
 		if (!hasPowerUp) {
 			rnd = Random.Range (0, 3);
+			rnd = 0;
 			if (rnd == 0) {
 				prevWeapon = currentWeapon;
 				setCurrentWeapon (Instantiate (powerUpWeapon));
