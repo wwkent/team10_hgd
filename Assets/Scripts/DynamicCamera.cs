@@ -7,20 +7,25 @@ public class DynamicCamera : MonoBehaviour {
 	private Vector3 change;
 
 	void Start () {
-		following = GameObject.Find ("Player_New");
+		// following = GameObject.Find ("Player_New");
 		setChange ();
 	}
 
 	void LateUpdate () {
-		transform.position = following.transform.position + change;
+		if (following)
+			transform.position = following.transform.position + change;
 	}
 
 	public void setFollowing(GameObject o) {
 		following = o;
+		Vector3 temp = following.transform.position;
+		temp.z = transform.position.z;
+		transform.position = temp;
 		setChange ();
 	}
 
 	public void setChange() {
-		change = transform.position - following.transform.position;
+		if (following)
+			change = transform.position - following.transform.position;
 	}
 }

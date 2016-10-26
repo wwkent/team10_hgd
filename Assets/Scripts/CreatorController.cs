@@ -33,7 +33,6 @@ public class CreatorController : MonoBehaviour {
 			else
 				currObj = 0;
 			setObjRenderer ();
-			print (currObj);
 		}
 		if (Input.GetButtonDown ("LB_1")) {
 			if (currObj > 0)
@@ -41,7 +40,6 @@ public class CreatorController : MonoBehaviour {
 			else
 				currObj = availableObjs.Length - 1;
 			setObjRenderer ();
-			print (currObj);
 		}
 		// Calculate how much the velocity should change based on xAccel
 		Vector3 direction = new Vector3(inputXAmount, -inputYAmount, 0.0f);
@@ -52,6 +50,7 @@ public class CreatorController : MonoBehaviour {
 	{
 		GameObject spawned = Instantiate (availableObjs [currObj]);
 		spawned.transform.position = transform.position;
+		spawned.GetComponent<SentryController>().enabled = false;
 		Debug.Log ("Creator has created: " + spawned.name);
 	}
 

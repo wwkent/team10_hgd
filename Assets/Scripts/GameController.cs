@@ -50,9 +50,6 @@ public class GameController : MonoBehaviour {
 		round = 1;
 		width = healthBar.rect.width;
 		startMaxXPos = healthBar.offsetMax.x;
-		//Create the creator
-		creator = Instantiate (creatorPrefab);
-		player = playerPrefab;
 		camera = GameObject.Find("Main Camera").GetComponent<DynamicCamera>();
 	}
 
@@ -60,6 +57,9 @@ public class GameController : MonoBehaviour {
 		switch (state) {
 		case 0: //Creator
 			{
+				if (!creator) {
+					createCreator ();
+				}
 				updateTimer (true);
 				if (timer <= 0) {
 					DestroyObject (creator.gameObject);
@@ -117,12 +117,19 @@ public class GameController : MonoBehaviour {
 		healthBar.parent.gameObject.SetActive (true);
 	}
 
+	private void createCreator() {
+		creator = Instantiate (creatorPrefab);
+		camera.setFollowing (creator.gameObject);
+		healthBar.parent.gameObject.SetActive (false);
+	}
+
 	private void updateTimer(bool showText) {
 		timer = timer - Time.deltaTime;
 		if (showText){
 			timerText.text = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 
 			roundText.text = "Round: " + round;
+			/*
 			ammoText.text = player.currentWeapon.ammo.ToString();
 
 			if (player.powerUpTimer > 0) {
@@ -131,6 +138,7 @@ public class GameController : MonoBehaviour {
 			} else {
 				powerUpText.text = "";
 			}
+			*/
 
 		} else {
 			
