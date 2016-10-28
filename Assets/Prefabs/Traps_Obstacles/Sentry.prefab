@@ -37,7 +37,7 @@ GameObject:
   - 212: {fileID: 212000010103140346}
   - 61: {fileID: 61000010320727374}
   - 114: {fileID: 114000012174516342}
-  - 82: {fileID: 82000013114359254}
+  - 82: {fileID: 82000011210897556}
   m_Layer: 0
   m_Name: Sentry
   m_TagString: Untagged
@@ -86,7 +86,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 2.57, y: 2.57}
---- !u!82 &82000013114359254
+--- !u!82 &82000011210897556
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -175,14 +175,14 @@ MonoBehaviour:
   ammo: 30
   shotObject: {fileID: 114000013439039010, guid: 1b1b37ed8bf068c439143b76730f00da,
     type: 2}
-  fireRate: 2
+  fireRate: 1
   canBeShot:
     serializedVersion: 2
     m_Bits: 2304
   projSpeed: 10
   firePoint: {fileID: 4000010286150456}
-  Target: {fileID: 0}
-  RotateSpeed: 5
+  gunshot: {fileID: 8300000, guid: 37d6b7dac92223646842524986e49272, type: 3}
+  rotateSpeed: 1
   bulletTrailPrefab: {fileID: 1000012711377922, guid: 40a60c3cb2dfd204aa4d03f4dd276d97,
     type: 2}
   sentryShot: {fileID: 0}

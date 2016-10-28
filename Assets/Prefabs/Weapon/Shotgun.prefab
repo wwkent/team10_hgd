@@ -64,7 +64,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011673463326}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.4020001, y: 4.79, z: -9}
+  m_LocalPosition: {x: 9.131184, y: 3.1349995, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -158,18 +158,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   variance: 20
   ammo: 154
-  shotObject: {fileID: 114000013439039010, guid: 1b1b37ed8bf068c439143b76730f00da,
-    type: 2}
   fireRate: 4
   canBeShot:
     serializedVersion: 2
     m_Bits: 768
-  projSpeed: 20
   firePoint: {fileID: 4000010619861936}
+  projSpeed: 20
+  gunshot: {fileID: 8300000, guid: 2a89bf00090e5f44d83d04d21e333ac7, type: 3}
+  shotObject: {fileID: 114000013439039010, guid: 1b1b37ed8bf068c439143b76730f00da,
+    type: 2}
   bulletTrailPrefab: {fileID: 1000012711377922, guid: 40a60c3cb2dfd204aa4d03f4dd276d97,
     type: 2}
   spread: 7
-  gunshot: {fileID: 8300000, guid: 2a89bf00090e5f44d83d04d21e333ac7, type: 3}
 --- !u!212 &212000010954533892
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -23,8 +23,15 @@ public class CollisionController : MonoBehaviour {
 	void OnTriggerStay2D(Collider2D other) {
 		switch (other.gameObject.tag) {
 
-		case "Spike":
-			player.applyDamage (1f);
+		case "Obstacle_Damage":
+			player.applyDamage (10f);
+			break;
+		case "PowerUp":
+			player.applyPowerUp ();
+			break;
+		case "WeaponPickUp":
+			// WeaponController wep = other.gameObject.GetComponent<PickUpWeapon> ().myWeapon;
+			// player.pickUpWeapon (wep);
 			break;
 		}
 	}

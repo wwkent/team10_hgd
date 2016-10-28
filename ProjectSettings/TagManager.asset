@@ -6,8 +6,8 @@ TagManager:
   tags:
   - Spike
   - LaserBeam
-  - New Tag
-  - PowerUp
+  - PowerUpPickUp
+  - WeaponPickUp
   layers:
   - Default
   - TransparentFX

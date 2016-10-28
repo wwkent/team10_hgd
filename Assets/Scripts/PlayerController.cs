@@ -46,10 +46,11 @@ public class PlayerController: MonoBehaviour {
 	void Start () {
 		anims = GetComponentsInChildren<Animator> ();
 		rBody = GetComponent<Rigidbody2D> ();
-		ui = GameObject.Find ("UI").GetComponent<GameController>();
+		if (GameObject.Find("UI"))
+			ui = GameObject.Find ("UI").GetComponent<GameController>();
 
 		currentHealth = startingHealth;
-		ui.updateHealth ();
+		if (ui) ui.updateHealth ();
 
 		if (defaultWeapon == null) {
 			Debug.LogError ("No Default Weapon Set in PlayerController");
@@ -74,7 +75,7 @@ public class PlayerController: MonoBehaviour {
 		if (currentWeapon != null && Input.GetAxis ("TriggersR_1") < 0) {
 			currentWeapon.Fire ();
 			if (currentWeapon.ammo == 0)
-				setCurrentWeapon (Instantiate(defaultWeapon));
+				pickUpWeapon (Instantiate(defaultWeapon));
 		}
 
 		if (Input.GetKey("a"))
@@ -82,17 +83,10 @@ public class PlayerController: MonoBehaviour {
 		if (Input.GetKey("d"))
 			transform.Translate(-Vector3.left * maxSpeed * Time.deltaTime);
 
-
-
-		/*if (powerUpTimer > 0) {
-			Debug.Log ("Here");
-			powerUpTimer = powerUpTimer - Time.deltaTime;
-			powerUpText.text = powerUpName + " " + (int)((powerUpTimer + 1) / 60) + ":" + (int)(((powerUpTimer + 1) % 60) / 10) + (int)(((powerUpTimer + 1) % 60) % 10); 
-		} else */
 		if (powerUpTimer <= 0 && hasPowerUp == true) {
 			powerUpTimer = 0;
 			if (powerUpName.Equals("Upgraded Weapon")) {
-				setCurrentWeapon (Instantiate (prevWeapon));
+				pickUpWeapon (Instantiate (prevWeapon));
 			} else if (powerUpName.Equals("Speed Boost")) {
 				maxSpeed /= speedMultiplier;
 			} else if (powerUpName.Equals("Jump Boost")) {
@@ -100,7 +94,6 @@ public class PlayerController: MonoBehaviour {
 			}
 			hasPowerUp = false;
 			powerUpName = "";
-			//powerUpText.text = "";
 		}
 	}
 
@@ -164,7 +157,7 @@ public class PlayerController: MonoBehaviour {
 			return -1;
 	}
 
-	public void setCurrentWeapon (WeaponController newWeapon) {
+	public void pickUpWeapon (WeaponController newWeapon) {
 		currentWeapon = newWeapon;
 		setWeapon ();
 	}
@@ -188,27 +181,18 @@ public class PlayerController: MonoBehaviour {
 		if (canTakeDamage) {
 			currentHealth = Mathf.Clamp (currentHealth - damage, 0, startingHealth);
 			StartCoroutine ("takenDamage");
-			if (ui)
-				ui.updateHealth ();
+
+			if (ui) ui.updateHealth ();
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D col) {
-		if (col.gameObject.tag == "PowerUp") {
-			//col.gameObject.GetComponent<PlayerController> ();
-			Destroy (col.gameObject);
-			getPowerUp ();
-			//Destroy (col.gameObject);
-		}
-	}
-
-	void getPowerUp() {
+	public void applyPowerUp() {
 		if (!hasPowerUp) {
 			rnd = Random.Range (0, 3);
 			rnd = 0;
 			if (rnd == 0) {
 				prevWeapon = currentWeapon;
-				setCurrentWeapon (Instantiate (powerUpWeapon));
+				pickUpWeapon (Instantiate (powerUpWeapon));
 				powerUpName = "Upgraded Weapon";
 				Debug.Log ("Weapon");
 			} else if (rnd == 1) {
