@@ -7,7 +7,8 @@ public class DynamicCamera : MonoBehaviour {
 	private Vector3 change;
 
 	void Start () {
-		// following = GameObject.Find ("Player_New");
+		if (!GameObject.Find ("UI"))
+			following = GameObject.Find ("Player");
 		setChange ();
 	}
 
