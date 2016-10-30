@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class PowerUp : MonoBehaviour {
+public class PowerUpPower: PickUpController {
 
 	protected PlayerController playerCont;
 	public WeaponController attachedWeapon;

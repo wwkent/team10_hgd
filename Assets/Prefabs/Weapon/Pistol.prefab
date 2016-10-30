@@ -81,7 +81,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c398910c6ff6be24eb3ecc9901dbd48f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -165,9 +165,9 @@ MonoBehaviour:
     m_Bits: 768
   projSpeed: 0
   firePoint: {fileID: 4000010334565914}
+  gunshot: {fileID: 8300000, guid: c398910c6ff6be24eb3ecc9901dbd48f, type: 3}
   bulletTrailPrefab: {fileID: 1000012711377922, guid: 40a60c3cb2dfd204aa4d03f4dd276d97,
     type: 2}
-  gunshot: {fileID: 8300000, guid: c398910c6ff6be24eb3ecc9901dbd48f, type: 3}
 --- !u!212 &212000012464244278
 SpriteRenderer:
   m_ObjectHideFlags: 1
