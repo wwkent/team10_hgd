@@ -8,6 +8,8 @@ TagManager:
   - LaserBeam
   - PowerUpPickUp
   - WeaponPickUp
+  - PowerUp
+  - Saw
   layers:
   - Default
   - TransparentFX
