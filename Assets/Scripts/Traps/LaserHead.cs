@@ -9,6 +9,12 @@ public class LaserHead : MonoBehaviour {
 	//Prefabs to shoot (LaserSight and LaserBeam)
 	public Collider2D laserSight;
 	public Collider2D laserBeam;
+	public AudioClip laserSound;
+	private AudioSource source;
+
+	public void Awake () {
+		source = GetComponent<AudioSource> ();
+	}
 
 	/*
 	 * State loops between the following
@@ -34,8 +40,10 @@ public class LaserHead : MonoBehaviour {
 
 			if(state == 1)
 				propogateLaser (laserSight);
-			if(state == 2)
+			if (state == 2) {
 				propogateLaser (laserBeam);
+				source.PlayOneShot (laserSound, 0.5f);
+			}
 		}
 	}
 
