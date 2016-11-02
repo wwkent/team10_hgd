@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour {
 		width = healthBar.rect.width;
 		startMaxXPos = healthBar.offsetMax.x;
 		camera = GameObject.Find("Main Camera").GetComponent<DynamicCamera>();
+		generateMap ();
 	}
 
 	void Update () {
@@ -156,5 +157,11 @@ public class GameController : MonoBehaviour {
 	public void updateHealth () {
 		float playerHealth = player.currentHealth / player.startingHealth;
 		healthBar.localScale = new Vector2 (Mathf.Clamp(playerHealth, 0F, 1F), healthBar.localScale.y);
+	}
+
+	public void generateMap(){
+		string rnd = Random.Range (1, 2).ToString();
+		string mapPath = "Map" + rnd;
+		GameObject map = Instantiate (Resources.Load(mapPath, typeof(GameObject))) as GameObject;
 	}
 }
