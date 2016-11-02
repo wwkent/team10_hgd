@@ -21,6 +21,8 @@ GameObject:
   - 4: {fileID: 4000012054840850}
   - 212: {fileID: 212000011609601362}
   - 114: {fileID: 114000011852140638}
+  - 58: {fileID: 58000013162092508}
+  - 50: {fileID: 50000011262543948}
   m_Layer: 8
   m_Name: Creator
   m_TagString: Untagged
@@ -51,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010020516632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -9}
+  m_LocalPosition: {x: 0, y: 8.52, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -71,6 +73,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000012054840850}
   m_RootOrder: 0
+--- !u!50 &50000011262543948
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010020516632}
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &58000013162092508
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010020516632}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!114 &114000011852140638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,6 +119,8 @@ MonoBehaviour:
   - {fileID: 1000011869041426, guid: 0bb178ab855a6764db55b4fd810fb673, type: 2}
   - {fileID: 1000012271007608, guid: fa988fcd00d9481458acb3268c6a2b10, type: 2}
   moveSpeed: 10
+  snappedEdge: {fileID: 0}
+  snappedEdgePos: {x: 0, y: 0, z: 0}
 --- !u!212 &212000011609601362
 SpriteRenderer:
   m_ObjectHideFlags: 1

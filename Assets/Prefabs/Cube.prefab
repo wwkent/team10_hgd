@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000010092679338}
   - 23: {fileID: 23000013809370094}
   - 61: {fileID: 61000013233041908}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
