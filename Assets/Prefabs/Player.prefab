@@ -416,7 +416,7 @@ MonoBehaviour:
   groundCheck: {fileID: 4000013811833588}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 4352
   startingHealth: 100
   currentHealth: 0
   hasPowerUp: 0

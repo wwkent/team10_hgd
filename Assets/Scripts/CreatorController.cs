@@ -63,7 +63,8 @@ public class CreatorController : MonoBehaviour {
 			/* Update currObjectRenderer's position/rotation on the snapped edge
 			 * manually, as this may not be called every frame. This prevents the
 			 * object from being shaky when moving. */
-			OnTriggerStay2D (snappedEdge.gameObject.GetComponent<BoxCollider2D> ());
+			if(snappedEdge != null)
+				OnTriggerStay2D (snappedEdge.gameObject.GetComponent<BoxCollider2D> ());
 		}
 	}
 
@@ -81,7 +82,23 @@ public class CreatorController : MonoBehaviour {
 			return;
 
 		// Find the closest point within the platform's bounds
-		Vector3 closestPos = other.bounds.ClosestPoint (transform.position);
+		Vector3 objFacing = obj.transform.rotation * Vector3.up;
+
+		Vector3 closestPos = Vector3.zero;
+		Vector3 dir = objFacing;
+		for (int i = 0; i < 4; i++) {
+			RaycastHit2D hit = Physics2D.Raycast (transform.position, dir, 2, LayerMask.GetMask ("Platforms"));
+			if (hit.collider != null) {
+				closestPos = hit.point;
+				break;
+			}
+			dir = Quaternion.Euler (0f, 0f, 90f) * dir;
+		}
+
+		//TODO Fix maybe?
+		if (closestPos == Vector3.zero)
+			return;
+
 		// Calculate that point relative to the Creator
 		Vector3 relativePos = closestPos - transform.position;
 		float distance = relativePos.magnitude;
@@ -93,58 +110,13 @@ public class CreatorController : MonoBehaviour {
 		snappedEdge = obj.transform;
 		snappedEdgePos = relativePos;
 
-		// Woah nelly that's a lot of math
-		float rotation;
-		float objX = obj.transform.position.x;
-		float objY = obj.transform.position.y;
-		float objWidth = other.bounds.size.x;
-		float objHeight = other.bounds.size.y;
-		float xDist = transform.position.x - objX;
-		float yDist = transform.position.y - objY;
-		float xDistFromEdge = Mathf.Abs (xDist) - (objWidth / 2f);
-		float yDistFromEdge = Mathf.Abs (yDist) - (objHeight / 2f);
-
-		// Find which side of the platform you are on
-		if (xDistFromEdge >= yDistFromEdge) {
-			if (xDist >= 0) {
-				snappedEdgeSide = 1; // Right side
-				rotation = 270f;
-			} else {
-				snappedEdgeSide = 3; // Left side
-				rotation = 90f;
-			}
-		} else {
-			if (yDist >= 0) {
-				snappedEdgeSide = 0; // Top side
-				rotation = 0f;
-			} else {
-				snappedEdgeSide = 2; // Bottom side
-				rotation = 180f;
-			}
-		}
 		// Update rotation
-		currObjRenderer.eulerAngles = new Vector3 (0, 0, rotation);
-		
-		// Calculate the amount to push the object out from the edge
-		Vector3 boundsOffset = new Vector3 (0, 0, 0);
-		Bounds currObjBounds = currObjRenderer.GetComponent<SpriteRenderer> ().bounds;
-		switch (snappedEdgeSide) {
-		case 0:
-			boundsOffset = new Vector3 (0, currObjBounds.size.y / 2f, 0);
-			break;
-		case 1:
-			boundsOffset = new Vector3 (currObjBounds.size.x / 2f, 0, 0);
-			break;
-		case 2:
-			boundsOffset = new Vector3 (0, -currObjBounds.size.y / 2f, 0);
-			break;
-		case 3:
-			boundsOffset = new Vector3 (-currObjBounds.size.x / 2f, 0, 0);
-			break;
-		}
+		Vector3 dirFace = Quaternion.Euler (0f, 0f, 90f) * dir;
+		float rotationAngle = Mathf.Atan2 (dirFace.y, dirFace.x) * Mathf.Rad2Deg;
+		currObjRenderer.eulerAngles = new Vector3(0, 0, rotationAngle);
 
 		// Set currObjectRenderer's position to the edge's
-		currObjRenderer.localPosition = snappedEdgePos + boundsOffset;
+		currObjRenderer.localPosition = snappedEdgePos;
 	}
 
 	private void spawnGameObject()
