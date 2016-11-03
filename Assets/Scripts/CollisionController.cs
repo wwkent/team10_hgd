@@ -26,13 +26,6 @@ public class CollisionController : MonoBehaviour {
 		case "Obstacle_Damage":
 			player.applyDamage (10f);
 			break;
-		case "PowerUp":
-			player.applyPowerUp ();
-			break;
-		case "WeaponPickUp":
-			// WeaponController wep = other.gameObject.GetComponent<PickUpWeapon> ().myWeapon;
-			// player.pickUpWeapon (wep);
-			break;
 		case "Saw":
 			player.applyDamage (1f);
 			break;

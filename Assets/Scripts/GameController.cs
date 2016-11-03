@@ -25,7 +25,8 @@ public class GameController : MonoBehaviour {
 
 	private int score = 0;
 	//Increase this for a longer Creator phase
-	private float timer = 100.0F;
+	private float timer = 10.0F;
+	private float powerUpTimer;
 	private int state;
 	private int round;
 
@@ -126,23 +127,15 @@ public class GameController : MonoBehaviour {
 
 	private void updateTimer(bool showText) {
 		timer = timer - Time.deltaTime;
+		if (powerUpTimer > 0) powerUpTimer -= Time.deltaTime;
 		if (showText){
 			timerText.text = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
-
+			if (powerUpTimer > 0)
+				powerUpText.text =	"" + 
+									(int)(((powerUpTimer + 1) % 60) / 10) + 
+									(int)(((powerUpTimer + 1) % 60) % 10);
 			roundText.text = "Round: " + round;
-			/*
-			ammoText.text = player.currentWeapon.ammo.ToString();
-
-			if (player.powerUpTimer > 0) {
-				player.powerUpTimer = player.powerUpTimer - Time.deltaTime;
-				powerUpText.text = player.powerUpName + " " + (int)((player.powerUpTimer + 1) / 60) + ":" + (int)(((player.powerUpTimer + 1) % 60) / 10) + (int)(((player.powerUpTimer + 1) % 60) % 10); 
-			} else {
-				powerUpText.text = "";
-			}
-			*/
-
 		} else {
-			
 			// Removes everything from UI:
 			scoreText.text = "";
 			timerText.text = "";
@@ -154,6 +147,13 @@ public class GameController : MonoBehaviour {
 
 	}
 
+	public void applyPowerUp(float duration, Sprite image)
+	{
+		GameObject.Find("PowerUpDisplay").GetComponentInChildren<Image>().sprite = image;
+		powerUpTimer = duration;
+	}
+
+	// Update the UI's health to correctly reflect the current player's health
 	public void updateHealth () {
 		float playerHealth = player.currentHealth / player.startingHealth;
 		healthBar.localScale = new Vector2 (Mathf.Clamp(playerHealth, 0F, 1F), healthBar.localScale.y);

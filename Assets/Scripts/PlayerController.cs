@@ -4,10 +4,21 @@ using System.Collections.Generic;
 
 public class PlayerController: MonoBehaviour {
 
-	// For movement control
+	// Player Attributes
+	public float resistance = 1f;
 	public float xAccel = 0.75f;
 	public float maxSpeed = 30f;
 	public float jumpForce = 2000f;
+	public float startingHealth = 100F;
+	public float currentHealth;
+
+	// Player Default Attributes
+	// Is based on the player's values at Start
+	private float default_resistance;
+	private float default_maxSpeed;
+	private float default_jumpForce;
+	private float default_gravityScale;
+
 	bool facingRight = true;
 
 	// References
@@ -23,27 +34,18 @@ public class PlayerController: MonoBehaviour {
 	float groundRadius = 0.2f;
 	public LayerMask whatIsGround;
 
-	// Player Info
-	public float startingHealth = 100F;
-	public float currentHealth;
-
-	// Power Up
-	public bool hasPowerUp;
-	public float powerUpTimer;
-	public string powerUpName;
-	private int rnd;
-	//public Text powerUpText;
-	private WeaponController prevWeapon;
-	public int speedMultiplier;
-	public int jumpMultiplier;
-	public WeaponController powerUpWeapon;
-
 	private bool canTakeDamage = true;
 	public float blink_speed = 0.3f;
 	public float invincible_duration = 3f;
 
 	// Use this for initialization
 	void Start () {
+
+		default_resistance = resistance;
+		default_maxSpeed = maxSpeed;
+		default_jumpForce = jumpForce;
+		default_gravityScale = this.GetComponent<Rigidbody2D> ().gravityScale;
+
 		anims = GetComponentsInChildren<Animator> ();
 		rBody = GetComponent<Rigidbody2D> ();
 		if (GameObject.Find("UI"))
@@ -59,10 +61,6 @@ public class PlayerController: MonoBehaviour {
 		if (currentWeapon == null)
 			currentWeapon = Instantiate (defaultWeapon);
 		setWeapon ();
-
-		hasPowerUp = false;
-		powerUpTimer = 0;
-		powerUpName = "";
 	}
 	
 	// Update is called once per frame
@@ -82,19 +80,6 @@ public class PlayerController: MonoBehaviour {
 			transform.Translate(-Vector3.right * maxSpeed * Time.deltaTime);
 		if (Input.GetKey("d"))
 			transform.Translate(-Vector3.left * maxSpeed * Time.deltaTime);
-
-		if (powerUpTimer <= 0 && hasPowerUp == true) {
-			powerUpTimer = 0;
-			if (powerUpName.Equals("Upgraded Weapon")) {
-				pickUpWeapon (Instantiate (prevWeapon));
-			} else if (powerUpName.Equals("Speed Boost")) {
-				maxSpeed /= speedMultiplier;
-			} else if (powerUpName.Equals("Jump Boost")) {
-				jumpForce /= jumpMultiplier;
-			}
-			hasPowerUp = false;
-			powerUpName = "";
-		}
 	}
 
 	void FixedUpdate () {
@@ -177,38 +162,27 @@ public class PlayerController: MonoBehaviour {
 		currentWeapon.transform.localScale = new Vector3(1,1,1);
 	}
 
+	// Changes the player's health by @param damage
+	/*	If the damage <= 0 we do not run coroutine takenDamage
+	 *	cause no damage was taken.
+	 */
 	public void applyDamage(float damage) {
 		if (canTakeDamage) {
-			currentHealth = Mathf.Clamp (currentHealth - damage, 0, startingHealth);
-			StartCoroutine ("takenDamage");
+			// Calculate the damage taken
+			float actualDamage;
+			actualDamage = damage * resistance;
+
+			currentHealth = Mathf.Clamp (currentHealth - actualDamage, 0, startingHealth);
+			if (damage > 0) 
+				StartCoroutine ("takenDamage");
 
 			if (ui) ui.updateHealth ();
 		}
 	}
 
-	public void applyPowerUp() {
-		if (!hasPowerUp) {
-			rnd = Random.Range (0, 3);
-			rnd = 0;
-			if (rnd == 0) {
-				prevWeapon = currentWeapon;
-				pickUpWeapon (Instantiate (powerUpWeapon));
-				powerUpName = "Upgraded Weapon";
-				Debug.Log ("Weapon");
-			} else if (rnd == 1) {
-				maxSpeed *= speedMultiplier;
-				powerUpName = "Speed Boost";
-				Debug.Log ("Speed");
-			} else if (rnd == 2) {
-				jumpForce *= jumpMultiplier;
-				powerUpName = "Jump Boost";
-				Debug.Log ("Jump");
-			} //else {
-			//Invincibility, Score Multiplier, Flying?
-			//}
-			hasPowerUp = true;
-			powerUpTimer = 15f;
-		}
+	// Alias Method for applyDamage
+	public void modifyHealth(float damage) {
+		applyDamage (damage);
 	}
 
 	// Coroutine for showing damage
@@ -240,5 +214,27 @@ public class PlayerController: MonoBehaviour {
 			count++;
 		}
 		canTakeDamage = true;
+	}
+
+	// Used for powerup management
+	public void powerUpUntil(int duration, Sprite puImage)
+	{
+		ui.applyPowerUp (duration, puImage);
+		StartCoroutine (powerUpUntilRoutine (duration));
+	}
+
+	// Sets the player attributes to its default values
+	public void resetAttributesToDefault()
+	{
+		resistance = default_resistance;
+		maxSpeed = default_maxSpeed;
+		jumpForce = default_jumpForce;
+		GetComponent<Rigidbody2D>().gravityScale = default_gravityScale;
+	}
+
+	public IEnumerator powerUpUntilRoutine(float duration)
+	{
+		yield return new WaitForSeconds (duration);
+		resetAttributesToDefault ();
 	}
 }
