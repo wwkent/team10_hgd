@@ -22,6 +22,7 @@ GameObject:
   - 212: {fileID: 212000012745344410}
   - 61: {fileID: 61000012648001416}
   - 61: {fileID: 61000014222370058}
+  - 114: {fileID: 114000011247979044}
   m_Layer: 8
   m_Name: Spike
   m_TagString: Spike
@@ -70,6 +71,22 @@ BoxCollider2D:
   m_Offset: {x: -0.0066099167, y: -0.08592856}
   serializedVersion: 2
   m_Size: {x: 3.5108662, y: 0.82814264}
+--- !u!114 &114000011247979044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012271007608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363bde5ac3c00f9409cdc02b1b1fb1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Spikes
+  description: A spike trap that damages the player on contact
+  cost: 10
+  canPlaceOnWalls: 1
+  canPlaceInAir: 0
 --- !u!212 &212000012745344410
 SpriteRenderer:
   m_ObjectHideFlags: 1

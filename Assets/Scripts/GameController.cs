@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
@@ -19,32 +20,49 @@ public class GameController : MonoBehaviour {
 
 	private float width;
 	private float startMaxXPos;
-	private string[] phaseSwitchMessages = { "Time's Up!", "Get Ready...", "3", "2", "1", "Go!" };
-	private float[] phaseSwitchTimes = { 1f, 2f, 0.5f, 0.5f, 0.5f, 0.5f };
+	public string[] phaseSwitchMessages = { "Time's Up!", "Get Ready...", "3", "2", "1", "Go!" };
+	public float[] phaseSwitchTimes = { 1f, 2f, 0.5f, 0.5f, 0.5f, 0.5f };
 	private int phaseSwitchState = 0;
 
-	public CreatorController creatorPrefab;
-	public PlayerController playerPrefab;
+	public GameObject scoreboard;
+	public GameObject creatorPrefab;
+	public GameObject playerPrefab;
+
+	private Transform creatorContainer;
 	private CreatorController creator;
+	private CreatorHud creatorUI;
+
+	private Transform playerContainer;
 	private PlayerController player;
+	private PlayerHud playerUI;
+
 	private DynamicCamera camera;
 
 	void Start () {
 		state = 0;
 		round = 1;
+		timer = 10f;
 		camera = GameObject.Find("Main Camera").GetComponent<DynamicCamera>();
-		generateMap ();
+		scoreboard.SetActive (false);
+		//generateMap ();
 	}
 
 	void Update () {
 		switch (state) {
 		case 0: //Creator
 			{
+				// JESSE ATTENTION!!!: THIS IS HOW WE ARE UPDATING THE UI SINCE THEY ARE SEPARATE NOW.
+				//	IF THIS IS AS TERRIBLE AS I AM BEGINNING TO THINK MAYBE CHANGE PLZ. 
+				string timeText;
+				timeText = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 				if (!creator) {
 					createCreator ();
 				}
+				creator.ui.updateTimers (timeText);
+
 				if (timer <= 0) {
-					DestroyObject (creator.gameObject);
+					creatorContainer.gameObject.SetActive(false);
+					scoreboard.SetActive (true);
 					timer = phaseSwitchTimes[0];
 					state = 1;
 				}
@@ -55,6 +73,7 @@ public class GameController : MonoBehaviour {
 				if (timer <= 0) {
 					phaseSwitchState++;
 					if (phaseSwitchState >= phaseSwitchMessages.Length) {
+						scoreboard.SetActive (false);
 						createPlayer ();
 						timer = 120.0F;
 						state = 2;
@@ -66,6 +85,9 @@ public class GameController : MonoBehaviour {
 			}
 		case 2: //Player
 			{
+				string timeText;
+				timeText = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
+				player.ui.updateTimers (timeText);
 				if (timer <= 0 || player.currentHealth <= 0) {
 					state = 3;
 				}
@@ -76,15 +98,20 @@ public class GameController : MonoBehaviour {
 				break;
 			}
 		}
+		timer -= Time.deltaTime;
 	}
 
 	private void createPlayer() {
-		player = Instantiate (playerPrefab);
+		playerContainer = Instantiate (playerPrefab).transform;
+		player = playerContainer.Find("PlayerEnt").GetComponent<PlayerController>();
+		playerUI = playerContainer.Find("PlayerUI").GetComponent<PlayerHud>();
 		camera.setFollowing (player.gameObject);
 	}
 
 	private void createCreator() {
-		creator = Instantiate (creatorPrefab);
+		creatorContainer = Instantiate (creatorPrefab).transform;
+		creator = creatorContainer.Find("CreatorEnt").GetComponent<CreatorController>();
+		creatorUI = creatorContainer.Find("CreatorUI").GetComponent<CreatorHud>();
 		camera.setFollowing (creator.gameObject);
 	}
 

@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012281811420}
   - 114: {fileID: 114000013551405030}
+  - 114: {fileID: 114000013104352942}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -99,6 +100,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000012281811420}
   m_RootOrder: 1
+--- !u!114 &114000013104352942
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010916681830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363bde5ac3c00f9409cdc02b1b1fb1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  description: 
+  cost: 0
+  canPlaceOnWalls: 0
+  canPlaceInAir: 0
 --- !u!114 &114000013551405030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,6 +131,7 @@ MonoBehaviour:
   laserSight: {fileID: 61000010261775102, guid: bc9b70398543dcf4e9c85a0c40a12aa4,
     type: 2}
   laserBeam: {fileID: 61000014143004250, guid: 86bb05b4f24a19e4fad4df9c2fd7e388, type: 2}
+  laserSound: {fileID: 0}
 --- !u!212 &212000012685359618
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1000012679303794}
+  m_IsPrefabParent: 1
+--- !u!1 &1000012679303794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000011060492498}
+  - 114: {fileID: 114000013129031816}
+  m_Layer: 0
+  m_Name: Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000011060492498
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012679303794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.04097438, y: 9.5882635, z: -9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &114000013129031816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012679303794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc37c8b73361be44ea04f740c17eb4e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phaseSwitchMessages:
+  - Time's Up!
+  - Get Ready...
+  - 3
+  - 2
+  - 1
+  - Go!
+  phaseSwitchTimes:
+  - 1
+  - 2
+  - 0.5
+  - 0.5
+  - 0.5
+  - 0.5
+  scoreboard: {fileID: 0}
+  creatorPrefab: {fileID: 1000010480780328, guid: 3b006f30bfeb3d84b99a682def722039,
+    type: 2}
+  playerPrefab: {fileID: 1000013445529504, guid: 7a080c066c8efbd4d8081438da81ca2a,
+    type: 2}
