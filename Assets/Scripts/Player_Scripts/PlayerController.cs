@@ -26,7 +26,7 @@ public class PlayerController: MonoBehaviour {
 	Rigidbody2D rBody;
 	public WeaponController currentWeapon;
 	public WeaponController defaultWeapon;
-	public GameController ui;
+	public PlayerHud ui;
 
 	// For Ground collision
 	bool onGround = false;
@@ -48,8 +48,8 @@ public class PlayerController: MonoBehaviour {
 
 		anims = GetComponentsInChildren<Animator> ();
 		rBody = GetComponent<Rigidbody2D> ();
-		if (GameObject.Find("UI"))
-			ui = GameObject.Find ("UI").GetComponent<GameController>();
+		if (GameObject.Find("PlayerUI"))
+			ui = GameObject.Find ("PlayerUI").GetComponent<PlayerHud>();
 
 		currentHealth = startingHealth;
 		if (ui) ui.updateHealth ();

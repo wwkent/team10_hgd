@@ -157,7 +157,7 @@ GameObject:
   - 223: {fileID: 223000012412400382}
   - 114: {fileID: 114000013523133154}
   - 114: {fileID: 114000010977008048}
-  - 114: {fileID: 114000010221685806}
+  - 114: {fileID: 114000013056169754}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -275,28 +275,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114000010221685806
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012583116856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc37c8b73361be44ea04f740c17eb4e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 114000011404370200}
-  timerText: {fileID: 114000010740481466}
-  roundText: {fileID: 114000012000903196}
-  ammoText: {fileID: 114000012110643698}
-  countdownText: {fileID: 114000013520509244}
-  powerUpText: {fileID: 114000012646333928}
-  healthBar: {fileID: 224000011453158880}
-  creatorPrefab: {fileID: 114000011852140638, guid: cde1a22010126a0459af1c6cd05f2b6a,
-    type: 2}
-  playerPrefab: {fileID: 114000013579520362, guid: 74f881760f3862647878d2a55546e020,
-    type: 2}
 --- !u!114 &114000010740481466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -452,7 +430,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b5a734aa32f3157438348612e1dceaa4, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -559,6 +537,24 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 00
+--- !u!114 &114000013056169754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012583116856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9de682d9e0453249b3749776a2e3927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 114000011404370200}
+  timerText: {fileID: 114000010740481466}
+  roundText: {fileID: 114000012000903196}
+  ammoText: {fileID: 114000012110643698}
+  powerUpText: {fileID: 114000012646333928}
+  powerUpImage: {fileID: 114000011986689236}
+  healthBar: {fileID: 224000011453158880}
 --- !u!114 &114000013520509244
 MonoBehaviour:
   m_ObjectHideFlags: 1
