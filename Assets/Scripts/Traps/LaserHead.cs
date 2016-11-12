@@ -29,38 +29,41 @@ public class LaserHead : MonoBehaviour {
 	void Update () {
 		stateTime++;
 
+		//TODO FIX JESSEE
 		if (stateTime >= stateLength [state]) {
 			stateTime = 0;
 			state = ((state + 1) % 3);
 
-			//Delete any previous segments
-			foreach (Transform child in transform.Find("LaserHead").GetComponentInChildren<Transform>()) {
-				LeanPool.Destroy (child.gameObject);
-			}
-
-			if(state == 1)
-				propogateLaser (laserSight);
-			if (state == 2) {
-				propogateLaser (laserBeam);
+			switch (state) {
+			case 0:
+				LeanPool.Destroy (transform.Find ("LaserBeam"));
+				break;
+			case 1:
+				shootLaser (laserSight);
+				break;
+			case 2:
+				LeanPool.Destroy (transform.Find ("LaserSight"));
+				shootLaser (laserBeam);
 				source.PlayOneShot (laserSound, 0.5f);
+				break;
 			}
 		}
 	}
 
-	void propogateLaser(Collider2D obj) {
-		//Create a laser sight/beam segment
-		GameObject segment = LeanPool.Spawn(obj.gameObject, 
-			new Vector3 (0, -0.5f, 0), Quaternion.identity, transform.Find("LaserHead"));
+	void shootLaser(Collider2D obj) {
+		Quaternion rotation = transform.localRotation;
+		SpriteRenderer renderer = GetComponent<SpriteRenderer> ();
+		Vector3 beginPoint = transform.position + (rotation * Vector3.up);
+		print (beginPoint);
 
-		float distance = Vector3.Distance (transform.Find("LaserHead").position, transform.Find("LaserEnd").position);
+		// Create a laser sight/beam segment
+		GameObject segment = LeanPool.Spawn(obj.gameObject, beginPoint, rotation, transform);
 
+		// Check to see how far the beam should go
+		RaycastHit2D hit = Physics2D.Raycast (beginPoint, (rotation * Vector3.up), 20, LayerMask.GetMask ("Platforms"));
+
+		// Stretch the beam to reach the end of the raycast
 		Vector3 prev = segment.transform.localScale;
-		segment.transform.localScale = new Vector3(prev.x, distance, prev.z);
-		//If this segment is colliding with something, delete it and break the loop
-		//if (segment.GetComponent<Collider2D>().IsTouchingLayers (LayerMask.NameToLayer("Platforms"))) {
-//		if (segment.GetComponent<Collider2D>().IsTouchingLayers (LayerMask.NameToLayer("Platforms"))) {
-//			LeanPool.Despawn (segment.gameObject);
-//			break;
-//		}
+		segment.transform.localScale = new Vector3(prev.x, hit.distance, prev.z);
 	}
 }
