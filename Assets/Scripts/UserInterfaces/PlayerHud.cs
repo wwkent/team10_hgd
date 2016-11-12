@@ -6,7 +6,6 @@ public class PlayerHud : MonoBehaviour {
 
 	public Text scoreText;
 	public Text timerText;
-	public Text roundText;
 	public Text ammoText;
 	public Text powerUpText;
 	public Image powerUpImage;
@@ -23,8 +22,6 @@ public class PlayerHud : MonoBehaviour {
 
 	private int score = 0;
 	private float powerUpTimer;
-	private float timer;
-	private int round;
 
 	private PlayerController player;
 
@@ -41,10 +38,8 @@ public class PlayerHud : MonoBehaviour {
 	}
 
 	private void updateTimers() {
-		timer = timer - Time.deltaTime;
 		if (powerUpTimer > 0) powerUpTimer -= Time.deltaTime;
 
-		timerText.text = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 		if (powerUpTimer > 0) {
 			powerUpText.text =	"" +
 			(int)(((powerUpTimer + 1) % 60) / 10) +
@@ -54,7 +49,10 @@ public class PlayerHud : MonoBehaviour {
 			powerUpText.text = "";
 			powerUpImage.color = new Color(255, 255, 255, 0);
 		}
-		roundText.text = "Round: " + round;
+	}
+
+	public void updateTimers(string timeFromGame) {
+		timerText.text = timeFromGame;
 	}
 
 	public void applyPowerUp(float duration, Sprite image)
@@ -79,7 +77,6 @@ public class PlayerHud : MonoBehaviour {
 	{
 		scoreText.text = "";
 		timerText.text = "";
-		roundText.text = "";
 		ammoText.text = "";
 		powerUpText.text = "";
 	}

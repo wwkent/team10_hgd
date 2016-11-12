@@ -38,6 +38,7 @@ GameObject:
   - 61: {fileID: 61000010320727374}
   - 114: {fileID: 114000012174516342}
   - 82: {fileID: 82000011210897556}
+  - 114: {fileID: 114000013294349448}
   m_Layer: 0
   m_Name: Sentry
   m_TagString: Untagged
@@ -185,6 +186,22 @@ MonoBehaviour:
     type: 2}
   rotateSpeed: 1
   range: 100
+--- !u!114 &114000013294349448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011869041426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363bde5ac3c00f9409cdc02b1b1fb1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Sentry
+  description: A stationary sentry that homes in on the player and shoots them
+  cost: 20
+  canPlaceOnWalls: 0
+  canPlaceInAir: 1
 --- !u!212 &212000010103140346
 SpriteRenderer:
   m_ObjectHideFlags: 1

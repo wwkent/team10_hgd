@@ -3,28 +3,36 @@ using System.Collections;
 
 public class CreatorController : MonoBehaviour {
 
-	public GameObject[] availableObjs;
+	public Trap[] availableObjs;
 	public float moveSpeed;
+	public int money;
 	// Used to get reference to see who is the current player
 	private GameController game;
 	private int currObj;
 	private Transform currObjRenderer;
-	public Transform snappedEdge;
-	public Vector3 snappedEdgePos;
-	public int snappedEdgeSide;
+	private Transform snappedEdge;
+	private Vector3 snappedEdgePos;
+	private bool canPlace;
 
+	public CreatorHud ui;
 
 	// Use this for initialization
 	void Start () {
 		// game = GameObject.Find ("UI").GetComponent<GameController> ();
 		// print (game.player);
+		money = 100; // Change when necessary
 		currObj = 0;
 		currObjRenderer = transform.Find ("currentObj");
 		setObjRenderer ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
+		if (!ui) {
+			ui = GameObject.Find ("CreatorUI").GetComponent<CreatorHud>();
+			ui.updateMoneyText(money);
+			setObjRenderer ();
+		}
 		float inputXAmount = Input.GetAxis ("L_XAxis_1");
 		float inputYAmount = Input.GetAxis ("L_YAxis_1");
 
@@ -53,12 +61,12 @@ public class CreatorController : MonoBehaviour {
 
 		// Reset the snapped object if out of range of any cubes
 		LayerMask platforms = LayerMask.GetMask("Platforms");
-		if (!GetComponent<CircleCollider2D> ().IsTouchingLayers (platforms) || Input.GetButton ("Y_1")) {
+		if (!GetComponent<CircleCollider2D> ().IsTouchingLayers (platforms) || Input.GetButton ("Y_1") ||
+				!availableObjs[currObj].canPlaceOnWalls) {
 			// Reset the object snapped to
 			snappedEdge = null;
 			currObjRenderer.localPosition = new Vector3 (0, 0, 0);
 			currObjRenderer.eulerAngles = new Vector3 (0, 0, 0);
-			snappedEdgeSide = 0;
 		} else {
 			/* Update currObjectRenderer's position/rotation on the snapped edge
 			 * manually, as this may not be called every frame. This prevents the
@@ -66,6 +74,15 @@ public class CreatorController : MonoBehaviour {
 			if(snappedEdge != null)
 				OnTriggerStay2D (snappedEdge.gameObject.GetComponent<BoxCollider2D> ());
 		}
+
+		//Check if you can place this object right now
+		canPlace = (availableObjs [currObj].canPlaceInAir || snappedEdge != null);
+		Color color;
+		if(canPlace)
+			color = new Color(1f, 1f, 1f, 0.7f);
+		else
+			color = new Color(1f, 0f, 0f, 0.3f);
+		currObjRenderer.GetComponent<SpriteRenderer> ().color = color;
 	}
 
 	void OnTriggerStay2D(Collider2D other) {
@@ -74,6 +91,10 @@ public class CreatorController : MonoBehaviour {
 		if (Input.GetButton ("Y_1"))
 			return;
 
+		// Don't snap to an edge if an object cannot do so
+		if (!availableObjs [currObj].canPlaceOnWalls)
+			return;
+		
 		// Get the object that was collided with
 		GameObject obj = other.gameObject;
 
@@ -121,19 +142,25 @@ public class CreatorController : MonoBehaviour {
 
 	private void spawnGameObject()
 	{
-		GameObject spawned = Instantiate (availableObjs [currObj]);
-		spawned.transform.position = currObjRenderer.position;
-		spawned.transform.rotation = currObjRenderer.rotation;
-		spawned.GetComponent<SentryController>().enabled = false;
-		Debug.Log ("Creator has created: " + spawned.name);
+		if (canPlace && availableObjs [currObj].cost <= money) {
+			GameObject spawned = Instantiate (availableObjs [currObj].gameObject);
+			spawned.transform.position = currObjRenderer.position;
+			spawned.transform.rotation = currObjRenderer.rotation;
+			money -= availableObjs [currObj].cost;
+			ui.updateMoneyText (money);
+			Debug.Log ("Creator has created: " + spawned.name);
+			if(spawned.GetComponent<SentryController> ())
+				spawned.GetComponent<SentryController> ().enabled = false;
+		}
 	}
 
 	private void setObjRenderer()
 	{
-		SpriteRenderer currSelectedSprite = availableObjs [currObj].GetComponent<SpriteRenderer> ();
+		SpriteRenderer currSelectedSprite = availableObjs [currObj].gameObject.GetComponent<SpriteRenderer> ();
 		currObjRenderer.GetComponent<SpriteRenderer>().sprite = currSelectedSprite.sprite;
 		Color temp = currObjRenderer.GetComponent<SpriteRenderer> ().color;
 		temp.a = 0.7f;
 		currObjRenderer.GetComponent<SpriteRenderer> ().color = temp;
+		ui.updateObjectPreview (currObj);
 	}
 }
