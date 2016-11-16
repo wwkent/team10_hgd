@@ -38,6 +38,9 @@ public class CollisionController : MonoBehaviour {
 		case "Slime":
 			player.jumpForce = 600f;
 			break;
+		case "Ladder":
+			player.onLadder = true;
+			break;
 		}
 	}
 
