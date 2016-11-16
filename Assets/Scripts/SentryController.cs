@@ -12,8 +12,8 @@ public class SentryController : WeaponController {
 	void Start() {
 		if (rotateSpeed < 1f)
 			rotateSpeed = 1f;
-		if (GameObject.Find ("Player"))
-			target = GameObject.Find ("Player").transform;
+		if (GameObject.Find ("PlayerEnt"))
+			target = GameObject.Find ("PlayerEnt").transform;
 		source = GetComponent<AudioSource> ();
 	}
 
