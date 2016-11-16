@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		state = 0;
 		round = 1;
-		timer = 10f;
+		timer = 30f;
 		camera = GameObject.Find("Main Camera").GetComponent<DynamicCamera>();
 		scoreboard.SetActive (false);
 		//generateMap ();

@@ -29,20 +29,19 @@ public class LaserHead : MonoBehaviour {
 	void Update () {
 		stateTime++;
 
-		//TODO FIX JESSEE
 		if (stateTime >= stateLength [state]) {
 			stateTime = 0;
 			state = ((state + 1) % 3);
 
 			switch (state) {
 			case 0:
-				LeanPool.Destroy (transform.Find ("LaserBeam"));
+				LeanPool.Destroy (transform.GetChild(0).gameObject);
 				break;
 			case 1:
 				shootLaser (laserSight);
 				break;
 			case 2:
-				LeanPool.Destroy (transform.Find ("LaserSight"));
+				LeanPool.Destroy (transform.GetChild(0).gameObject);
 				shootLaser (laserBeam);
 				source.PlayOneShot (laserSound, 0.5f);
 				break;
@@ -54,16 +53,21 @@ public class LaserHead : MonoBehaviour {
 		Quaternion rotation = transform.localRotation;
 		SpriteRenderer renderer = GetComponent<SpriteRenderer> ();
 		Vector3 beginPoint = transform.position + (rotation * Vector3.up);
-		print (beginPoint);
 
 		// Create a laser sight/beam segment
-		GameObject segment = LeanPool.Spawn(obj.gameObject, beginPoint, rotation, transform);
+		GameObject segment = LeanPool.Spawn(obj.gameObject, Vector3.up, Quaternion.Euler(new Vector3(0, 0, 180)), transform);
 
 		// Check to see how far the beam should go
-		RaycastHit2D hit = Physics2D.Raycast (beginPoint, (rotation * Vector3.up), 20, LayerMask.GetMask ("Platforms"));
+		RaycastHit2D hit = Physics2D.Raycast (beginPoint, rotation * Vector2.up, 20, LayerMask.GetMask ("Platforms"));
 
 		// Stretch the beam to reach the end of the raycast
 		Vector3 prev = segment.transform.localScale;
 		segment.transform.localScale = new Vector3(prev.x, hit.distance, prev.z);
+	}
+
+	// Check if a laser shooting from this position/rotation would hit anything
+	public static bool checkLaser(Vector3 position, Quaternion rotation) {
+		RaycastHit2D hit = Physics2D.Raycast (position + (rotation * Vector3.up), rotation * Vector2.up, 20, LayerMask.GetMask ("Platforms"));
+		return (hit.collider != null);
 	}
 }

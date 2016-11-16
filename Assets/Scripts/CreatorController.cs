@@ -59,10 +59,11 @@ public class CreatorController : MonoBehaviour {
 
 		GetComponent<CircleCollider2D> ().attachedRigidbody.WakeUp();
 
+		Trap thisObj = availableObjs [currObj];
 		// Reset the snapped object if out of range of any cubes
 		LayerMask platforms = LayerMask.GetMask("Platforms");
-		if (!GetComponent<CircleCollider2D> ().IsTouchingLayers (platforms) || Input.GetButton ("Y_1") ||
-				!availableObjs[currObj].canPlaceOnWalls) {
+		if (snappedEdge == null ||!GetComponent<CircleCollider2D> ().IsTouchingLayers (platforms) || 
+				Input.GetButton ("Y_1") || !thisObj.canPlaceOnWalls) {
 			// Reset the object snapped to
 			snappedEdge = null;
 			currObjRenderer.localPosition = new Vector3 (0, 0, 0);
@@ -74,9 +75,14 @@ public class CreatorController : MonoBehaviour {
 			if(snappedEdge != null)
 				OnTriggerStay2D (snappedEdge.gameObject.GetComponent<BoxCollider2D> ());
 		}
-
+			
 		//Check if you can place this object right now
-		canPlace = (availableObjs [currObj].canPlaceInAir || snappedEdge != null);
+		canPlace = (thisObj.canPlaceInAir || snappedEdge != null);
+		//Check if a laser hits something
+		if (thisObj.name.Equals ("Laser") && !LaserHead.checkLaser (currObjRenderer.transform.position, 
+			currObjRenderer.transform.rotation))
+			canPlace = false;
+		
 		Color color;
 		if(canPlace)
 			color = new Color(1f, 1f, 1f, 0.7f);
@@ -116,9 +122,10 @@ public class CreatorController : MonoBehaviour {
 			dir = Quaternion.Euler (0f, 0f, 90f) * dir;
 		}
 
-		//TODO Fix maybe?
-		if (closestPos == Vector3.zero)
+		if (closestPos == Vector3.zero) {
+			snappedEdge = null;
 			return;
+		}
 
 		// Calculate that point relative to the Creator
 		Vector3 relativePos = closestPos - transform.position;
