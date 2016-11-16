@@ -11,6 +11,7 @@ public class PlayerController: MonoBehaviour {
 	public float jumpForce = 2000f;
 	public float startingHealth = 100F;
 	public float currentHealth;
+	public bool onLadder = false;
 
 	// Player Default Attributes
 	// Is based on the player's values at Start
@@ -45,6 +46,7 @@ public class PlayerController: MonoBehaviour {
 		default_maxSpeed = maxSpeed;
 		default_jumpForce = jumpForce;
 		default_gravityScale = this.GetComponent<Rigidbody2D> ().gravityScale;
+		onLadder = false;
 
 		anims = GetComponentsInChildren<Animator> ();
 		rBody = GetComponent<Rigidbody2D> ();
@@ -65,7 +67,7 @@ public class PlayerController: MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (onGround && (Input.GetButtonDown("A_1") || Input.GetKeyDown("space"))) {
+		if ((onGround || onLadder) && (Input.GetButtonDown("A_1") || Input.GetKeyDown("space"))) {
 			rBody.AddForce (new Vector2 (0f, jumpForce));
 			onGround = false;
 		}
@@ -88,7 +90,8 @@ public class PlayerController: MonoBehaviour {
 		float inputDirection = Input.GetAxis ("L_XAxis_1");
 		// Calculate how much the velocity should change based on xAccel
 		float velChange = inputDirection * xAccel;
-		float newXVelocity;
+		float newXVelocity, newYVelocity;
+
 		if (velChange != 0f) {
 			// Add to the current velocity
 			newXVelocity = rBody.velocity.x + velChange;
@@ -103,8 +106,25 @@ public class PlayerController: MonoBehaviour {
 		// Limit the max velocity
 		newXVelocity = Mathf.Clamp(newXVelocity, -maxSpeed, maxSpeed);
 
+		if (onLadder) {
+			float inputY = Input.GetAxis ("L_YAxis_1");
+			float yVelChange = -1 * inputY * xAccel;
+			if (yVelChange != 0f) {
+				// Add to the current velocity
+				newYVelocity = rBody.velocity.y + yVelChange;
+			} else { 
+				// Stop completely if there's no input
+				newYVelocity = 0f;
+				rBody.gravityScale = 0f;
+			}
+			newYVelocity = Mathf.Clamp(newYVelocity, -maxSpeed, maxSpeed);
+		} else {
+			newYVelocity = rBody.velocity.y;
+		}
+
 		// Apply the new velocity
-		rBody.velocity = new Vector2 (newXVelocity, rBody.velocity.y);
+		rBody.velocity = new Vector2 (newXVelocity, newYVelocity);
+
 
 		// Update the speed of the walking animation
 		for (int i=0; i<anims.Length; i++)
@@ -230,6 +250,8 @@ public class PlayerController: MonoBehaviour {
 		maxSpeed = default_maxSpeed;
 		jumpForce = default_jumpForce;
 		GetComponent<Rigidbody2D>().gravityScale = default_gravityScale;
+		onLadder = false;
+		rBody.gravityScale = 9.8f;
 	}
 
 	public IEnumerator powerUpUntilRoutine(float duration)
