@@ -12,7 +12,8 @@ public class GameController : MonoBehaviour {
 	// public int whoIsPlayer;
 	// public int whoIsCreator;
 
-	private int score = 0;
+	private int[] scores = {0, 0};
+	private int[] roles = {0, 1};
 	//Increase this for a longer Creator phase
 	private float timer = 10.0F;
 	private int state;
@@ -44,7 +45,12 @@ public class GameController : MonoBehaviour {
 		state = 0;
 		round = 1;
 		timer = 30f;
+		scores [0] = 0;
+		scores [1] = 0;
+		roles [0] = 0;
+		roles [1] = 1;
 		camera = GameObject.Find("Main Camera").GetComponent<DynamicCamera>();
+		scoreboard = Instantiate (scoreboard);
 		scoreboard.SetActive (false);
 		//generateMap ();
 	}
@@ -66,6 +72,12 @@ public class GameController : MonoBehaviour {
 				if (timer <= 0) {
 					creatorContainer.gameObject.SetActive(false);
 					scoreboard.SetActive (true);
+					scoreboard.GetComponent<Scoreboard> ().updateScoreboardAll (phaseSwitchMessages[0], 
+																				scores[0], 
+																				scores[1], 
+																				roles[0], 
+																				roles[1], 
+																				round);
 					timer = phaseSwitchTimes[0];
 					state = 1;
 				}
@@ -81,6 +93,7 @@ public class GameController : MonoBehaviour {
 						timer = 120.0F;
 						state = 2;
 					} else {
+						scoreboard.GetComponent<Scoreboard> ().updateScoreboardMessage (phaseSwitchMessages[phaseSwitchState]);
 						timer = phaseSwitchTimes [phaseSwitchState];
 					}
 				}
@@ -98,6 +111,13 @@ public class GameController : MonoBehaviour {
 			}
 		case 3: //TODO: End of Round
 			{
+				Destroy (mapContainer);
+				string timeText;
+				timeText = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
+				player.ui.updateTimers (timeText);
+				if (timer <= 0 || player.currentHealth <= 0) {
+					state = 0;
+				}
 				break;
 			}
 		}

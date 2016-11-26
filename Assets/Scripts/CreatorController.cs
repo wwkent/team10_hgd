@@ -157,7 +157,7 @@ public class CreatorController : MonoBehaviour {
 			money -= availableObjs [currObj].cost;
 			ui.updateMoneyText (money);
 			Debug.Log ("Creator has created: " + spawned.name);
-			if(spawned.GetComponent<SentryController> ())
+			if (spawned.GetComponent<SentryController> ())
 				spawned.GetComponent<SentryController> ().enabled = false;
 		}
 	}
