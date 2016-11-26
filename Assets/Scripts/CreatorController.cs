@@ -53,6 +53,7 @@ public class CreatorController : MonoBehaviour {
 				currObj = availableObjs.Length - 1;
 			setObjRenderer ();
 		}
+		
 		// Calculate how much the velocity should change based on xAccel
 		Vector3 direction = new Vector3 (inputXAmount, -inputYAmount, 0.0f);
 		transform.Translate (moveSpeed * direction * Time.deltaTime);

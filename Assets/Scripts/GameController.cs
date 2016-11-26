@@ -36,6 +36,8 @@ public class GameController : MonoBehaviour {
 	private PlayerController player;
 	private PlayerHud playerUI;
 
+	private GameObject mapContainer;
+
 	private DynamicCamera camera;
 
 	void Start () {
@@ -51,8 +53,9 @@ public class GameController : MonoBehaviour {
 		switch (state) {
 		case 0: //Creator
 			{
-				// JESSE ATTENTION!!!: THIS IS HOW WE ARE UPDATING THE UI SINCE THEY ARE SEPARATE NOW.
-				//	IF THIS IS AS TERRIBLE AS I AM BEGINNING TO THINK MAYBE CHANGE PLZ. 
+				if (!mapContainer)
+					generateMap ();
+				
 				string timeText;
 				timeText = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 				if (!creator) {
@@ -116,8 +119,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void generateMap(){
-		string rnd = Random.Range (1, 2).ToString();
+		string rnd = Random.Range (1, 3).ToString();
 		string mapPath = "Map" + rnd;
-		GameObject map = Instantiate (Resources.Load(mapPath, typeof(GameObject))) as GameObject;
+		mapContainer = Instantiate (Resources.Load(mapPath, typeof(GameObject))) as GameObject;
 	}
 }
