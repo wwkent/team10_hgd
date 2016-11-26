@@ -1003,7 +1003,6 @@ GameObject:
   - 23: {fileID: 23000012859360808}
   - 61: {fileID: 61000010005989888}
   - 114: {fileID: 114000013237714504}
-  - 114: {fileID: 114000010430893312}
   m_Layer: 12
   m_Name: Cube
   m_TagString: Cube
@@ -7234,17 +7233,6 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010198517416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fbefb97644809f47ab5c16647b262ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000010430893312
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012435861724}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fbefb97644809f47ab5c16647b262ab, type: 3}
