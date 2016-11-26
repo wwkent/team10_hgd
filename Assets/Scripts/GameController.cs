@@ -119,7 +119,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void generateMap(){
-		string rnd = Random.Range (1, 3).ToString();
+		string rnd = Random.Range (1, 4).ToString();
 		string mapPath = "Map" + rnd;
 		mapContainer = Instantiate (Resources.Load(mapPath, typeof(GameObject))) as GameObject;
 	}

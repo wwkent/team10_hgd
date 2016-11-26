@@ -169,6 +169,7 @@ public class CreatorController : MonoBehaviour {
 		Color temp = currObjRenderer.GetComponent<SpriteRenderer> ().color;
 		temp.a = 0.7f;
 		currObjRenderer.GetComponent<SpriteRenderer> ().color = temp;
+		// print (currObj);
 		ui.updateObjectPreview (currObj);
 	}
 }
