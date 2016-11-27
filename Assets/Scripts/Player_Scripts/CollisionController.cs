@@ -4,9 +4,11 @@ using System.Collections;
 public class CollisionController : MonoBehaviour {
 
 	public PlayerController player;
+	public GameController game;
 
 	void Start() {
 		player = GetComponent<PlayerController> ();
+		game = GameObject.Find ("Game").GetComponent<GameController> ();
 	}
 
 	//For objects that aren't triggers
@@ -15,6 +17,12 @@ public class CollisionController : MonoBehaviour {
 
 		case "LaserBeam":
 			player.applyDamage (1f);
+			break;
+		case "Lava":
+			player.applyDamage (1f);
+			break;
+		case "Slime":
+			player.jumpForce = 600f;
 			break;
 		}
 	}
@@ -32,16 +40,18 @@ public class CollisionController : MonoBehaviour {
 		case "Spike":
 			player.applyDamage (1f);
 			break;
-		case "Lava":
-			player.applyDamage (1f);
-			break;
-		case "Slime":
-			player.jumpForce = 600f;
-			break;
 		case "Ladder":
 			player.onLadder = true;
 			break;
+		case "EndFlag":
+			game.endPlayerPhase ();
+			break;
 		}
+	}
+
+	void OnCollisionExit2D(Collision2D col)
+	{
+		player.resetAttributesToDefault ();
 	}
 
 	void OnTriggerExit2D(Collider2D col)

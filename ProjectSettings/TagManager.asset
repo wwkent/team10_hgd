@@ -14,6 +14,8 @@ TagManager:
   - Lava
   - Slime
   - Ladder
+  - EndFlag
+  - Enemies
   layers:
   - Default
   - TransparentFX

@@ -446,7 +446,7 @@ MonoBehaviour:
   - {fileID: 114000013104352942, guid: 1a0c5be71b07bcb418c6cc730fe8b263, type: 2}
   moveSpeed: 10
   money: 0
-  ui: {fileID: 0}
+  ui: {fileID: 114000011569616786}
 --- !u!114 &114000012258139728
 MonoBehaviour:
   m_ObjectHideFlags: 1

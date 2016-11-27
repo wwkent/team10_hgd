@@ -10,7 +10,7 @@ public class CreatorHud : MonoBehaviour {
 	public Transform objPreview;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		if (GameObject.Find("CreatorEnt"))
 			creator = GameObject.Find ("CreatorEnt").GetComponent<CreatorController>();
 		eraseAllText ();

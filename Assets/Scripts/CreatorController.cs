@@ -18,7 +18,7 @@ public class CreatorController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		// game = GameObject.Find ("UI").GetComponent<GameController> ();
+		game = GameObject.Find ("Game").GetComponent<GameController> ();
 		// print (game.player);
 		money = 100; // Change when necessary
 		currObj = 0;
@@ -53,6 +53,7 @@ public class CreatorController : MonoBehaviour {
 				currObj = availableObjs.Length - 1;
 			setObjRenderer ();
 		}
+		
 		// Calculate how much the velocity should change based on xAccel
 		Vector3 direction = new Vector3 (inputXAmount, -inputYAmount, 0.0f);
 		transform.Translate (moveSpeed * direction * Time.deltaTime);
@@ -156,8 +157,10 @@ public class CreatorController : MonoBehaviour {
 			money -= availableObjs [currObj].cost;
 			ui.updateMoneyText (money);
 			Debug.Log ("Creator has created: " + spawned.name);
-			if(spawned.GetComponent<SentryController> ())
+			if (spawned.GetComponent<SentryController> ())
 				spawned.GetComponent<SentryController> ().enabled = false;
+
+			game.applyGameObject (spawned);
 		}
 	}
 
@@ -168,6 +171,7 @@ public class CreatorController : MonoBehaviour {
 		Color temp = currObjRenderer.GetComponent<SpriteRenderer> ().color;
 		temp.a = 0.7f;
 		currObjRenderer.GetComponent<SpriteRenderer> ().color = temp;
+		// print (currObj);
 		ui.updateObjectPreview (currObj);
 	}
 }

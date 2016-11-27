@@ -665,6 +665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  game: {fileID: 0}
 --- !u!114 &114000010927163728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -826,6 +827,7 @@ MonoBehaviour:
   jumpForce: 3500
   startingHealth: 100
   currentHealth: 0
+  onLadder: 0
   currentWeapon: {fileID: 0}
   defaultWeapon: {fileID: 114000013048013508, guid: 1838a38f20b2f074fa1304dd8c7caa41,
     type: 2}
@@ -835,7 +837,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4352
   blink_speed: 0.3
-  invincible_duration: 3
+  invincible_duration: 1
 --- !u!114 &114000012535100854
 MonoBehaviour:
   m_ObjectHideFlags: 1

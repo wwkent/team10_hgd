@@ -58,9 +58,11 @@ public class WeaponController : MonoBehaviour {
 			generateTrail (hit.distance);
 			print ("Hit: " + hit.transform.name);
 			if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Platforms") {
-				// Do things to the enemy
+				
 			} else if (hit.transform.gameObject.tag == "Enemies") {
-
+				hit.transform.GetComponent<SentryController> ().applyDamage (40);
+			} else if (hit.transform.gameObject.tag == "Player") {
+				hit.transform.GetComponent<PlayerController> ().applyDamage (10);
 			}
 		} else {
 			generateTrail ();
