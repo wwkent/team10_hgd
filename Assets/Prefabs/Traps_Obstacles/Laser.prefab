@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85aac19a4ba2304192dd754f0eb35c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateLength: 3c0000003c0000001e000000
+  stateLength: 010000000100000001000000
   laserSight: {fileID: 61000010261775102, guid: bc9b70398543dcf4e9c85a0c40a12aa4,
     type: 2}
   laserBeam: {fileID: 61000014143004250, guid: 86bb05b4f24a19e4fad4df9c2fd7e388, type: 2}

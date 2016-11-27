@@ -5,7 +5,7 @@ using Lean;
 public class LaserHead : MonoBehaviour {
 
 	//# of frames to stay in each state
-	public int[] stateLength = { 60, 60, 30 };
+	public int[] stateLength = { 1, 1, 1 };
 	//Prefabs to shoot (LaserSight and LaserBeam)
 	public Collider2D laserSight;
 	public Collider2D laserBeam;
@@ -23,14 +23,11 @@ public class LaserHead : MonoBehaviour {
 	 * 2 - Firing laser
 	 */
 	int state = 0;
-	int stateTime = 0;
+	float nextState = 0F;
 	
 	// Update is called once per frame
 	void Update () {
-		stateTime++;
-
-		if (stateTime >= stateLength [state]) {
-			stateTime = 0;
+		if (Time.time > nextState) {
 			state = ((state + 1) % 3);
 
 			switch (state) {
@@ -46,6 +43,7 @@ public class LaserHead : MonoBehaviour {
 				source.PlayOneShot (laserSound, 0.5f);
 				break;
 			}
+			nextState = Time.time + 1 / stateLength[state];
 		}
 	}
 
