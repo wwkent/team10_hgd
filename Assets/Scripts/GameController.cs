@@ -245,7 +245,13 @@ public class GameController : MonoBehaviour {
 			}
 		case 4: // END GAME
 			{
-				scoreboard.setLoser (3);
+				if (scores [0] < scores [1])
+					scoreboard.setLoser (0);
+				else if (scores [1] < scores [0])
+					scoreboard.setLoser (1);
+				else
+					scoreboard.setLoser (3);
+				
 				if (Input.GetButtonDown ("A_1") || Input.GetButtonDown ("A_2")) {
 					SceneManager.LoadScene ("MainMenu");	
 				}
