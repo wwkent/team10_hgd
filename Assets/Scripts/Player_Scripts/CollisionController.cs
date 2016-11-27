@@ -16,6 +16,12 @@ public class CollisionController : MonoBehaviour {
 		case "LaserBeam":
 			player.applyDamage (1f);
 			break;
+		case "Lava":
+			player.applyDamage (1f);
+			break;
+		case "Slime":
+			player.jumpForce = 600f;
+			break;
 		}
 	}
 
@@ -32,16 +38,15 @@ public class CollisionController : MonoBehaviour {
 		case "Spike":
 			player.applyDamage (1f);
 			break;
-		case "Lava":
-			player.applyDamage (1f);
-			break;
-		case "Slime":
-			player.jumpForce = 600f;
-			break;
 		case "Ladder":
 			player.onLadder = true;
 			break;
 		}
+	}
+
+	void OnCollisionExit2D(Collision2D col)
+	{
+		player.resetAttributesToDefault ();
 	}
 
 	void OnTriggerExit2D(Collider2D col)

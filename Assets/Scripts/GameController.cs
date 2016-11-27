@@ -13,7 +13,8 @@ public class GameController : MonoBehaviour {
 	// public int whoIsCreator;
 
 	private int[] scores = {0, 0};
-	private int[] roles = {0, 1};
+	private int currPlayer;
+	private int currCreator;
 	//Increase this for a longer Creator phase
 	private float timer = 10.0F;
 	private int state;
@@ -25,7 +26,8 @@ public class GameController : MonoBehaviour {
 	public float[] phaseSwitchTimes = { 1f, 2f, 0.5f, 0.5f, 0.5f, 0.5f };
 	private int phaseSwitchState = 0;
 
-	public GameObject scoreboard;
+	public GameObject scoreboardCanvas;
+	private Scoreboard scoreboard;
 	public GameObject creatorPrefab;
 	public GameObject playerPrefab;
 
@@ -44,15 +46,16 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		state = 0;
 		round = 1;
-		timer = 30f;
+		timer = 10f;
 		scores [0] = 0;
 		scores [1] = 0;
-		roles [0] = 0;
-		roles [1] = 1;
+		currPlayer = 0;
+		currCreator = 1;
+
 		camera = GameObject.Find("Main Camera").GetComponent<DynamicCamera>();
-		scoreboard = Instantiate (scoreboard);
-		scoreboard.SetActive (false);
-		//generateMap ();
+		scoreboardCanvas = Instantiate (scoreboardCanvas);
+		scoreboard = scoreboardCanvas.transform.FindChild ("Scoreboard").GetComponent<Scoreboard> ();
+		scoreboardCanvas.SetActive (false);
 	}
 
 	void Update () {
@@ -71,15 +74,17 @@ public class GameController : MonoBehaviour {
 
 				if (timer <= 0) {
 					creatorContainer.gameObject.SetActive(false);
-					scoreboard.SetActive (true);
-					scoreboard.GetComponent<Scoreboard> ().updateScoreboardAll (phaseSwitchMessages[0], 
-																				scores[0], 
-																				scores[1], 
-																				roles[0], 
-																				roles[1], 
-																				round);
+					scoreboardCanvas.SetActive (true);
+					scoreboard.updateScoreboardAll (
+						phaseSwitchMessages[0], 
+						scores[0], 
+						scores[1], 
+						currPlayer, 
+						currCreator, 
+						round);
+					phaseSwitchState = 0;
 					timer = phaseSwitchTimes[0];
-					state = 1;
+					nextState ();
 				}
 				break;
 			}
@@ -88,12 +93,15 @@ public class GameController : MonoBehaviour {
 				if (timer <= 0) {
 					phaseSwitchState++;
 					if (phaseSwitchState >= phaseSwitchMessages.Length) {
-						scoreboard.SetActive (false);
-						createPlayer ();
-						timer = 120.0F;
-						state = 2;
+						scoreboardCanvas.SetActive (false);
+						if (!playerContainer)
+							createPlayer ();
+						playerContainer.gameObject.SetActive (true);
+						camera.setFollowing (player.gameObject);
+						timer = 10F; // CHANGE THIS BACK
+						nextState ();
 					} else {
-						scoreboard.GetComponent<Scoreboard> ().updateScoreboardMessage (phaseSwitchMessages[phaseSwitchState]);
+						scoreboard.updateScoreboardMessage (phaseSwitchMessages[phaseSwitchState]);
 						timer = phaseSwitchTimes [phaseSwitchState];
 					}
 				}
@@ -105,23 +113,48 @@ public class GameController : MonoBehaviour {
 				timeText = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 				player.ui.updateTimers (timeText);
 				if (timer <= 0 || player.currentHealth <= 0) {
-					state = 3;
+					playerContainer.gameObject.SetActive (false);
+					timer = 10f;
+
+					scoreboardCanvas.SetActive (true);
+					scoreboard.updateScoreboardAll (
+						phaseSwitchMessages[0], 
+						scores[0], 
+						scores[1], 
+						currPlayer, 
+						currCreator, 
+						round);
+					
+					nextState ();
 				}
 				break;
 			}
-		case 3: //TODO: End of Round
+		case 3:
 			{
 				Destroy (mapContainer);
 				string timeText;
 				timeText = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
-				player.ui.updateTimers (timeText);
-				if (timer <= 0 || player.currentHealth <= 0) {
-					state = 0;
+				scoreboard.updateScoreboardMessage (timeText);
+
+				if (timer <= 0) {
+					timer = 10f;
+					scoreboardCanvas.gameObject.SetActive (false);
+					creatorContainer.gameObject.SetActive (true);
+					camera.setFollowing (creator.gameObject);
+					nextState ();
 				}
 				break;
 			}
 		}
 		timer -= Time.deltaTime;
+	}
+
+	private void nextState()
+	{
+		if (state >= 3)
+			state = 0;
+		else
+			state = state + 1;
 	}
 
 	private void createPlayer() {

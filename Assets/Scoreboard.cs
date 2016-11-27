@@ -23,14 +23,19 @@ public class Scoreboard : MonoBehaviour {
 		p2Role = transform.Find ("Player2Role").GetComponent<Image> ();
 	}
 	
-	public void updateScoreboardAll(string timer, int p1Score, int p2Score, int p1role, int p2role, int round)
+	public void updateScoreboardAll(string timer, int p1Score, int p2Score, int currPlayer, int currCreator, int round)
 	{
 		timerText.text = timer;
 		roundText.text = round.ToString ();
 		p1ScoreText.text = p1Score.ToString ();
 		p2ScoreText.text = p2Score.ToString ();
-		p1Role.sprite = roleSprites [p1role];
-		p2Role.sprite = roleSprites [p2role];
+		if (currPlayer == 0) {
+			p1Role.sprite = roleSprites [0];
+			p2Role.sprite = roleSprites [1];
+		} else {
+			p1Role.sprite = roleSprites [1];
+			p2Role.sprite = roleSprites [0];
+		}
 	}
 
 	public void updateScoreboardMessage(string timerMsg)
