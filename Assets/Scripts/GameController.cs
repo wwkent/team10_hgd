@@ -224,6 +224,7 @@ public class GameController : MonoBehaviour {
 					Vector3 tempPos = mapinfo.startLocation.transform.position;
 					tempPos.z = player.transform.position.z;
 					player.transform.position = tempPos;
+					scores [currPlayer] -= 100;
 				}
 				break;
 			}
