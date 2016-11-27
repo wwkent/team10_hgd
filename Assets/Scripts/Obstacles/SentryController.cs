@@ -6,6 +6,7 @@ public class SentryController : WeaponController {
 	private Transform target;
 	public float rotateSpeed;
 	public float range = 100f;
+	public int health = 100;
 	private Quaternion lookRotation;
 	private Vector3 direction;
 
@@ -13,7 +14,7 @@ public class SentryController : WeaponController {
 		if (rotateSpeed < 1f)
 			rotateSpeed = 1f;
 		if (GameObject.Find ("PlayerEnt"))
-			target = GameObject.Find ("PlayerEnt").transform;
+			setPlayer ();
 		source = GetComponent<AudioSource> ();
 	}
 
@@ -30,5 +31,17 @@ public class SentryController : WeaponController {
 		if (hit && LayerMask.LayerToName (hit.transform.gameObject.layer) == "Character") {
 			Fire ();
 		}
+	}
+
+	public void applyDamage(int damage)
+	{
+		health -= damage;
+		if (health <= 0)
+			Destroy (gameObject);
+	}
+
+	public void setPlayer()
+	{
+		target = GameObject.Find("PlayerEnt").transform;
 	}
 }

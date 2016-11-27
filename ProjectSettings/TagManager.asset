@@ -15,6 +15,7 @@ TagManager:
   - Slime
   - Ladder
   - EndFlag
+  - Enemies
   layers:
   - Default
   - TransparentFX

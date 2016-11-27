@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010286150456}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: firePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,9 +39,9 @@ GameObject:
   - 114: {fileID: 114000012174516342}
   - 82: {fileID: 82000011210897556}
   - 114: {fileID: 114000013294349448}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sentry
-  m_TagString: Untagged
+  m_TagString: Enemies
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,15 +177,16 @@ MonoBehaviour:
   fireRate: 1
   canBeShot:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 6400
   firePoint: {fileID: 4000010286150456}
   projSpeed: 10
   gunshot: {fileID: 8300000, guid: 37d6b7dac92223646842524986e49272, type: 3}
   shotObject: {fileID: 0}
   bulletTrailPrefab: {fileID: 1000012711377922, guid: 40a60c3cb2dfd204aa4d03f4dd276d97,
     type: 2}
-  rotateSpeed: 1
-  range: 100
+  rotateSpeed: 10
+  range: 50
+  health: 100
 --- !u!114 &114000013294349448
 MonoBehaviour:
   m_ObjectHideFlags: 1

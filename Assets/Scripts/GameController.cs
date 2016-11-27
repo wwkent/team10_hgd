@@ -126,6 +126,12 @@ public class GameController : MonoBehaviour {
 						tempPos.z = player.transform.position.z;
 						player.transform.position = tempPos;
 
+						SentryController[] sentries = spawnedContainer.GetComponentsInChildren<SentryController> ();
+						foreach (SentryController sentry in sentries) {
+							sentry.enabled = true;
+							sentry.setPlayer ();
+						}
+
 						nextState ();
 					} else {
 						scoreboard.updateScoreboardMessage (phaseSwitchMessages[phaseSwitchState]);
