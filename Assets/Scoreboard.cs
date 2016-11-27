@@ -10,6 +10,7 @@ public class Scoreboard : MonoBehaviour {
 	private Text roundText;
 	private Text p1ScoreText;
 	private Text p2ScoreText;
+	private Text infoText;
 	private Image p1Role;
 	private Image p2Role;
 
@@ -19,11 +20,19 @@ public class Scoreboard : MonoBehaviour {
 		roundText = transform.Find ("Round#").GetComponent<Text> ();
 		p1ScoreText = transform.Find ("Player1Score").GetComponent<Text> ();
 		p2ScoreText = transform.Find ("Player2Score").GetComponent<Text> ();
+		infoText = transform.Find ("Info").GetComponent<Text> ();
 		p1Role = transform.Find ("Player1Role").GetComponent<Image> ();
 		p2Role = transform.Find ("Player2Role").GetComponent<Image> ();
 	}
 	
-	public void updateScoreboardAll(string timer, int p1Score, int p2Score, int currPlayer, int currCreator, int round)
+	public void updateScoreboardAll(
+		string timer, 
+		int p1Score, 
+		int p2Score, 
+		int currPlayer, 
+		int currCreator, 
+		int round, 
+		string info)
 	{
 		timerText.text = timer;
 		roundText.text = round.ToString ();
@@ -36,6 +45,8 @@ public class Scoreboard : MonoBehaviour {
 			p1Role.sprite = roleSprites [1];
 			p2Role.sprite = roleSprites [0];
 		}
+
+		infoText.text = info;
 	}
 
 	public void updateScoreboardMessage(string timerMsg)

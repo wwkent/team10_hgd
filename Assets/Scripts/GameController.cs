@@ -87,7 +87,8 @@ public class GameController : MonoBehaviour {
 						scores[1], 
 						currPlayer, 
 						currCreator, 
-						round);
+						round,
+						"Starting Player Phase");
 					phaseSwitchState = 0;
 					timer = phaseSwitchTimes[0];
 					nextState ();
@@ -131,11 +132,15 @@ public class GameController : MonoBehaviour {
 						currCreator = 1;
 					}
 
+					string information;
+
 					if (ranTwice) {
 						round++;
 						ranTwice = false;
+						information = "Starting Next Round";
 						Destroy (mapContainer);
 					} else {
+						information = "Swapping Roles";
 						ranTwice = true;
 					}
 
@@ -146,7 +151,8 @@ public class GameController : MonoBehaviour {
 						scores[1], 
 						currPlayer, 
 						currCreator, 
-						round);
+						round,
+						information);
 
 					nextState ();
 				}
