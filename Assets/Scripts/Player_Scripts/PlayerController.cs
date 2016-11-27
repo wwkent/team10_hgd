@@ -243,6 +243,20 @@ public class PlayerController: MonoBehaviour {
 		StartCoroutine (powerUpUntilRoutine (duration));
 	}
 
+	// Resets everything on the player
+	// Mainly done so because of invicibility remaining on the player
+	//	if you disable to the player in the middle of its execution
+	public void resetEverything()
+	{
+		resetAttributesToDefault ();
+		resetHealthOfPlayer ();
+		SpriteRenderer[] char_sprites = GetComponentsInChildren<SpriteRenderer> ();
+		foreach (SpriteRenderer rend in char_sprites) {
+			rend.color = Color.white;
+		}
+		canTakeDamage = true;
+	}
+
 	// Sets the player attributes to its default values
 	public void resetAttributesToDefault()
 	{
@@ -252,6 +266,11 @@ public class PlayerController: MonoBehaviour {
 		GetComponent<Rigidbody2D>().gravityScale = default_gravityScale;
 		onLadder = false;
 		rBody.gravityScale = 9.8f;
+	}
+
+	public void resetHealthOfPlayer ()
+	{
+		currentHealth = startingHealth;
 	}
 
 	public IEnumerator powerUpUntilRoutine(float duration)

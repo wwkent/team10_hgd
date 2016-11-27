@@ -4,9 +4,11 @@ using System.Collections;
 public class CollisionController : MonoBehaviour {
 
 	public PlayerController player;
+	public GameController game;
 
 	void Start() {
 		player = GetComponent<PlayerController> ();
+		game = GameObject.Find ("Game").GetComponent<GameController> ();
 	}
 
 	//For objects that aren't triggers
@@ -40,6 +42,9 @@ public class CollisionController : MonoBehaviour {
 			break;
 		case "Ladder":
 			player.onLadder = true;
+			break;
+		case "EndFlag":
+			game.endPlayerPhase ();
 			break;
 		}
 	}

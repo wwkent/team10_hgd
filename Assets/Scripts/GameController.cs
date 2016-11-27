@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour {
 	// public int whoIsPlayer;
 	// public int whoIsCreator;
 
+	public int maxRounds;
+
 	private int[] scores = {0, 0};
 	private int currPlayer;
 	private int currCreator;
@@ -21,6 +23,7 @@ public class GameController : MonoBehaviour {
 	private int state;
 	private int round;
 	private bool ranTwice;
+	private bool playerReachedEnd;
 
 	private float width;
 	private float startMaxXPos;
@@ -44,6 +47,7 @@ public class GameController : MonoBehaviour {
 	public GameObject spawnedContainer;
 
 	private GameObject mapContainer;
+	private MapInfo mapinfo;
 
 	private DynamicCamera camera;
 
@@ -56,6 +60,10 @@ public class GameController : MonoBehaviour {
 		currPlayer = 0;
 		currCreator = 1;
 		ranTwice = false;
+		playerReachedEnd = false;
+
+		if (maxRounds <= 0)
+			maxRounds = 5;
 
 		spawnedContainer = transform.FindChild ("spawnedContainer").gameObject;
 		camera = GameObject.Find("Main Camera").GetComponent<DynamicCamera>();
@@ -68,13 +76,18 @@ public class GameController : MonoBehaviour {
 		switch (state) {
 		case 0: //Creator
 			{
-				if (!mapContainer)
+				if (!mapContainer) {
 					generateMap ();
+				}
 				
 				string timeText;
 				timeText = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 				if (!creator) {
 					createCreator ();
+					// Position creator at start
+					Vector3 tempPos = mapinfo.startLocation.transform.position;
+					tempPos.z = creator.transform.position.z;
+					creator.transform.position = tempPos;
 				}
 				creator.ui.updateTimers (timeText);
 
@@ -87,7 +100,7 @@ public class GameController : MonoBehaviour {
 						scores[1], 
 						currPlayer, 
 						currCreator, 
-						round,
+						round.ToString(),
 						"Starting Player Phase");
 					phaseSwitchState = 0;
 					timer = phaseSwitchTimes[0];
@@ -105,7 +118,14 @@ public class GameController : MonoBehaviour {
 							createPlayer ();
 						playerContainer.gameObject.SetActive (true);
 						camera.setFollowing (player.gameObject);
-						timer = 10F; // CHANGE THIS BACK
+
+						timer = mapinfo.timeToFinish;
+
+						// Position player at start
+						Vector3 tempPos = mapinfo.startLocation.transform.position;
+						tempPos.z = player.transform.position.z;
+						player.transform.position = tempPos;
+
 						nextState ();
 					} else {
 						scoreboard.updateScoreboardMessage (phaseSwitchMessages[phaseSwitchState]);
@@ -119,8 +139,10 @@ public class GameController : MonoBehaviour {
 				string timeText;
 				timeText = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 				player.ui.updateTimers (timeText);
-				if (timer <= 0 || player.currentHealth <= 0) {
+				if (timer <= 0 || playerReachedEnd) {
 					playerContainer.gameObject.SetActive (false);
+
+					// How long to wait for swap phase
 					timer = 10f;
 
 					// Swap the roles
@@ -143,18 +165,53 @@ public class GameController : MonoBehaviour {
 						information = "Swapping Roles";
 						ranTwice = true;
 					}
+					int cPlayerScore;
+					int cCreatorScore;
+					if (playerReachedEnd) {
+						cPlayerScore = (int)(timer / mapinfo.timeToFinish) * 1000;
+						cCreatorScore = cPlayerScore - 1000;
+					} else {
+						cPlayerScore = 100;
+						cCreatorScore = 400;
+					}
+					scores [currPlayer] += cPlayerScore;
+					scores [currCreator] += cCreatorScore;
+
+					if (round > maxRounds) {
+						information = "The Loser Is...";
+						state = 4;
+						scoreboardCanvas.SetActive (true);
+						scoreboard.updateScoreboardAll (
+							phaseSwitchMessages [0], 
+							scores [0], 
+							scores [1], 
+							currPlayer, 
+							currCreator, 
+							round.ToString(),
+							information);
+						break;
+					}
 
 					scoreboardCanvas.SetActive (true);
 					scoreboard.updateScoreboardAll (
-						phaseSwitchMessages[0], 
-						scores[0], 
-						scores[1], 
+						phaseSwitchMessages [0], 
+						scores [0], 
+						scores [1], 
 						currPlayer, 
 						currCreator, 
-						round,
+						round + "\\" + maxRounds,
 						information);
 
+					// Reset the player to starting
+					player.resetEverything();
 					nextState ();
+				} else if (player.currentHealth <= 0) {
+					player.resetHealthOfPlayer ();
+
+					// Position player at start
+					Vector3 tempPos = mapinfo.startLocation.transform.position;
+					tempPos.z = player.transform.position.z;
+					player.transform.position = tempPos;
 				}
 				break;
 			}
@@ -165,14 +222,32 @@ public class GameController : MonoBehaviour {
 				timeText = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 				scoreboard.updateScoreboardMessage (timeText);
 
-				creator.money = 1000;
+				creator.money = mapinfo.mapMoney;
+				creator.ui.updateMoneyText (mapinfo.mapMoney);
 
 				if (timer <= 0) {
 					timer = 10f;
 					scoreboardCanvas.gameObject.SetActive (false);
 					creatorContainer.gameObject.SetActive (true);
+
+					if (!mapContainer)
+						generateMap ();
+
+					// Position creator at start
+					Vector3 tempPos = mapinfo.startLocation.transform.position;
+					tempPos.z = creator.transform.position.z;
+					creator.transform.position = tempPos;
+
 					camera.setFollowing (creator.gameObject);
 					nextState ();
+				}
+				break;
+			}
+		case 4: // END GAME
+			{
+				scoreboard.setLoser (3);
+				if (Input.GetButtonDown ("A_1") || Input.GetButtonDown ("A_2")) {
+					SceneManager.LoadScene ("MainMenu");	
 				}
 				break;
 			}
@@ -216,5 +291,11 @@ public class GameController : MonoBehaviour {
 		string rnd = Random.Range (1, 4).ToString();
 		string mapPath = "Map" + rnd;
 		mapContainer = Instantiate (Resources.Load(mapPath, typeof(GameObject))) as GameObject;
+		mapinfo = mapContainer.GetComponent<MapInfo> ();
+	}
+
+	public void endPlayerPhase()
+	{
+		playerReachedEnd = true;
 	}
 }

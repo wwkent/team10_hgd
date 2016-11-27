@@ -13,6 +13,8 @@ public class Scoreboard : MonoBehaviour {
 	private Text infoText;
 	private Image p1Role;
 	private Image p2Role;
+	private GameObject loserTextsP1;
+	private GameObject loserTextsP2;
 
 	// Use this for initialization
 	void Awake () {
@@ -23,6 +25,10 @@ public class Scoreboard : MonoBehaviour {
 		infoText = transform.Find ("Info").GetComponent<Text> ();
 		p1Role = transform.Find ("Player1Role").GetComponent<Image> ();
 		p2Role = transform.Find ("Player2Role").GetComponent<Image> ();
+		loserTextsP1 = transform.Find ("LoserTextsP1").gameObject;
+		loserTextsP2 = transform.Find ("LoserTextsP2").gameObject;
+		loserTextsP1.SetActive (false);
+		loserTextsP2.SetActive (false);
 	}
 	
 	public void updateScoreboardAll(
@@ -31,11 +37,11 @@ public class Scoreboard : MonoBehaviour {
 		int p2Score, 
 		int currPlayer, 
 		int currCreator, 
-		int round, 
+		string round, 
 		string info)
 	{
 		timerText.text = timer;
-		roundText.text = round.ToString ();
+		roundText.text = round;
 		p1ScoreText.text = p1Score.ToString ();
 		p2ScoreText.text = p2Score.ToString ();
 		if (currPlayer == 0) {
@@ -47,6 +53,22 @@ public class Scoreboard : MonoBehaviour {
 		}
 
 		infoText.text = info;
+	}
+
+	public void setLoser(int player)
+	{
+		switch (player) {
+		case 0:
+				loserTextsP1.SetActive (true);
+				break;
+		case 1:
+				loserTextsP2.SetActive (true);
+				break;
+		default:
+				loserTextsP1.SetActive (true);
+				loserTextsP2.SetActive (true);
+				break;
+		}
 	}
 
 	public void updateScoreboardMessage(string timerMsg)

@@ -14,6 +14,7 @@ TagManager:
   - Lava
   - Slime
   - Ladder
+  - EndFlag
   layers:
   - Default
   - TransparentFX
