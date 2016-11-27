@@ -8,18 +8,22 @@ public class RotateTowardsInput : MonoBehaviour {
 	bool isFlipped;
 	float aimPosX, aimPosY;
 
+	private int contToUse;
+
 	public float extendDistance;
 
 	// Use this for initialization
-	void Start () {	}
+	void Start () {	
+		
+	}
 	
 	// Update is called once per frame
 	void Update () {
 		isFlipped = transform.parent.localScale.x < 0;
 
-		if (Input.GetAxis ("R_XAxis_1") != 0 || Input.GetAxis ("R_YAxis_1") != 0) {
-			aimPosX = Input.GetAxis ("R_XAxis_1");
-			aimPosY = Input.GetAxis ("R_YAxis_1");
+		if (Input.GetAxis ("R_XAxis_" + contToUse) != 0 || Input.GetAxis ("R_YAxis_" + contToUse) != 0) {
+			aimPosX = Input.GetAxis ("R_XAxis_" + contToUse);
+			aimPosY = Input.GetAxis ("R_YAxis_" + contToUse);
 		} else {
 			aimPosX = transform.localScale.x;
 			aimPosY = 0;
@@ -69,5 +73,10 @@ public class RotateTowardsInput : MonoBehaviour {
 			vec.y *= -1;
 			transform.localPosition = vec * extendDistance;
 		}
+	}
+
+	public void setController(int cont)
+	{
+		contToUse = cont;
 	}
 }

@@ -20,6 +20,8 @@ public class PlayerController: MonoBehaviour {
 	private float default_jumpForce;
 	private float default_gravityScale;
 
+	private int contToUse;
+
 	bool facingRight = true;
 
 	// References
@@ -48,6 +50,8 @@ public class PlayerController: MonoBehaviour {
 		default_gravityScale = this.GetComponent<Rigidbody2D> ().gravityScale;
 		onLadder = false;
 
+		contToUse = 1;
+
 		anims = GetComponentsInChildren<Animator> ();
 		rBody = GetComponent<Rigidbody2D> ();
 		if (GameObject.Find("PlayerUI"))
@@ -67,12 +71,12 @@ public class PlayerController: MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if ((onGround || onLadder) && (Input.GetButtonDown("A_1") || Input.GetKeyDown("space"))) {
+		if ((onGround || onLadder) && (Input.GetButtonDown("A_" + contToUse) || Input.GetKeyDown("space"))) {
 			rBody.AddForce (new Vector2 (0f, jumpForce));
 			onGround = false;
 		}
 		// Shooting
-		if (currentWeapon != null && Input.GetAxis ("TriggersR_1") < 0) {
+		if (currentWeapon != null && Input.GetAxis ("TriggersR_" + contToUse) < 0) {
 			currentWeapon.Fire ();
 			if (currentWeapon.ammo == 0)
 				pickUpWeapon (Instantiate(defaultWeapon));
@@ -87,7 +91,7 @@ public class PlayerController: MonoBehaviour {
 	void FixedUpdate () {
 		onGround = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
 
-		float inputDirection = Input.GetAxis ("L_XAxis_1");
+		float inputDirection = Input.GetAxis ("L_XAxis_" + contToUse);
 		// Calculate how much the velocity should change based on xAccel
 		float velChange = inputDirection * xAccel;
 		float newXVelocity, newYVelocity;
@@ -107,7 +111,7 @@ public class PlayerController: MonoBehaviour {
 		newXVelocity = Mathf.Clamp(newXVelocity, -maxSpeed, maxSpeed);
 
 		if (onLadder) {
-			float inputY = Input.GetAxis ("L_YAxis_1");
+			float inputY = Input.GetAxis ("L_YAxis_" + contToUse);
 			float yVelChange = -1 * inputY * xAccel;
 			if (yVelChange != 0f) {
 				// Add to the current velocity
@@ -277,5 +281,13 @@ public class PlayerController: MonoBehaviour {
 	{
 		yield return new WaitForSeconds (duration);
 		resetAttributesToDefault ();
+	}
+
+	public void setController(int contID)
+	{
+		contToUse = contID;
+		RotateTowardsInput[] rotatingParts = transform.GetComponentsInChildren<RotateTowardsInput> ();
+		foreach (RotateTowardsInput part in rotatingParts)
+			part.setController (contToUse);
 	}
 }

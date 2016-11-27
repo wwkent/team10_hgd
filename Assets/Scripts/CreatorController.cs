@@ -14,6 +14,8 @@ public class CreatorController : MonoBehaviour {
 	private Vector3 snappedEdgePos;
 	private bool canPlace;
 
+	private int contToUse;
+
 	public CreatorHud ui;
 
 	// Use this for initialization
@@ -22,6 +24,7 @@ public class CreatorController : MonoBehaviour {
 		// print (game.player);
 		money = 100; // Change when necessary
 		currObj = 0;
+		contToUse = 1;
 		currObjRenderer = transform.Find ("currentObj");
 		setObjRenderer ();
 	}
@@ -33,20 +36,20 @@ public class CreatorController : MonoBehaviour {
 			ui.updateMoneyText(money);
 			setObjRenderer ();
 		}
-		float inputXAmount = Input.GetAxis ("L_XAxis_1");
-		float inputYAmount = Input.GetAxis ("L_YAxis_1");
+		float inputXAmount = Input.GetAxis ("L_XAxis_" + contToUse);
+		float inputYAmount = Input.GetAxis ("L_YAxis_" + contToUse);
 
-		if (Input.GetButtonDown ("A_1"))
+		if (Input.GetButtonDown ("A_" + contToUse))
 			spawnGameObject ();
 
-		if (Input.GetButtonDown ("RB_1")) {
+		if (Input.GetButtonDown ("RB_" + contToUse)) {
 			if (currObj < availableObjs.Length - 1)
 				currObj++;
 			else
 				currObj = 0;
 			setObjRenderer ();
 		}
-		if (Input.GetButtonDown ("LB_1")) {
+		if (Input.GetButtonDown ("LB_" + contToUse)) {
 			if (currObj > 0)
 				currObj--;
 			else
@@ -64,7 +67,7 @@ public class CreatorController : MonoBehaviour {
 		// Reset the snapped object if out of range of any cubes
 		LayerMask platforms = LayerMask.GetMask("Platforms");
 		if (snappedEdge == null ||!GetComponent<CircleCollider2D> ().IsTouchingLayers (platforms) || 
-				Input.GetButton ("Y_1") || !thisObj.canPlaceOnWalls) {
+			Input.GetButton ("Y_" + contToUse) || !thisObj.canPlaceOnWalls) {
 			// Reset the object snapped to
 			snappedEdge = null;
 			currObjRenderer.localPosition = new Vector3 (0, 0, 0);
@@ -95,7 +98,7 @@ public class CreatorController : MonoBehaviour {
 	void OnTriggerStay2D(Collider2D other) {
 		// Don't snap to the edge if Y is held (debug)
 		// TODO Remove this when needed
-		if (Input.GetButton ("Y_1"))
+		if (Input.GetButton ("Y_" + contToUse))
 			return;
 
 		// Don't snap to an edge if an object cannot do so
@@ -173,5 +176,10 @@ public class CreatorController : MonoBehaviour {
 		currObjRenderer.GetComponent<SpriteRenderer> ().color = temp;
 		// print (currObj);
 		ui.updateObjectPreview (currObj);
+	}
+
+	public void setController(int contID)
+	{
+		contToUse = contID;
 	}
 }
