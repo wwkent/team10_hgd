@@ -18,7 +18,7 @@ public class CreatorController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		// game = GameObject.Find ("UI").GetComponent<GameController> ();
+		game = GameObject.Find ("Game").GetComponent<GameController> ();
 		// print (game.player);
 		money = 100; // Change when necessary
 		currObj = 0;
@@ -159,6 +159,8 @@ public class CreatorController : MonoBehaviour {
 			Debug.Log ("Creator has created: " + spawned.name);
 			if (spawned.GetComponent<SentryController> ())
 				spawned.GetComponent<SentryController> ().enabled = false;
+
+			game.applyGameObject (spawned);
 		}
 	}
 

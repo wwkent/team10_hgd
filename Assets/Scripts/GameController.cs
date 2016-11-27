@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
 
@@ -19,6 +20,7 @@ public class GameController : MonoBehaviour {
 	private float timer = 10.0F;
 	private int state;
 	private int round;
+	private bool ranTwice;
 
 	private float width;
 	private float startMaxXPos;
@@ -39,6 +41,8 @@ public class GameController : MonoBehaviour {
 	private PlayerController player;
 	private PlayerHud playerUI;
 
+	public GameObject spawnedContainer;
+
 	private GameObject mapContainer;
 
 	private DynamicCamera camera;
@@ -51,7 +55,9 @@ public class GameController : MonoBehaviour {
 		scores [1] = 0;
 		currPlayer = 0;
 		currCreator = 1;
+		ranTwice = false;
 
+		spawnedContainer = transform.FindChild ("spawnedContainer").gameObject;
 		camera = GameObject.Find("Main Camera").GetComponent<DynamicCamera>();
 		scoreboardCanvas = Instantiate (scoreboardCanvas);
 		scoreboard = scoreboardCanvas.transform.FindChild ("Scoreboard").GetComponent<Scoreboard> ();
@@ -116,6 +122,23 @@ public class GameController : MonoBehaviour {
 					playerContainer.gameObject.SetActive (false);
 					timer = 10f;
 
+					// Swap the roles
+					if (currPlayer == 0 && currCreator == 1) {
+						currPlayer = 1;
+						currCreator = 0;
+					} else {
+						currPlayer = 0;
+						currCreator = 1;
+					}
+
+					if (ranTwice) {
+						round++;
+						ranTwice = false;
+						Destroy (mapContainer);
+					} else {
+						ranTwice = true;
+					}
+
 					scoreboardCanvas.SetActive (true);
 					scoreboard.updateScoreboardAll (
 						phaseSwitchMessages[0], 
@@ -124,17 +147,19 @@ public class GameController : MonoBehaviour {
 						currPlayer, 
 						currCreator, 
 						round);
-					
+
 					nextState ();
 				}
 				break;
 			}
 		case 3:
 			{
-				Destroy (mapContainer);
+				clearSpawnedObjects ();
 				string timeText;
 				timeText = (int)((timer + 1) / 60) + ":" + (int)(((timer + 1) % 60) / 10) + (int)(((timer + 1) % 60) % 10);
 				scoreboard.updateScoreboardMessage (timeText);
+
+				creator.money = 1000;
 
 				if (timer <= 0) {
 					timer = 10f;
@@ -169,6 +194,16 @@ public class GameController : MonoBehaviour {
 		creator = creatorContainer.Find("CreatorEnt").GetComponent<CreatorController>();
 		creatorUI = creatorContainer.Find("CreatorUI").GetComponent<CreatorHud>();
 		camera.setFollowing (creator.gameObject);
+	}
+
+	private void clearSpawnedObjects() {
+		foreach (Transform spawned in spawnedContainer.transform)
+			Destroy (spawned.gameObject);
+	}
+
+	public void applyGameObject(GameObject child)
+	{
+		child.transform.SetParent (spawnedContainer.transform);
 	}
 
 	public void generateMap(){
