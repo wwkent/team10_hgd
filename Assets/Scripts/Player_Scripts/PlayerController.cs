@@ -275,6 +275,7 @@ public class PlayerController: MonoBehaviour {
 	public void resetHealthOfPlayer ()
 	{
 		currentHealth = startingHealth;
+		ui.updateHealth ();
 	}
 
 	public IEnumerator powerUpUntilRoutine(float duration)

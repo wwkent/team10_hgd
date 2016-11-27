@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		state = 0;
 		round = 1;
-		timer = 10f;
+		timer = 60f;
 		scores [0] = 0;
 		scores [1] = 0;
 		currPlayer = 0;
@@ -88,10 +88,12 @@ public class GameController : MonoBehaviour {
 					Vector3 tempPos = mapinfo.startLocation.transform.position;
 					tempPos.z = creator.transform.position.z;
 					creator.transform.position = tempPos;
+					creator.money = mapinfo.mapMoney;
+					creator.ui.updateMoneyText (creator.money);
 				}
 				creator.ui.updateTimers (timeText);
 
-				if (timer <= 0) {
+				if (timer <= 0 || creator.money <= 0) {
 					creatorContainer.gameObject.SetActive(false);
 					scoreboardCanvas.SetActive (true);
 					scoreboard.updateScoreboardAll (
@@ -149,7 +151,7 @@ public class GameController : MonoBehaviour {
 					playerContainer.gameObject.SetActive (false);
 
 					// How long to wait for swap phase
-					timer = 10f;
+					timer = 20f;
 
 					// Swap the roles
 					if (currPlayer == 0 && currCreator == 1) {
@@ -177,8 +179,8 @@ public class GameController : MonoBehaviour {
 					int cPlayerScore;
 					int cCreatorScore;
 					if (playerReachedEnd) {
-						cPlayerScore = (int)(timer / mapinfo.timeToFinish) * 1000;
-						cCreatorScore = cPlayerScore - 1000;
+						cPlayerScore = (int)((timer / mapinfo.timeToFinish) * 1000);
+						cCreatorScore = 1000 - cPlayerScore;
 					} else {
 						cPlayerScore = 100;
 						cCreatorScore = 400;
@@ -214,6 +216,7 @@ public class GameController : MonoBehaviour {
 					// Reset the player to starting
 					player.resetEverything();
 					nextState ();
+					playerReachedEnd = false;
 				} else if (player.currentHealth <= 0) {
 					player.resetHealthOfPlayer ();
 
@@ -235,7 +238,7 @@ public class GameController : MonoBehaviour {
 				creator.ui.updateMoneyText (mapinfo.mapMoney);
 
 				if (timer <= 0) {
-					timer = 10f;
+					timer = 60f;
 					scoreboardCanvas.gameObject.SetActive (false);
 					creatorContainer.gameObject.SetActive (true);
 
