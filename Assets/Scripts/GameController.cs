@@ -159,7 +159,10 @@ public class GameController : MonoBehaviour {
 						currPlayer = 0;
 						currCreator = 1;
 					}
+					player.setController (currPlayer + 1);
+					creator.setController (currCreator + 1);
 
+					// The string to Print above the scoreboard
 					string information;
 
 					if (ranTwice) {
@@ -280,6 +283,12 @@ public class GameController : MonoBehaviour {
 		player = playerContainer.Find("PlayerEnt").GetComponent<PlayerController>();
 		playerUI = playerContainer.Find("PlayerUI").GetComponent<PlayerHud>();
 		camera.setFollowing (player.gameObject);
+
+		if (Input.GetJoystickNames ().Length > 1) {
+			player.setController (1);
+		} else {
+			player.setController (1);
+		}
 	}
 
 	private void createCreator() {
@@ -287,6 +296,12 @@ public class GameController : MonoBehaviour {
 		creator = creatorContainer.Find("CreatorEnt").GetComponent<CreatorController>();
 		creatorUI = creatorContainer.Find("CreatorUI").GetComponent<CreatorHud>();
 		camera.setFollowing (creator.gameObject);
+
+		if (Input.GetJoystickNames ().Length > 1) {
+			creator.setController (2);
+		} else {
+			creator.setController (1);
+		}
 	}
 
 	private void clearSpawnedObjects() {
