@@ -22,7 +22,6 @@ public class CreatorController : MonoBehaviour {
 	void Start () {
 		game = GameObject.Find ("Game").GetComponent<GameController> ();
 		// print (game.player);
-		money = 100; // Change when necessary
 		currObj = 0;
 		contToUse = 1;
 		currObjRenderer = transform.Find ("currentObj");

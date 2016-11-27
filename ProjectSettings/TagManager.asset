@@ -16,6 +16,7 @@ TagManager:
   - Ladder
   - EndFlag
   - Enemies
+  - OutOfBounds
   layers:
   - Default
   - TransparentFX

@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc37c8b73361be44ea04f740c17eb4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRounds: 5
   phaseSwitchMessages:
   - Time's Up!
   - Get Ready...

@@ -46,6 +46,9 @@ public class CollisionController : MonoBehaviour {
 		case "EndFlag":
 			game.endPlayerPhase ();
 			break;
+		case "OutOfBounds":
+			player.applyDamage (1000f);
+			break;
 		}
 	}
 
