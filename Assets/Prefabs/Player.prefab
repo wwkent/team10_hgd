@@ -836,8 +836,8 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4352
-  blink_speed: 0.3
-  invincible_duration: 1
+  blink_speed: 0.1
+  invincible_duration: 0.5
 --- !u!114 &114000012535100854
 MonoBehaviour:
   m_ObjectHideFlags: 1

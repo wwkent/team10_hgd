@@ -16,10 +16,10 @@ public class CollisionController : MonoBehaviour {
 		switch (other.gameObject.tag) {
 
 		case "LaserBeam":
-			player.applyDamage (1f);
+			player.applyDamage (10f);
 			break;
 		case "Lava":
-			player.applyDamage (1f);
+			player.applyDamage (20f);
 			break;
 		case "Slime":
 			player.jumpForce = 600f;
@@ -35,10 +35,10 @@ public class CollisionController : MonoBehaviour {
 			player.applyDamage (10f);
 			break;
 		case "Saw":
-			player.applyDamage (1f);
+			player.applyDamage (20f);
 			break;
 		case "Spike":
-			player.applyDamage (1f);
+			player.applyDamage (10f);
 			break;
 		case "Ladder":
 			player.onLadder = true;

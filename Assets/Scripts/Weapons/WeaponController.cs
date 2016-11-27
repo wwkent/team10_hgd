@@ -60,7 +60,7 @@ public class WeaponController : MonoBehaviour {
 			if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Platforms") {
 				
 			} else if (hit.transform.gameObject.tag == "Enemies") {
-				hit.transform.GetComponent<SentryController> ().applyDamage (40);
+				hit.transform.GetComponent<SentryController> ().applyDamage (30);
 			} else if (hit.transform.gameObject.tag == "Player") {
 				hit.transform.GetComponent<PlayerController> ().applyDamage (10);
 			}
