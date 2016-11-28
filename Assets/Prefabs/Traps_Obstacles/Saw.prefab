@@ -37,6 +37,7 @@ GameObject:
   - 4: {fileID: 4000011851346102}
   - 58: {fileID: 58000011213268070}
   - 114: {fileID: 114000010449409378}
+  - 114: {fileID: 114000012641587990}
   m_Layer: 0
   m_Name: Saw
   m_TagString: Saw
@@ -97,6 +98,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
+--- !u!114 &114000012641587990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013243435988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363bde5ac3c00f9409cdc02b1b1fb1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Saw
+  description: A spinning saw of death
+  cost: 10
+  canPlaceOnWalls: 1
+  canPlaceInAir: 1
 --- !u!212 &212000012136482916
 SpriteRenderer:
   m_ObjectHideFlags: 1
