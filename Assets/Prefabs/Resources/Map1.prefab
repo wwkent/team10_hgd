@@ -6057,7 +6057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSelected: 0
-  valueToApply: 6000
+  valueToApply: 5000
   powerUpDuration: 4
 --- !u!114 &114000010193333238
 MonoBehaviour:
@@ -6127,7 +6127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSelected: 0
-  valueToApply: 6000
+  valueToApply: 5000
   powerUpDuration: 4
 --- !u!114 &114000014076214494
 MonoBehaviour:
@@ -6155,7 +6155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFinish: 180
-  mapMoney: 400
+  mapMoney: 600
   startLocation: {fileID: 4000011063986440}
   endFlag: {fileID: 1000013955340358}
 --- !u!212 &212000010231177324

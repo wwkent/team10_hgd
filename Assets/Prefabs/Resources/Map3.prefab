@@ -8321,8 +8321,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSelected: 0
-  valueToApply: 6000
-  powerUpDuration: 4
+  valueToApply: 5000
+  powerUpDuration: 6
 --- !u!114 &114000012491871846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8725,7 +8725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFinish: 180
-  mapMoney: 400
+  mapMoney: 800
   startLocation: {fileID: 4000011535131994}
   endFlag: {fileID: 1000010868485100}
 --- !u!114 &114000014102295428
@@ -8762,7 +8762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSelected: 0
-  valueToApply: 6000
+  valueToApply: 5000
   powerUpDuration: 6
 --- !u!114 &114000014244550550
 MonoBehaviour:

@@ -5305,7 +5305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSelected: 0
-  valueToApply: 6000
+  valueToApply: 5000
   powerUpDuration: 6
 --- !u!114 &114000010758859108
 MonoBehaviour:
@@ -5465,7 +5465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSelected: 0
-  valueToApply: 6000
+  valueToApply: 5000
   powerUpDuration: 6
 --- !u!114 &114000012220793828
 MonoBehaviour:
@@ -5683,7 +5683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSelected: 0
-  valueToApply: 6000
+  valueToApply: 5000
   powerUpDuration: 6
 --- !u!114 &114000013360382320
 MonoBehaviour:
