@@ -22,6 +22,7 @@ public class CollisionController : MonoBehaviour {
 			player.applyDamage (20f);
 			break;
 		case "Slime":
+			if(!player.powerUp.Equals("jump"))
 			player.jumpForce = 600f;
 			break;
 		}
@@ -35,7 +36,7 @@ public class CollisionController : MonoBehaviour {
 			player.applyDamage (10f);
 			break;
 		case "Saw":
-			player.applyDamage (20f);
+			player.applyDamage (10f);
 			break;
 		case "Spike":
 			player.applyDamage (10f);

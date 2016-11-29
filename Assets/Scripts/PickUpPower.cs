@@ -24,13 +24,15 @@ public class PickUpPower: PickUpController
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		if (col.gameObject.transform.tag == "Player")
+		if (col.gameObject.transform.tag == "Player") {
 			applyPickUp (col.gameObject.GetComponent<PlayerController> ());
-		Destroy (gameObject);
+			gameObject.SetActive (false);
+		}
 	}
 
 	public override void applyPickUp (PlayerController player)
 	{
+		player.powerUp = powerUpSelected.ToString ();
 		switch (powerUpSelected.ToString()) {
 		case "jump":
 			player.jumpForce = valueToApply;

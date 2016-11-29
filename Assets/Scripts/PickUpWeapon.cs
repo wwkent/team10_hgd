@@ -18,6 +18,6 @@ public class PickUpWeapon : PickUpController {
 	{
 		WeaponController wep = Instantiate(attachedWeaponPrefab).GetComponent<WeaponController>();
 		player.pickUpWeapon (wep);
-		Destroy (gameObject);
+		gameObject.SetActive (false);
 	}
 }

@@ -12,6 +12,7 @@ public class PlayerController: MonoBehaviour {
 	public float startingHealth = 100F;
 	public float currentHealth;
 	public bool onLadder = false;
+	public string powerUp;
 
 	// Player Default Attributes
 	// Is based on the player's values at Start
@@ -264,10 +265,14 @@ public class PlayerController: MonoBehaviour {
 	// Sets the player attributes to its default values
 	public void resetAttributesToDefault()
 	{
-		resistance = default_resistance;
-		maxSpeed = default_maxSpeed;
-		jumpForce = default_jumpForce;
-		GetComponent<Rigidbody2D>().gravityScale = default_gravityScale;
+		if(!powerUp.Equals("resistance"))
+			resistance = default_resistance;
+		if(!powerUp.Equals("movement"))
+			maxSpeed = default_maxSpeed;
+		if(!powerUp.Equals("jump"))
+			jumpForce = default_jumpForce;
+		if(!powerUp.Equals("gravity"))
+			GetComponent<Rigidbody2D>().gravityScale = default_gravityScale;
 		onLadder = false;
 		rBody.gravityScale = 9.8f;
 	}
@@ -281,14 +286,18 @@ public class PlayerController: MonoBehaviour {
 	public IEnumerator powerUpUntilRoutine(float duration)
 	{
 		yield return new WaitForSeconds (duration);
+		powerUp = "";
 		resetAttributesToDefault ();
 	}
 
 	public void setController(int contID)
 	{
+		print (contID);
 		contToUse = contID;
 		RotateTowardsInput[] rotatingParts = transform.GetComponentsInChildren<RotateTowardsInput> ();
 		foreach (RotateTowardsInput part in rotatingParts)
 			part.setController (contToUse);
+
+		print (contToUse);
 	}
 }

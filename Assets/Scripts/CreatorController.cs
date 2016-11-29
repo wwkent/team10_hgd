@@ -23,7 +23,7 @@ public class CreatorController : MonoBehaviour {
 		game = GameObject.Find ("Game").GetComponent<GameController> ();
 		// print (game.player);
 		currObj = 0;
-		contToUse = 1;
+		contToUse = 2;
 		currObjRenderer = transform.Find ("currentObj");
 		setObjRenderer ();
 	}
@@ -158,7 +158,7 @@ public class CreatorController : MonoBehaviour {
 			spawned.transform.rotation = currObjRenderer.rotation;
 			money -= availableObjs [currObj].cost;
 			ui.updateMoneyText (money);
-			Debug.Log ("Creator has created: " + spawned.name);
+			// Debug.Log ("Creator has created: " + spawned.name);
 			if (spawned.GetComponent<SentryController> ())
 				spawned.GetComponent<SentryController> ().enabled = false;
 
@@ -173,12 +173,14 @@ public class CreatorController : MonoBehaviour {
 		Color temp = currObjRenderer.GetComponent<SpriteRenderer> ().color;
 		temp.a = 0.7f;
 		currObjRenderer.GetComponent<SpriteRenderer> ().color = temp;
+		currObjRenderer.localScale = availableObjs [currObj].transform.localScale;
 		// print (currObj);
 		ui.updateObjectPreview (currObj);
 	}
 
 	public void setController(int contID)
 	{
+		print (contID);
 		contToUse = contID;
 	}
 }

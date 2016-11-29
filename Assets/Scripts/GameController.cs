@@ -150,9 +150,6 @@ public class GameController : MonoBehaviour {
 				if (timer <= 0 || playerReachedEnd) {
 					playerContainer.gameObject.SetActive (false);
 
-					// How long to wait for swap phase
-					timer = 20f;
-
 					// Swap the roles
 					if (currPlayer == 0 && currCreator == 1) {
 						currPlayer = 1;
@@ -212,6 +209,9 @@ public class GameController : MonoBehaviour {
 						currCreator, 
 						round + "\\" + maxRounds,
 						information);
+
+					// How long to wait for swap phase
+					timer = 10f;
 
 					// Reset the player to starting
 					player.resetEverything();
@@ -301,6 +301,8 @@ public class GameController : MonoBehaviour {
 		creatorUI = creatorContainer.Find("CreatorUI").GetComponent<CreatorHud>();
 		camera.setFollowing (creator.gameObject);
 
+		print ("Joysticks: " +  Input.GetJoystickNames ().Length);
+
 		if (Input.GetJoystickNames ().Length > 1) {
 			creator.setController (2);
 		} else {
@@ -311,6 +313,11 @@ public class GameController : MonoBehaviour {
 	private void clearSpawnedObjects() {
 		foreach (Transform spawned in spawnedContainer.transform)
 			Destroy (spawned.gameObject);
+	}
+
+	private void enablePowerUps() {
+		foreach (Transform powerUp in mapContainer.transform.Find("PowerUps"))
+			powerUp.gameObject.SetActive (true);
 	}
 
 	public void applyGameObject(GameObject child)
