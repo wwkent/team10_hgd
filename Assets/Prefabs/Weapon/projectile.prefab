@@ -87,10 +87,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canDamage:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 512
   canInteractWith:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
 --- !u!212 &212000013514024338
 SpriteRenderer:
   m_ObjectHideFlags: 1

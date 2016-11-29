@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   variance: 20
-  ammo: 154
+  ammo: 4
   fireRate: 4
   canBeShot:
     serializedVersion: 2

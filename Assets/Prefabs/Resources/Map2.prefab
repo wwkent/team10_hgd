@@ -5226,7 +5226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpSelected: 3
   valueToApply: 0.5
-  powerUpDuration: 2
+  powerUpDuration: 4
 --- !u!114 &114000010379540686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5305,8 +5305,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSelected: 0
-  valueToApply: 4500
-  powerUpDuration: 2
+  valueToApply: 6000
+  powerUpDuration: 6
 --- !u!114 &114000010758859108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5429,8 +5429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSelected: 1
-  valueToApply: 40
-  powerUpDuration: 4
+  valueToApply: 45
+  powerUpDuration: 6
 --- !u!114 &114000011883236990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5465,8 +5465,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSelected: 0
-  valueToApply: 4500
-  powerUpDuration: 2
+  valueToApply: 6000
+  powerUpDuration: 6
 --- !u!114 &114000012220793828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5683,8 +5683,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSelected: 0
-  valueToApply: 4500
-  powerUpDuration: 2
+  valueToApply: 6000
+  powerUpDuration: 6
 --- !u!114 &114000013360382320
 MonoBehaviour:
   m_ObjectHideFlags: 1

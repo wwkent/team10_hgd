@@ -18,6 +18,9 @@ public class Projectile : MonoBehaviour {
 			Destroy (gameObject);
 		} else if (col.gameObject.tag == "Platforms") {
 			Destroy (gameObject);
+		} else if (col.gameObject.tag == "Enemies") {
+			col.gameObject.GetComponent<SentryController> ().applyDamage (10);
+			Destroy (gameObject);
 		}
 			
 	}

@@ -150,6 +150,18 @@ public class GameController : MonoBehaviour {
 				if (timer <= 0 || playerReachedEnd) {
 					playerContainer.gameObject.SetActive (false);
 
+					int cPlayerScore;
+					int cCreatorScore;
+					if (playerReachedEnd) {
+						cPlayerScore = (int)((timer / mapinfo.timeToFinish) * 1000);
+						cCreatorScore = 1000 - cPlayerScore;
+					} else {
+						cPlayerScore = 100;
+						cCreatorScore = 400;
+					}
+					scores [currPlayer] += cPlayerScore;
+					scores [currCreator] += cCreatorScore;
+
 					// Swap the roles
 					if (currPlayer == 0 && currCreator == 1) {
 						currPlayer = 1;
@@ -173,17 +185,6 @@ public class GameController : MonoBehaviour {
 						information = "Swapping Roles";
 						ranTwice = true;
 					}
-					int cPlayerScore;
-					int cCreatorScore;
-					if (playerReachedEnd) {
-						cPlayerScore = (int)((timer / mapinfo.timeToFinish) * 1000);
-						cCreatorScore = 1000 - cPlayerScore;
-					} else {
-						cPlayerScore = 100;
-						cCreatorScore = 400;
-					}
-					scores [currPlayer] += cPlayerScore;
-					scores [currCreator] += cCreatorScore;
 
 					if (round > maxRounds) {
 						information = "The Loser Is...";
@@ -225,6 +226,7 @@ public class GameController : MonoBehaviour {
 					tempPos.z = player.transform.position.z;
 					player.transform.position = tempPos;
 					scores [currPlayer] -= 100;
+					scores [currCreator] += 100;
 				}
 				break;
 			}
@@ -245,6 +247,8 @@ public class GameController : MonoBehaviour {
 
 					if (!mapContainer)
 						generateMap ();
+
+					enablePowerUps ();
 
 					// Position creator at start
 					Vector3 tempPos = mapinfo.startLocation.transform.position;

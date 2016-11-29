@@ -220,20 +220,24 @@ public class PlayerController: MonoBehaviour {
 		canTakeDamage = false;
 
 		foreach (SpriteRenderer rend in char_sprites) {
-			rend.color = Color.red;
+			if (rend)
+				rend.color = Color.red;
 		}
 		yield return new WaitForSeconds(0.3f);
 		foreach (SpriteRenderer rend in char_sprites) {
-			rend.color = Color.white;
+			if (rend)
+				rend.color = Color.white;
 		}
 		int count = 0;
 		while (count < number_of_blinks) {
 			foreach (SpriteRenderer rend in char_sprites) {
-				rend.color = color_with_opacity;
+				if (rend)
+					rend.color = color_with_opacity;
 			}
 			yield return new WaitForSeconds(blink_speed);
 			foreach (SpriteRenderer rend in char_sprites) {
-				rend.color = color_without_opacity;
+				if (rend)
+					rend.color = color_without_opacity;
 			}
 			yield return new WaitForSeconds(blink_speed);
 			count++;
