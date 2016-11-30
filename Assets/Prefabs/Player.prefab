@@ -911,7 +911,7 @@ MonoBehaviour:
   groundCheck: {fileID: 4000010619588570}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 4352
+    m_Bits: 4864
   blink_speed: 0.1
   invincible_duration: 0.5
   playerHitSound: {fileID: 8300000, guid: 555e886ec319add4bac14d5e22989efc, type: 3}

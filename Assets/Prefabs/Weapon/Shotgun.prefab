@@ -163,7 +163,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4864
   firePoint: {fileID: 4000010619861936}
-  projSpeed: 20
+  projSpeed: 40
   gunshot: {fileID: 8300000, guid: 2a89bf00090e5f44d83d04d21e333ac7, type: 3}
   shotObject: {fileID: 114000013439039010, guid: 1b1b37ed8bf068c439143b76730f00da,
     type: 2}

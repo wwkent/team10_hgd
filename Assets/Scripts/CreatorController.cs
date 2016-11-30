@@ -46,9 +46,6 @@ public class CreatorController : MonoBehaviour {
 		float inputXAmount = Input.GetAxis ("L_XAxis_" + contToUse);
 		float inputYAmount = Input.GetAxis ("L_YAxis_" + contToUse);
 
-		if (Input.GetButtonDown ("A_" + contToUse))
-			spawnGameObject ();
-
 		if (Input.GetButtonDown ("RB_" + contToUse)) {
 			if (currObj < availableObjs.Length - 1)
 				currObj++;
@@ -100,6 +97,9 @@ public class CreatorController : MonoBehaviour {
 		else
 			color = new Color(1f, 0f, 0f, 0.3f);
 		currObjRenderer.GetComponent<SpriteRenderer> ().color = color;
+
+		if (Input.GetButtonDown ("A_" + contToUse))
+			spawnGameObject ();
 	}
 
 	void OnTriggerStay2D(Collider2D other) {

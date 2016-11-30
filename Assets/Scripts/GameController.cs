@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		state = 0;
 		round = 1;
-		timer = 60f;
+		timer = 90f;
 		scores [0] = 0;
 		scores [1] = 0;
 		currPlayer = 0;
@@ -241,7 +241,7 @@ public class GameController : MonoBehaviour {
 				creator.ui.updateMoneyText (mapinfo.mapMoney);
 
 				if (timer <= 0) {
-					timer = 60f;
+					timer = 90f;
 					scoreboardCanvas.gameObject.SetActive (false);
 					creatorContainer.gameObject.SetActive (true);
 
