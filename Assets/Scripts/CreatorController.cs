@@ -18,6 +18,14 @@ public class CreatorController : MonoBehaviour {
 
 	public CreatorHud ui;
 
+	protected AudioSource source;
+	public AudioClip spawnObjectSound;
+
+	void Awake()
+	{
+		source = GetComponent<AudioSource> ();
+	}
+
 	// Use this for initialization
 	void Start () {
 		game = GameObject.Find ("Game").GetComponent<GameController> ();
@@ -163,6 +171,8 @@ public class CreatorController : MonoBehaviour {
 				spawned.GetComponent<SentryController> ().enabled = false;
 
 			game.applyGameObject (spawned);
+
+			source.PlayOneShot (spawnObjectSound, 1f);
 		}
 	}
 
