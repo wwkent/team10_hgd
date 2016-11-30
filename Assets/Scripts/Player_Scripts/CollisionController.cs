@@ -36,16 +36,16 @@ public class CollisionController : MonoBehaviour {
 			player.applyDamage (10f);
 			break;
 		case "Saw":
-			player.applyDamage (10f);
-			break;
-		case "Spike":
-			player.applyDamage (10f);
+			player.applyDamage (30f);
 			break;
 		case "Ladder":
 			player.onLadder = true;
 			break;
 		case "EndFlag":
 			game.endPlayerPhase ();
+			break;
+		case "Spike":
+			player.applyDamage (10f);
 			break;
 		case "OutOfBounds":
 			player.applyDamage (1000f);
