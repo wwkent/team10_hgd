@@ -40,7 +40,7 @@ public class LaserHead : MonoBehaviour {
 			case 2:
 				LeanPool.Destroy (transform.GetChild(0).gameObject);
 				shootLaser (laserBeam);
-				source.PlayOneShot (laserSound, 0.5f);
+				// source.PlayOneShot (laserSound, 0.5f);
 				break;
 			}
 			nextState = Time.time + 1 / stateLength[state];

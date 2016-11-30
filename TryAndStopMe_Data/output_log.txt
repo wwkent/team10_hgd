@@ -16,19 +16,19 @@ Platform assembly: C:\Users\ronaldl\UnityProject\team10_hgd\TryAndStopMe_Data\Ma
 Loading C:\Users\ronaldl\UnityProject\team10_hgd\TryAndStopMe_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\ronaldl\UnityProject\team10_hgd\TryAndStopMe_Data\Managed\LitJson.dll (this message is harmless)
 Loading C:\Users\ronaldl\UnityProject\team10_hgd\TryAndStopMe_Data\Managed\LitJson.dll into Unity Child Domain
-- Completed reload, in  0.045 seconds
+- Completed reload, in  0.041 seconds
 Platform assembly: C:\Users\ronaldl\UnityProject\team10_hgd\TryAndStopMe_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\ronaldl\UnityProject\team10_hgd\TryAndStopMe_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 3200x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.558409 ms
+UnloadTime: 0.613897 ms
 Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
 UnloadTime: 4.448672 ms
 
 Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 537.
-Total: 0.261403 ms (FindLiveObjects: 0.025659 ms CreateObjectMapping: 0.028545 ms MarkObjects: 0.201425 ms  DeleteObjects: 0.005452 ms)
+Total: 0.248894 ms (FindLiveObjects: 0.023093 ms CreateObjectMapping: 0.027262 ms MarkObjects: 0.192444 ms  DeleteObjects: 0.005773 ms)
 
 Joysticks: 2
  
@@ -38,25 +38,5 @@ Joysticks: 2
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
 
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-2
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Hit: Cube (3)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Hit: Sentry(Clone)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 2154 -> priority: 1 
+  Thread -> id: 1748 -> priority: 1 
