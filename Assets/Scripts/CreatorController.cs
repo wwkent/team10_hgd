@@ -46,6 +46,9 @@ public class CreatorController : MonoBehaviour {
 		float inputXAmount = Input.GetAxis ("L_XAxis_" + contToUse);
 		float inputYAmount = Input.GetAxis ("L_YAxis_" + contToUse);
 
+		if (Input.GetButtonDown ("A_" + contToUse))
+			spawnGameObject ();
+
 		if (Input.GetButtonDown ("RB_" + contToUse)) {
 			if (currObj < availableObjs.Length - 1)
 				currObj++;
@@ -70,6 +73,7 @@ public class CreatorController : MonoBehaviour {
 		Trap thisObj = availableObjs [currObj];
 		// Reset the snapped object if out of range of any cubes
 		LayerMask platforms = LayerMask.GetMask("Platforms");
+
 		if (snappedEdge == null ||!GetComponent<CircleCollider2D> ().IsTouchingLayers (platforms) || 
 			Input.GetButton ("Y_" + contToUse) || !thisObj.canPlaceOnWalls) {
 			// Reset the object snapped to
@@ -97,9 +101,6 @@ public class CreatorController : MonoBehaviour {
 		else
 			color = new Color(1f, 0f, 0f, 0.3f);
 		currObjRenderer.GetComponent<SpriteRenderer> ().color = color;
-
-		if (Input.GetButtonDown ("A_" + contToUse))
-			spawnGameObject ();
 	}
 
 	void OnTriggerStay2D(Collider2D other) {
@@ -190,7 +191,6 @@ public class CreatorController : MonoBehaviour {
 
 	public void setController(int contID)
 	{
-		print (contID);
 		contToUse = contID;
 	}
 }

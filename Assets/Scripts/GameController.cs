@@ -73,6 +73,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update () {
+
+		if (Input.GetButtonDown ("Back_1"))
+			SceneManager.LoadScene ("FinalGame");
+
 		switch (state) {
 		case 0: //Creator
 			{
@@ -304,8 +308,6 @@ public class GameController : MonoBehaviour {
 		creator = creatorContainer.Find("CreatorEnt").GetComponent<CreatorController>();
 		creatorUI = creatorContainer.Find("CreatorUI").GetComponent<CreatorHud>();
 		camera.setFollowing (creator.gameObject);
-
-		print ("Joysticks: " +  Input.GetJoystickNames ().Length);
 
 		if (Input.GetJoystickNames ().Length > 1) {
 			creator.setController (2);

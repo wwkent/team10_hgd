@@ -313,7 +313,6 @@ public class PlayerController: MonoBehaviour {
 
 	public void setController(int contID)
 	{
-		print (contID);
 		contToUse = contID;
 		RotateTowardsInput[] rotatingParts = transform.GetComponentsInChildren<RotateTowardsInput> ();
 		foreach (RotateTowardsInput part in rotatingParts)
