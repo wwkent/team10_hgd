@@ -42,9 +42,19 @@ public class PlayerController: MonoBehaviour {
 	public float blink_speed = 0.3f;
 	public float invincible_duration = 3f;
 
+	// Used to play sounds
+	protected AudioSource source;
+	public AudioClip playerHitSound;
+	public AudioClip playerPickUpSound;
+	public AudioClip pickUpPowerSound;
+
+	void Awake()
+	{
+		source = GetComponent<AudioSource> ();
+	}
+
 	// Use this for initialization
 	void Start () {
-
 		default_resistance = resistance;
 		default_maxSpeed = maxSpeed;
 		default_jumpForce = jumpForce;
@@ -100,8 +110,9 @@ public class PlayerController: MonoBehaviour {
 		if (velChange != 0f) {
 			// Add to the current velocity
 			newXVelocity = rBody.velocity.x + velChange;
-			if (onGround)
+			if (onGround) {
 				PlayAnimation ("Walking");
+			}
 		} else { 
 			// Stop completely if there's no input
 			newXVelocity = 0f;
@@ -148,8 +159,9 @@ public class PlayerController: MonoBehaviour {
 
 	void PlayAnimation(string name) {
 		if(!anims[0].GetCurrentAnimatorStateInfo(0).IsName(name))
-			for (int i=0; i<anims.Length; i++)
+			for (int i=0; i<anims.Length; i++){
 				anims[i].Play (name, 0, i*0.5f); //Use i*0.5 to offset the second foot
+			}
 	}
 		
 	void Flip () {
@@ -170,6 +182,7 @@ public class PlayerController: MonoBehaviour {
 	public void pickUpWeapon (WeaponController newWeapon) {
 		currentWeapon = newWeapon;
 		setWeapon ();
+		source.PlayOneShot (playerPickUpSound, 1f);
 	}
 
 	public void setWeapon () {
@@ -198,6 +211,9 @@ public class PlayerController: MonoBehaviour {
 			actualDamage = damage * resistance;
 
 			currentHealth = Mathf.Clamp (currentHealth - actualDamage, 0, startingHealth);
+
+			source.PlayOneShot (playerHitSound, 1.0f);
+
 			if (damage > 0) 
 				StartCoroutine ("takenDamage");
 
@@ -248,6 +264,7 @@ public class PlayerController: MonoBehaviour {
 	// Used for powerup management
 	public void powerUpUntil(int duration, Sprite puImage)
 	{
+		source.PlayOneShot (pickUpPowerSound, 1f);
 		ui.applyPowerUp (duration, puImage);
 		StartCoroutine (powerUpUntilRoutine (duration));
 	}
@@ -301,7 +318,5 @@ public class PlayerController: MonoBehaviour {
 		RotateTowardsInput[] rotatingParts = transform.GetComponentsInChildren<RotateTowardsInput> ();
 		foreach (RotateTowardsInput part in rotatingParts)
 			part.setController (contToUse);
-
-		print (contToUse);
 	}
 }
