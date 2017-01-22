@@ -28,10 +28,10 @@ public class CreatorController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		game = GameObject.Find ("Game").GetComponent<GameController> ();
+		//game = GameObject.Find ("Game").GetComponent<GameController> ();
 		// print (game.player);
 		currObj = 0;
-		contToUse = 2;
+		contToUse = 1;
 		currObjRenderer = transform.Find ("currentObj");
 		setObjRenderer ();
 	}
