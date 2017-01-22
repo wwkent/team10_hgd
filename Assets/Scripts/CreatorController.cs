@@ -31,7 +31,7 @@ public class CreatorController : MonoBehaviour {
 		game = GameObject.Find ("Game").GetComponent<GameController> ();
 		// print (game.player);
 		currObj = 0;
-		contToUse = 2;
+		contToUse = 1;
 		currObjRenderer = transform.Find ("currentObj");
 		setObjRenderer ();
 	}
@@ -90,6 +90,10 @@ public class CreatorController : MonoBehaviour {
 			
 		//Check if you can place this object right now
 		canPlace = (thisObj.canPlaceInAir || snappedEdge != null);
+		//Check if this object is being placed on another
+		if(currObjRenderer.GetComponent<Collider2D>().IsTouchingLayers(LayerMask.GetMask("Creator", "Enemies"))) {
+			canPlace = false;
+		}
 		//Check if a laser hits something
 		if (thisObj.name.Equals ("Laser") && !LaserHead.checkLaser (currObjRenderer.transform.position, 
 			currObjRenderer.transform.rotation))
@@ -185,6 +189,10 @@ public class CreatorController : MonoBehaviour {
 		temp.a = 0.7f;
 		currObjRenderer.GetComponent<SpriteRenderer> ().color = temp;
 		currObjRenderer.localScale = availableObjs [currObj].transform.localScale;
+		//Set the collider to math the sprite's bounds
+		BoxCollider2D col = currObjRenderer.GetComponent<BoxCollider2D>();
+		col.size = currSelectedSprite.sprite.bounds.size;
+		col.offset = currSelectedSprite.sprite.bounds.center;
 		// print (currObj);
 		ui.updateObjectPreview (currObj);
 	}
