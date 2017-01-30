@@ -8,6 +8,7 @@ public class CreatorController : MonoBehaviour {
 	public int money;
 	// Used to get reference to see who is the current player
 	private GameController game;
+	private GameDebugController gameDebug;
 	private int currObj;
 	private Transform currObjRenderer;
 	private Transform snappedEdge;
@@ -28,7 +29,11 @@ public class CreatorController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		game = GameObject.Find ("Game").GetComponent<GameController> ();
+		if (GameObject.Find ("Game")) {
+			game = GameObject.Find ("Game").GetComponent<GameController> ();
+		} else {
+			gameDebug = GameObject.Find ("GameDebug").GetComponent<GameDebugController> ();
+		}
 		// print (game.player);
 		currObj = 0;
 		contToUse = 1;
@@ -175,7 +180,11 @@ public class CreatorController : MonoBehaviour {
 			if (spawned.GetComponent<SentryController> ())
 				spawned.GetComponent<SentryController> ().enabled = false;
 
-			game.applyGameObject (spawned);
+			if (game) {
+				game.applyGameObject (spawned);
+			} else {
+				gameDebug.applyGameObject (spawned);
+			}
 
 			source.PlayOneShot (spawnObjectSound, 1f);
 		}
