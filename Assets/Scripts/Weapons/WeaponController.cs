@@ -63,6 +63,8 @@ public class WeaponController : MonoBehaviour {
 				hit.transform.GetComponent<SentryController> ().applyDamage (30);
 			} else if (hit.transform.gameObject.tag == "Player") {
 				hit.transform.GetComponent<PlayerController> ().applyDamage (10);
+			} else if (hit.transform.gameObject.tag == "SpiderCrawler") {
+				hit.transform.GetComponent<SpiderController> ().applyDamage (10);
 			}
 		} else {
 			generateTrail ();

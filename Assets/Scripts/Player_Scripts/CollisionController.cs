@@ -50,6 +50,9 @@ public class CollisionController : MonoBehaviour {
 		case "OutOfBounds":
 			player.applyDamage (1000f);
 			break;
+		case "SpiderCrawler":
+			player.applyDamage (10f);
+			break;
 		}
 	}
 
