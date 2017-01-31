@@ -17,5 +17,11 @@ public class HelpManager : MonoBehaviour {
 		optionsMenu.FindChild("Controls Text").gameObject.SetActive(clicked);
 		optionsMenu.FindChild("Controls").gameObject.SetActive(!clicked);
 		//change some other stuff
+		if (clicked = true) {
+			//set selected button for controller support
+			events.SetSelectedGameObject (optionsMenu.FindChild ("Back").gameObject);				
+		} else {
+			events.SetSelectedGameObject (optionsMenu.FindChild ("Back").gameObject);	
+		}
 	}
 }

@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour {
 		if (clicked == true) {
 			optionsMenu.gameObject.SetActive (clicked);
 			mainMenu.gameObject.SetActive (false);
-			events.SetSelectedGameObject (optionsMenu.FindChild ("Controls").gameObject);
+			events.SetSelectedGameObject (optionsMenu.FindChild ("Back").gameObject);
 
 		} else {
 			optionsMenu.gameObject.SetActive (clicked);
