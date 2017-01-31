@@ -4,6 +4,7 @@ using System.Collections;
 public class LandmineScript : MonoBehaviour {
 	public GameObject explosion;
 	private Transform explodePoint;
+	public float damage = 30f;
 	// Use this for initialization
 	void Start () {
 		explodePoint = transform.Find ("explodePoint").transform;
@@ -20,7 +21,8 @@ public class LandmineScript : MonoBehaviour {
 		//Instantiate (explosion, this.explodePoint);
 		this.SendMessage("doExplode");
 		print ("called the thing");
+		coll.gameObject.SendMessage ("applyDamage", this.damage, UnityEngine.SendMessageOptions.DontRequireReceiver);
 		//now remove yourself
-		Destroy(this);
+		Destroy(this.gameObject);
 	}
 }
