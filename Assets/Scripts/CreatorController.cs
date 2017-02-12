@@ -29,6 +29,7 @@ public class CreatorController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
 		if (GameObject.Find ("Game")) {
 			game = GameObject.Find ("Game").GetComponent<GameController> ();
 		} else {
