@@ -4,7 +4,7 @@ using System.Collections;
 public class ExplodableObj : MonoBehaviour {
 	//Transform explosionPoint;
 	public float maxR = 1000;
-	public float force = 40;
+	public float force = 2;
 	public float dropOffRate = 1;
 	public LayerMask mask;
 	// Use this for initialization
