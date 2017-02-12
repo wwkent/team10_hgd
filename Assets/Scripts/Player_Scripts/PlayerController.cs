@@ -115,7 +115,8 @@ public class PlayerController: MonoBehaviour {
 			}
 		} else { 
 			// Stop completely if there's no input
-			newXVelocity = 0f;
+			//newXVelocity = 0f;
+			newXVelocity = rBody.velocity.x + velChange;
 			if (onGround)
 				PlayAnimation ("Idle");
 		}
@@ -128,7 +129,7 @@ public class PlayerController: MonoBehaviour {
 			if (yVelChange != 0f) {
 				// Add to the current velocity
 				newYVelocity = rBody.velocity.y + yVelChange;
-			} else { 
+			} else {
 				// Stop completely if there's no input
 				newYVelocity = 0f;
 				rBody.gravityScale = 0f;
@@ -139,7 +140,8 @@ public class PlayerController: MonoBehaviour {
 		}
 
 		// Apply the new velocity
-		rBody.velocity = new Vector2 (newXVelocity, newYVelocity);
+		//rBody.AddForce(new Vector2(newXVelocity, 0)*10);
+		rBody.velocity = new Vector2 (newXVelocity * 0.925f, newYVelocity);
 
 
 		// Update the speed of the walking animation

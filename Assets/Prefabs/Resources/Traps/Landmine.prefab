@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxR: 10
-  force: 60
+  force: 20
   dropOffRate: 1
   mask:
     serializedVersion: 2
