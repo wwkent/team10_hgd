@@ -25,10 +25,9 @@ public class LandmineScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
-		//print ("Got coll on landmine");
-		//Instantiate (explosion, this.explodePoint);
+		//tell the attached ExplodableObj script to run the explosion forces
 		this.SendMessage("doExplode");
-		//print ("called the thing");
+		//tell the thing that collided with the landmine to apply damage to itself
 		coll.gameObject.SendMessage ("applyDamage", this.damage, UnityEngine.SendMessageOptions.DontRequireReceiver);
 		//now remove yourself
 		Destroy(this.gameObject);
