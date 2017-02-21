@@ -41,7 +41,6 @@ public class BearTrapScript : MonoBehaviour {
 	}
 	//react to being shot
 	public void applyDamage(int damage) {
-		print ("bear trap was shot");
 		health -= damage;
 		if (health <= destroyHealth) {
 			Destroy (this.gameObject);
@@ -54,7 +53,7 @@ public class BearTrapScript : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		print ("You hit the bearTrap");
-		if (coll.gameObject.tag == "Player" && !triggered) {
+		if (!triggered) {
 			stuckTimeLeft = secondHoldTime;
 			playerRef = coll.gameObject;
 			stuckPos = playerRef.transform.position;
