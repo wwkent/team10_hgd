@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SpiderController : MonoBehaviour {
-
+	Rigidbody2D rBody;
 	public int health = 100;
 	private Transform target;
 	private float direction;
@@ -16,8 +16,9 @@ public class SpiderController : MonoBehaviour {
 	void Start () {
 		if (GameObject.Find ("PlayerEnt")) {
 			target = GameObject.Find ("PlayerEnt").transform;
-			foundPlayer = 1;
+			//foundPlayer = 1;
 		}
+		rBody = this.GetComponent<Rigidbody2D>();
 	}
 
 	// Update is called once per frame
@@ -25,7 +26,7 @@ public class SpiderController : MonoBehaviour {
 		if (foundPlayer == 0) {
 			if (GameObject.Find ("PlayerEnt")) {
 				target = GameObject.Find ("PlayerEnt").transform;
-				foundPlayer = 1;
+				//foundPlayer = 1;
 			}
 		}
 		distanceFromPlayer = (transform.position.x - target.position.x);
@@ -58,9 +59,19 @@ public class SpiderController : MonoBehaviour {
 
 	public void applyDamage(int damage)
 	{
+		StartCoroutine (showDamaged ());
 		health -= damage;
 		if (health <= 0)
 			Destroy (gameObject);
+	}
+
+	IEnumerator showDamaged(){
+		SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer> ();
+
+		sr.color = new Color (1f, 0f, 0f, .7f);
+		yield return new WaitForSeconds (.1f);
+		sr.color = Color.white;
+	
 	}
 	//bool playerInSight(){
 	//	RaycastHit2D hit = Physics2D.Raycast(Transform.position.x, target.position.x);
