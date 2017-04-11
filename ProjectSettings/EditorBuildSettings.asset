@@ -14,4 +14,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InputName.unity
   - enabled: 1
-    path: Assets/Scenes/wwkent_test.unity
+    path: Assets/Scenes/NewMainMenu.unity
